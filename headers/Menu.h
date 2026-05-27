@@ -7,7 +7,7 @@
 class Menu {
 private:
     std::vector<sf::Text> contenedorTitulo; 
-        std::vector<sf::String> opciones;
+    std::vector<sf::String> opciones;
     std::vector<sf::Text> textosSFML;
     int indiceSeleccionado;
     sf::Font fuente;

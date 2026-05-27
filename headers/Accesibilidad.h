@@ -12,7 +12,7 @@ public:
     static void cargarAccesibilidad();
     static void descargarAccesibilidad();
     static void setCondicion(bool c);
-        static void hablar(const std::string& m);
+    static void hablar(const std::string& m);
 };
 
 #endif

@@ -9,7 +9,8 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
     textoTit.setString(titulo);
     textoTit.setCharacterSize(50);
     textoTit.setFillColor(sf::Color::Cyan);
-    textoTit.setPosition({anchoVentana / 2.0f - 250.f, 30.f});
+    float textoAncho = textoTit.getLocalBounds().size.x;
+    textoTit.setPosition({(anchoVentana - textoAncho) / 2.0f, 30.f});
     
     contenedorTitulo.push_back(textoTit);
 
@@ -20,8 +21,8 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
         sf::Text texto(fuente);
         texto.setString(opciones[i]);
         texto.setCharacterSize(30);
-        
-        texto.setPosition({anchoVentana / 2.0f - 50.f, altoVentana / (opciones.size() + 2) * (i + 2)});
+        float textoAncho = texto.getLocalBounds().size.x;
+        texto.setPosition({(anchoVentana - textoAncho) / 2.0f, altoVentana / (opciones.size() + 2) * (i + 2)});
         
         if (i == 0) {
             texto.setFillColor(sf::Color::Yellow);
