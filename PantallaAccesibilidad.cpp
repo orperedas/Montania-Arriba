@@ -16,7 +16,7 @@ EstadoID PantallaAccesibilidad::manejarEventos(const sf::Event& evento) {
             if (seleccion == 0) {
                 Accesibilidad::hablar("Accesibilidad activada.");
             } else {
-Accesibilidad::setCondicion(false);
+                Accesibilidad::setCondicion(false);
             }
             
             return EstadoID::MenuPrincipal; 
