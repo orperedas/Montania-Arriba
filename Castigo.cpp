@@ -1,5 +1,5 @@
-#include "Castigo.h"
-#include "Accesibilidad.h"
+#include "headers/Castigo.h"
+#include "headers/Accesibilidad.h"
 
 Castigo::Castigo(int num) : Casilla(num) {}
 

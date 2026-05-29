@@ -26,3 +26,7 @@ void Accesibilidad::hablar(const std::string& m) {
         Tolk_Speak(traductor.toWideString().c_str());
     }
 }
+
+bool Accesibilidad::getCondicion() {
+    return condicion;
+}

@@ -1,5 +1,5 @@
-#include "CasillaNormal.h"
-#include "Accesibilidad.h"
+#include "headers/CasillaNormal.h"
+#include "headers/Accesibilidad.h"
 
 CasillaNormal::CasillaNormal(int num) : Casilla(num) {}
 

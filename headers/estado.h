@@ -18,6 +18,6 @@ public:
     virtual EstadoID manejarEventos(const sf::Event& evento) = 0;
     virtual void actualizar() = 0;
     virtual void dibujar(sf::RenderWindow& ventana) = 0;
+    void teclasGlobales(const sf::Event& evento);
 };
-
 #endif

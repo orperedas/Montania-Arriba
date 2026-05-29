@@ -1,5 +1,5 @@
-#include "Beneficio.h"
-#include "Accesibilidad.h"
+#include "headers/Beneficio.h"
+#include "headers/Accesibilidad.h"
 
 Beneficio::Beneficio(int num) : Casilla(num) {}
 

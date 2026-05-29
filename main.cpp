@@ -17,6 +17,8 @@ int main() {
                 window.close();
             }
 
+            estadoActual->teclasGlobales(*event);
+
             EstadoID proximoEstado = estadoActual->manejarEventos(*event);
 
             if (proximoEstado != EstadoID::Ninguno) {
