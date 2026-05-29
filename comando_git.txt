@@ -1,0 +1,14 @@
+Inicializar una carpeta en Git:
+git init
+
+Cambiar de la rama actual a una rama específica
+git checkout NOMBRE DE LA RAMA CON SUS REPECTIVAAS MAYÚSCULAS Y MINÚSCULAS
+
+Agregar los cambios dentro de un proyecto
+git add .
+
+Crear nuevo commit:
+git commit -m "texto corto pero claro de los cambios realizados"
+
+Enviar nuevo commit al repositorio en GitHub
+git push origin NOMBRE DE LA RAMA ACUTAL
