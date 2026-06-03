@@ -1,5 +1,7 @@
-#include "headers/Menu.h"
 #include "headers/Accesibilidad.h"
+#include "headers/Boton.h"
+#include "headers/Menu.h"
+
 
 Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, const std::vector<sf::String>& items) {
     if (!fuente.openFromFile("fuentes/sansation.ttf")) {
@@ -9,7 +11,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
     textoTit.setString(titulo);
     textoTit.setCharacterSize(50);
     textoTit.setFillColor(sf::Color::Cyan);
-    textoTit.setPosition({anchoVentana / 2.0f - 250.f, 30.f});
+    textoTit.setPosition({(anchoVentana - 250.f)/ 2.0f, 30.f});
     
     contenedorTitulo.push_back(textoTit);
 
@@ -17,12 +19,21 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
     indiceSeleccionado = 0;
 
     for (size_t i = 0; i < opciones.size(); ++i) {
+
+        float xPos = (anchoVentana - 200.f) / 2.0f;
+        float yPos = altoVentana / (opciones.size() + 2) * (i + 2);
+
+        sf::Vector2f posicionElemento = {(anchoVentana - 50.f) / 2.0f, altoVentana / (opciones.size() + 2) * (i + 2)};
+
+        Boton nuevoBoton(opciones[i], posicionElemento);
+        nuevoBoton.menuBoton(opciones[i], posicionElemento);
+        botones.push_back(nuevoBoton);
+
         sf::Text texto(fuente);
         texto.setString(opciones[i]);
         texto.setCharacterSize(30);
-        
-        texto.setPosition({anchoVentana / 2.0f - 50.f, altoVentana / (opciones.size() + 2) * (i + 2)});
-        
+        texto.setPosition(posicionElemento);
+
         if (i == 0) {
             texto.setFillColor(sf::Color::Yellow);
         } else {
@@ -61,9 +72,12 @@ int Menu::obtenerSeleccion() const {
 }
 
 void Menu::dibujar(sf::RenderWindow& ventana) {
-    // Dibujamos el elemento 0 (el único que hay) de nuestro vector de título
     ventana.draw(contenedorTitulo[0]); 
     
+    for (auto& boton : botones) {
+        boton.dibujar(ventana);
+    }
+
     for (const auto& texto : textosSFML) {
         ventana.draw(texto);
     }

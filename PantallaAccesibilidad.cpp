@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "headers/PantallaAccesibilidad.h"
 #include "headers/Accesibilidad.h"
 
