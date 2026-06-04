@@ -91,3 +91,7 @@ void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTabl
 int Tablero::getCantidadCasillas() const {
     return casillas.size();
 }
+
+void Tablero::dibujar(sf::RenderWindow& ventana) {
+    
+}

@@ -20,6 +20,7 @@ public:
     Casilla obtenerCasilla(int posicion);
     void posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero);
     void asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero);
+    void dibujar(sf::RenderWindow& ventana);
 
     int getCantidadCasillas() const;
 };
