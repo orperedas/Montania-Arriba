@@ -12,7 +12,9 @@ public:
     Casilla();
     Casilla(int num) : numeroPosicion(num) {}
     virtual ~Casilla() = default; 
-    virtual void consecuencia(int numeroAleatorio) = 0; 
+    virtual void consecuencia(int numeroAleatorio) = 0;
+    
+    int getNumeroPosicion() const { return numeroPosicion; }
 };
 
 #endif

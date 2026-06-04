@@ -10,7 +10,7 @@ private:
     std::vector<int> beneficios;
     std::vector<int> castigos;
 
-    int base;
+protected:
 
     
 public:
@@ -18,7 +18,8 @@ public:
 
     void crearTablero();
     Casilla obtenerCasilla(int posicion);
-    void posicionesCasEspecial(std::vector<int>& posiciones, int dimencionTablero);
+    void posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero);
+    void asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero);
 
     int getCantidadCasillas() const;
 };
