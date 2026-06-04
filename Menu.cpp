@@ -74,9 +74,9 @@ int Menu::obtenerSeleccion() const {
 void Menu::dibujar(sf::RenderWindow& ventana) {
     ventana.draw(contenedorTitulo[0]); 
     
-    for (auto& boton : botones) {
-        boton.dibujar(ventana);
-    }
+    // for (auto& boton : botones) {
+    //    boton.dibujar(ventana);
+    // }
 
     for (const auto& texto : textosSFML) {
         ventana.draw(texto);

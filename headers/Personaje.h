@@ -26,7 +26,7 @@ public:
     int getPosicion();
 
 protected:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) override;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
 #endif

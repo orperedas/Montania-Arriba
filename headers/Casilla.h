@@ -9,6 +9,7 @@ protected:
     std::string mensaje;
 
 public:
+    Casilla();
     Casilla(int num) : numeroPosicion(num) {}
     virtual ~Casilla() = default; 
     virtual void consecuencia(int numeroAleatorio) = 0; 

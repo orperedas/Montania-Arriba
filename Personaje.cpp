@@ -1,4 +1,5 @@
-#include "Personaje.h"
+#include "headers/Personaje.h"
+
 #include <algorithm>
 
 Personaje::Personaje(int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0) {
@@ -46,7 +47,7 @@ int Personaje::getPosicion() {
     return posicion; 
 }
 
-void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) {
+void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform(); 
     target.draw(mShape, states);
 }

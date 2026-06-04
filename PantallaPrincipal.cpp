@@ -1,5 +1,6 @@
 #include "headers/PantallaPrincipal.h"
 #include "headers/Accesibilidad.h"
+#include "headers/Tablero.h"
 
 PantallaPrincipal::PantallaPrincipal(float anchoVentana, float altoVentana) 
     : menu(anchoVentana, altoVentana, L"Subida al monte", {L"Iniciar juego", L"Cargar partida", L"Estadísticas", L"Créditos", L"Salir"}) {
@@ -13,7 +14,9 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             int seleccion = menu.obtenerSeleccion();
             
+            Tablero tablero;
             if (seleccion == 0) {
+                tablero.crearTablero();
                 Accesibilidad::hablar("Iniciando juego...");
             } else if (seleccion == 1) {
                 Accesibilidad::hablar("Cargando partida...");

@@ -15,8 +15,7 @@ class Boton {
         sf::Font fuenteBoton;
     public:
         Boton(const sf::String& texto, const sf::Vector2f& posicion)
-        :   textoBoton(texto),
-            posicionBoton(posicion),
+        :   posicionBoton(posicion),
             spriteBoton(texturaBoton),
             etiquetaBoton(fuenteBoton, texto, 20)
             {
