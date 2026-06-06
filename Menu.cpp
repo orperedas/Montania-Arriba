@@ -1,17 +1,27 @@
-#include "headers/Accesibilidad.h"
-#include "headers/Boton.h"
 #include "headers/Menu.h"
-
+#include "headers/Accesibilidad.h"
+#include <iostream>
 
 Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, const std::vector<sf::String>& items) {
     if (!fuente.openFromFile("fuentes/sansation.ttf")) {
+        std::cerr << "Error al cargar la fuente." << std::endl;
+    }
+    if (!texturaBoton.loadFromFile("imagenes/menu_boton.png")) {
+        std::cerr << "Error al cargar la textura del botón." << std::endl;
+    }
+
+    if (texturaFondo.loadFromFile("imagenes/fondo.png")) {
+        spriteFondo.emplace(texturaFondo); 
+        float escalaX = anchoVentana / spriteFondo->getLocalBounds().size.x;
+        float escalaY = altoVentana / spriteFondo->getLocalBounds().size.y;
+        spriteFondo->setScale({escalaX, escalaY}); 
     }
 
     sf::Text textoTit(fuente);
     textoTit.setString(titulo);
     textoTit.setCharacterSize(50);
     textoTit.setFillColor(sf::Color::Cyan);
-    textoTit.setPosition({(anchoVentana - 250.f)/ 2.0f, 30.f});
+    textoTit.setPosition({(anchoVentana - 250.f)/ 2.0f, 30.f}); 
     
     contenedorTitulo.push_back(textoTit);
 
@@ -19,28 +29,17 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
     indiceSeleccionado = 0;
 
     for (size_t i = 0; i < opciones.size(); ++i) {
-
-        float xPos = (anchoVentana - 200.f) / 2.0f;
+        float xPos = (anchoVentana - texturaBoton.getSize().x) / 2.0f;
         float yPos = altoVentana / (opciones.size() + 2) * (i + 2);
+        sf::Vector2f posicionElemento = {xPos, yPos};
 
-        sf::Vector2f posicionElemento = {(anchoVentana - 50.f) / 2.0f, altoVentana / (opciones.size() + 2) * (i + 2)};
-
-        Boton nuevoBoton(opciones[i], posicionElemento);
-        nuevoBoton.menuBoton(opciones[i], posicionElemento);
-        botones.push_back(nuevoBoton);
-
-        sf::Text texto(fuente);
-        texto.setString(opciones[i]);
-        texto.setCharacterSize(30);
-        texto.setPosition(posicionElemento);
-
+        Boton nuevoBoton(opciones[i], posicionElemento, fuente, texturaBoton);
+        
         if (i == 0) {
-            texto.setFillColor(sf::Color::Yellow);
-        } else {
-            texto.setFillColor(sf::Color::White);
+            nuevoBoton.setSeleccionado(true);
         }
         
-        textosSFML.push_back(texto);
+        botones.push_back(nuevoBoton);
     }
 
     std::string mensajeInicial = titulo.toAnsiString() + ". " + opciones[indiceSeleccionado].toAnsiString();
@@ -49,9 +48,9 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
 
 void Menu::moverArriba() {
     if (indiceSeleccionado - 1 >= 0) {
-        textosSFML[indiceSeleccionado].setFillColor(sf::Color::White);
+        botones[indiceSeleccionado].setSeleccionado(false);
         indiceSeleccionado--;
-        textosSFML[indiceSeleccionado].setFillColor(sf::Color::Yellow);
+        botones[indiceSeleccionado].setSeleccionado(true);
         
         Accesibilidad::hablar(opciones[indiceSeleccionado].toAnsiString());
     }
@@ -59,9 +58,9 @@ void Menu::moverArriba() {
 
 void Menu::moverAbajo() {
     if (indiceSeleccionado + 1 < opciones.size()) {
-        textosSFML[indiceSeleccionado].setFillColor(sf::Color::White);
+        botones[indiceSeleccionado].setSeleccionado(false);
         indiceSeleccionado++;
-        textosSFML[indiceSeleccionado].setFillColor(sf::Color::Yellow);
+        botones[indiceSeleccionado].setSeleccionado(true);
         
         Accesibilidad::hablar(opciones[indiceSeleccionado].toAnsiString());
     }
@@ -72,13 +71,15 @@ int Menu::obtenerSeleccion() const {
 }
 
 void Menu::dibujar(sf::RenderWindow& ventana) {
-    ventana.draw(contenedorTitulo[0]); 
-    
-    // for (auto& boton : botones) {
-    //    boton.dibujar(ventana);
-    // }
+    if (spriteFondo.has_value()) {
+        ventana.draw(*spriteFondo); 
+    }
 
-    for (const auto& texto : textosSFML) {
-        ventana.draw(texto);
+    for (auto& t : contenedorTitulo) {
+        ventana.draw(t);
+    }
+    
+    for (auto& boton : botones) {
+        boton.dibujar(ventana);
     }
 }

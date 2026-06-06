@@ -14,9 +14,7 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             int seleccion = menu.obtenerSeleccion();
             
-            Tablero tablero;
             if (seleccion == 0) {
-                tablero.crearTablero();
                 Accesibilidad::hablar("Iniciando juego...");
                 return EstadoID::Jugando;
             } else if (seleccion == 1) {
