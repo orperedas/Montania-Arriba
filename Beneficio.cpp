@@ -1,7 +1,12 @@
 #include "headers/Beneficio.h"
 #include "headers/Accesibilidad.h"
 
-Beneficio::Beneficio(int num) : Casilla(num) {}
+Beneficio::Beneficio(int num) : Casilla(num) {
+    casillaVisual.setSize({64.f, 64.f});
+    casillaVisual.setFillColor(sf::Color::Green);
+    casillaVisual.setOutlineThickness(2.f);
+    casillaVisual.setOutlineColor(sf::Color::White);
+}
 
 void Beneficio::consecuencia(int numeroAleatorio) {
     switch (numeroAleatorio) {

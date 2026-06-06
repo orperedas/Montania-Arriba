@@ -4,14 +4,19 @@
 #include <SFML/Graphics.hpp>
 #include "Boton.h"
 #include <vector>
+#include <optional>
 
 class Menu {
 private:
     int indiceSeleccionado;
     sf::Font fuente;
+    sf::Texture texturaBoton;
+    
+    sf::Texture texturaFondo;
+    std::optional<sf::Sprite> spriteFondo;
+
     std::vector<sf::Text> contenedorTitulo; 
     std::vector<sf::String> opciones;
-    std::vector<sf::Text> textosSFML;
     std::vector<Boton> botones;
 
 public:
