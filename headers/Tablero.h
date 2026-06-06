@@ -6,23 +6,22 @@
 
 class Tablero {
 private:
-    std::vector<Casilla*> casillas;
+    int base;
+std::vector<Casilla*> casillas;
     std::vector<int> beneficios;
     std::vector<int> castigos;
 
-protected:
-
     
 public:
-    Tablero();
+    Tablero(int baseNum = 8);
 
     void crearTablero();
-    Casilla obtenerCasilla(int posicion);
     void posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero);
     void asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero);
     void dibujar(sf::RenderWindow& ventana);
 
     int getCantidadCasillas() const;
+Casilla* obtenerCasilla(int posicion);
 };
 
 #endif // TABLERO_H

@@ -18,6 +18,7 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
             if (seleccion == 0) {
                 tablero.crearTablero();
                 Accesibilidad::hablar("Iniciando juego...");
+                return EstadoID::Jugando;
             } else if (seleccion == 1) {
                 Accesibilidad::hablar("Cargando partida...");
             } else if (seleccion == 2) {

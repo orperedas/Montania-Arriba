@@ -1,16 +1,16 @@
-#ifndef PANTALLA_PRINCIPAL_H
-#define PANTALLA_PRINCIPAL_H
+#ifndef PANTALLA_TABLERO_H
+#define PANTALLA_TABLERO_H
 
 #include "Estado.h"
-#include "CasillaNormal.h"
-#include "Castigo.h"
-#include "Beneficio.h"
 #include "Tablero.h"
+#include <SFML/Graphics.hpp>
+#include "Personaje.h"
+
 
 class PantallaTablero : public Estado {
 private:
-    CasillaNormal normal;
-    
+    Tablero tablero;
+        Personaje personaje;
 public:
     PantallaTablero(float anchoVentana, float altoVentana);
     

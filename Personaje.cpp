@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Personaje::Personaje(int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0) {
-    mShape.setRadius(50.f); 
+    mShape.setRadius(15.f); 
     mShape.setFillColor(sf::Color::Yellow);
     
     sf::FloatRect bounds = mShape.getLocalBounds();

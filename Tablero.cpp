@@ -13,14 +13,12 @@
 #include "headers/Castigo.h"
 #include "headers/Tablero.h"
 
-Tablero::Tablero() {
+Tablero::Tablero(int baseNum) : base(baseNum) {
     crearTablero();
 }
 
 void Tablero::crearTablero() {
-    int base = 8;
-    int dimencionTablero = base * base;
-    
+    int dimencionTablero = base * base;     
     casillas.reserve(dimencionTablero);
     beneficios.resize((base + (base * 2)) / 4);
     castigos.resize((base + (base * 2)) / 4); 
@@ -91,7 +89,34 @@ void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTabl
 int Tablero::getCantidadCasillas() const {
     return casillas.size();
 }
-
-void Tablero::dibujar(sf::RenderWindow& ventana) {
+Casilla* Tablero::obtenerCasilla(int posicion) {
+    if (posicion >= 0 && posicion < casillas.size()) {
+        return casillas[posicion];
+    }
     
+    return nullptr; 
+}
+void Tablero::dibujar(sf::RenderWindow& ventana) {
+    float tamanoCasilla = 64.f;
+    float offsetX = 100.f;       
+    float offsetY = 100.f;       
+
+    for (int i = 0; i < casillas.size(); ++i) {
+        int pasoVisual = (casillas.size() - 1) - i;
+
+        int fila = pasoVisual / base;
+        int columna = 0;
+
+        if (fila % 2 == 0) {
+            columna = pasoVisual % base;
+        } else {
+            columna = (base - 1) - (pasoVisual % base);
+        }
+
+        float x = offsetX + (columna * tamanoCasilla);
+        float y = offsetY + (fila * tamanoCasilla);
+
+        casillas[i]->setPosicionVisual({x, y});
+        casillas[i]->dibujar(ventana);
+    }
 }

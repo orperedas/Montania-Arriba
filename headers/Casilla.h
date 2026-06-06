@@ -15,9 +15,10 @@ public:
     Casilla();
     Casilla(int num) : numeroPosicion(num) {}
     virtual void consecuencia(int numeroAleatorio) = 0;
-    virtual void dibujar(sf::RenderWindow& ventana) = 0;
-    
-    int getNumeroPosicion() const { return numeroPosicion; }
+    virtual void dibujar(sf::RenderWindow& ventana);
+        void setPosicionVisual(sf::Vector2f posicion);
+sf::Vector2f getPosicionVisual() const { return casillaVisual.getPosition(); }
+        int getNumeroPosicion() const { return numeroPosicion; }
 };
 
 #endif
