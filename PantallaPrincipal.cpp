@@ -3,7 +3,7 @@
 #include "headers/Tablero.h"
 
 PantallaPrincipal::PantallaPrincipal(float anchoVentana, float altoVentana) 
-    : menu(anchoVentana, altoVentana, L"Subida al monte", {L"Iniciar juego", L"Cargar partida", L"Estadísticas", L"Créditos", L"Salir"}) {
+    : menu(anchoVentana, altoVentana, L"Cumbre borrascosas", {L"Iniciar juego", L"Cargar partida", L"Estadísticas", L"Créditos", L"Salir"}) {
 }
 
 EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
