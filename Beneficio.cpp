@@ -1,11 +1,7 @@
 #include "headers/Beneficio.h"
 #include "headers/Accesibilidad.h"
 
-Beneficio::Beneficio(int num) : Casilla(num) {
-    casillaVisual.setSize({64.f, 64.f});
-    casillaVisual.setFillColor(sf::Color::Green);
-    casillaVisual.setOutlineThickness(2.f);
-    casillaVisual.setOutlineColor(sf::Color::White);
+Beneficio::Beneficio(int num, const sf::Texture& textura) : Casilla(num, textura) {
 }
 
 void Beneficio::consecuencia(int numeroAleatorio) {
