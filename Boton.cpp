@@ -1,3 +1,4 @@
+#include "headers/Accesibilidad.h"
 #include "headers/Boton.h"
 
 Boton::Boton(const sf::String& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura) 
@@ -5,23 +6,35 @@ Boton::Boton(const sf::String& texto, sf::Vector2f posicion, const sf::Font& fue
       spriteBoton(textura), 
       etiquetaBoton(fuente) 
 {
+    spriteBoton.setTextureRect({{0, 0}, {280, 72}});
     spriteBoton.setPosition(posicionBoton);
-    spriteBoton.setTextureRect({{0, 0}, {257, 64}});
-
+    spriteBoton.setScale({1.2f, 1.2f});
+    
     etiquetaBoton.setString(texto);
     etiquetaBoton.setCharacterSize(24);
-    etiquetaBoton.setPosition({posicionBoton.x + 20.f, posicionBoton.y + 10.f});
+    
+    sf::FloatRect spriteBounds = spriteBoton.getGlobalBounds();
+    sf::FloatRect etiquetaBounds = etiquetaBoton.getLocalBounds();
+    
+    etiquetaBoton.setOrigin({etiquetaBounds.size.x / 2.0f, etiquetaBounds.size.y / 2.0f});
+    
+    float centroX = spriteBounds.position.x + (spriteBounds.size.x / 2.f);
+    float centroY = spriteBounds.position.y + (spriteBounds.size.y / 2.5f);
+    
+    etiquetaBoton.setPosition({centroX, centroY});
     
     setSeleccionado(false); 
 }
 
 void Boton::setSeleccionado(bool seleccionado) {
     if (seleccionado) {
-        spriteBoton.setTextureRect({{258, 0}, {518 , 64}});
-        etiquetaBoton.setFillColor(sf::Color::Yellow);
+        spriteBoton.setTextureRect({{280, 0}, {560 , 72}});
+        sf::Color seleccionadoColor(255, 240, 100, 255);
+        etiquetaBoton.setFillColor(seleccionadoColor);
     } else {
-        spriteBoton.setTextureRect({{0, 0}, {257, 64}});
-        etiquetaBoton.setFillColor(sf::Color::White);
+        spriteBoton.setTextureRect({{0, 0}, {280, 72}});
+        sf::Color noSeleccionadoColor(235, 235, 235, 255);
+        etiquetaBoton.setFillColor(noSeleccionadoColor);
     }
 }
 

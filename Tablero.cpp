@@ -26,6 +26,7 @@ Tablero::Tablero(int baseNum) : base(baseNum) {
     crearTablero();
 }
 
+
 void Tablero::crearTablero() {
     int dimencionTablero = base * base;     
     casillas.reserve(dimencionTablero);
@@ -49,10 +50,10 @@ void Tablero::crearTablero() {
     asignarCasillas(casillas, dimencionTablero);
 }
 
+
 void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero) {
     std::unordered_set<int> numerosUsados;
     
-    // 1. Llenamos posVector1 sin repetidos
     for (size_t i = 0; i < posVector1.size(); i++) {
         int aleatorio;
         do {
@@ -63,7 +64,6 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
         numerosUsados.insert(aleatorio);
     }
 
-    // 2. Llenamos posVector2 sin repetidos (ni internos ni cruzados)
     for (size_t i = 0; i < posVector2.size(); i++) {
         int aleatorio;
         do {
@@ -74,10 +74,10 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
         numerosUsados.insert(aleatorio);
     }
 
-    // 3. Ordenamos ambos vectores de forma ascendente
     std::sort(posVector1.begin(), posVector1.end());
     std::sort(posVector2.begin(), posVector2.end());
 }
+
 
 void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero) {
     for (int casilla = 0; casilla < dimencionTablero; casilla ++) {
@@ -95,6 +95,7 @@ void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTabl
     }
 }
 
+
 int Tablero::getCantidadCasillas() const {
     return casillas.size();
 }
@@ -105,6 +106,8 @@ Casilla* Tablero::obtenerCasilla(int posicion) {
     
     return nullptr; 
 }
+
+
 void Tablero::dibujar(sf::RenderWindow& ventana) {
     float tamanoCasilla = 64.f;
     float offsetX = 100.f;       
