@@ -14,6 +14,15 @@
 #include "headers/Tablero.h"
 
 Tablero::Tablero(int baseNum) : base(baseNum) {
+    if (!texturaNormal.loadFromFile("imagenes/normal.png")) {
+        std::cerr << "Error al cargar casilla_normal.png" << std::endl;
+    }
+    if (!texturaBeneficio.loadFromFile("imagenes/beneficio.png")) {
+        std::cerr << "Error al cargar casilla_beneficio.png" << std::endl;
+    }
+    if (!texturaCastigo.loadFromFile("imagenes/castigo.png")) {
+        std::cerr << "Error al cargar casilla_castigo.png" << std::endl;
+    }
     crearTablero();
 }
 
@@ -73,11 +82,11 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
 void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero) {
     for (int casilla = 0; casilla < dimencionTablero; casilla ++) {
         if (std::find(beneficios.begin(), beneficios.end(), casilla) != beneficios.end()) {
-            casillas.push_back(new Beneficio(casilla));
+            casillas.push_back(new Beneficio(casilla, texturaBeneficio));
         } else if (std::find(castigos.begin(), castigos.end(), casilla) != castigos.end()) {
-            casillas.push_back(new Castigo(casilla));
+            casillas.push_back(new Castigo(casilla, texturaCastigo));
         } else {
-            casillas.push_back(new CasillaNormal(casilla));
+            casillas.push_back(new CasillaNormal(casilla, texturaNormal));
         }
     }
 

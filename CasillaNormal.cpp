@@ -3,11 +3,7 @@
 #include "headers/CasillaNormal.h"
 #include "headers/Accesibilidad.h"
 
-CasillaNormal::CasillaNormal(int num) : Casilla(num) {
-    casillaVisual.setSize({64.f, 64.f});
-    casillaVisual.setFillColor(sf::Color::Blue);
-    casillaVisual.setOutlineThickness(2.f);
-    casillaVisual.setOutlineColor(sf::Color::White);
+CasillaNormal::CasillaNormal(int num, const sf::Texture& textura) : Casilla(num, textura) {
 }
 
 void CasillaNormal::consecuencia(int numeroAleatorio) {

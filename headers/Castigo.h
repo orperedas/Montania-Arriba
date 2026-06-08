@@ -5,7 +5,7 @@
 
 class Castigo : public Casilla {
 public:
-    Castigo(int num);
+    Castigo(int num, const sf::Texture& textura);
     void consecuencia(int numeroAleatorio) override;
 };
 

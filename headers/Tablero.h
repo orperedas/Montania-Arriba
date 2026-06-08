@@ -10,10 +10,12 @@ private:
 std::vector<Casilla*> casillas;
     std::vector<int> beneficios;
     std::vector<int> castigos;
-
+    sf::Texture texturaNormal;
+    sf::Texture texturaBeneficio;
+    sf::Texture texturaCastigo;
     
 public:
-    Tablero(int baseNum = 8);
+    Tablero(int baseNum);
 
     void crearTablero();
     void posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero);

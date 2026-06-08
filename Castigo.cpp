@@ -1,11 +1,7 @@
 #include "headers/Castigo.h"
 #include "headers/Accesibilidad.h"
 
-Castigo::Castigo(int num) : Casilla(num) {
-    casillaVisual.setSize({64.f, 64.f});
-    casillaVisual.setFillColor(sf::Color::Red);
-    casillaVisual.setOutlineThickness(2.f);
-    casillaVisual.setOutlineColor(sf::Color::White);
+Castigo::Castigo(int num, const sf::Texture& textura) : Casilla(num, textura) {
 }
 
 void Castigo::consecuencia(int numeroAleatorio) {

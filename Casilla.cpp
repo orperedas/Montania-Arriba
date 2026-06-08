@@ -1,6 +1,11 @@
 #include "headers/Casilla.h"
 
-Casilla::Casilla() : numeroPosicion(0), mensaje("") {}
+Casilla::Casilla(int num, const sf::Texture& textura) 
+    : numeroPosicion(num), 
+      mensaje(""), 
+      casillaVisual(textura) 
+{
+}
 
 void Casilla::dibujar(sf::RenderWindow& ventana) {
     ventana.draw(casillaVisual);

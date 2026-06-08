@@ -2,23 +2,26 @@
 #define CASILLA_H
 
 #include <string>
-
 #include <SFML/Graphics.hpp>
 
 class Casilla {
 protected:
     int numeroPosicion;
     std::string mensaje;
-    sf::RectangleShape casillaVisual;
+    
+    sf::Sprite casillaVisual; 
 
 public:
-    Casilla();
-    Casilla(int num) : numeroPosicion(num) {}
+    Casilla(int num, const sf::Texture& textura); 
+    
+    virtual ~Casilla() = default; 
+
     virtual void consecuencia(int numeroAleatorio) = 0;
     virtual void dibujar(sf::RenderWindow& ventana);
-        void setPosicionVisual(sf::Vector2f posicion);
-sf::Vector2f getPosicionVisual() const { return casillaVisual.getPosition(); }
-        int getNumeroPosicion() const { return numeroPosicion; }
+    
+    void setPosicionVisual(sf::Vector2f posicion);
+    sf::Vector2f getPosicionVisual() const { return casillaVisual.getPosition(); }
+    int getNumeroPosicion() const { return numeroPosicion; }
 };
 
 #endif
