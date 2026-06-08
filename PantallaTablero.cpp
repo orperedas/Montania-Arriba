@@ -35,5 +35,5 @@ void PantallaTablero::actualizar() {
     
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     tablero.dibujar(ventana);
-ventana.draw(personaje);
+    ventana.draw(personaje);
 }

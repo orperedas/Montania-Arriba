@@ -1,7 +1,10 @@
-#include <SFML/Graphics.hpp>
+#include <iostream>
 #include <memory>
 #include <ctime>
 #include <cstdlib>
+
+#include <SFML/Graphics.hpp>
+
 #include "headers/Accesibilidad.h"
 #include "headers/PantallaAccesibilidad.h"
 #include "headers/PantallaPrincipal.h"
@@ -9,6 +12,14 @@
 
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
+    sf::Texture textureBackground;
+    if (!textureBackground.loadFromFile("imagenes/fondo.png")) {
+        std::cerr << "Error al cargar la textura de fondo." << std::endl;
+    }
+
+    sf::Sprite spriteBackground(textureBackground);
+    spriteBackground.setPosition({0.f, 0.f});
+
     Accesibilidad::cargarAccesibilidad();
 
     sf::RenderWindow window(sf::VideoMode({1280, 700}), "SFML 3 + Tolk - UTN");
@@ -41,6 +52,7 @@ int main() {
         estadoActual->actualizar();
 
         window.clear();
+        window.draw(spriteBackground);
         estadoActual->dibujar(window);
         window.display();
     }

@@ -10,18 +10,24 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
         std::cerr << "Error al cargar la textura del botón." << std::endl;
     }
 
+    /*
     if (texturaFondo.loadFromFile("imagenes/fondo.png")) {
         spriteFondo.emplace(texturaFondo); 
         float escalaX = anchoVentana / spriteFondo->getLocalBounds().size.x;
         float escalaY = altoVentana / spriteFondo->getLocalBounds().size.y;
         spriteFondo->setScale({escalaX, escalaY}); 
     }
+    */
 
+    
     sf::Text textoTit(fuente);
     textoTit.setString(titulo);
     textoTit.setCharacterSize(50);
-    textoTit.setFillColor(sf::Color::Cyan);
-    textoTit.setPosition({(anchoVentana - 250.f)/ 2.0f, 30.f}); 
+    textoTit.setFillColor(sf::Color::Green);
+    textoTit.setStyle(sf::Text::Bold);
+    textoTit.setPosition({(anchoVentana - textoTit.getLocalBounds().size.x) / 2.0f, 30.f});
+    textoTit.setOutlineThickness(3.f);
+    textoTit.setOutlineColor(sf::Color::Black);
     
     contenedorTitulo.push_back(textoTit);
 
