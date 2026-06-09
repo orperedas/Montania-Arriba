@@ -2,16 +2,17 @@
 #define BOTON_H
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Boton {
 private:
-    sf::String textoBoton;
+    std::string textoBoton;
     sf::Vector2f posicionBoton;
     sf::Sprite spriteBoton;
     sf::Text etiquetaBoton;
 
 public:
-    Boton(const sf::String& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura);
+    Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura);
     
     ~Boton() = default;
 

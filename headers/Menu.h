@@ -5,6 +5,7 @@
 #include "Boton.h"
 #include <vector>
 #include <optional>
+#include <string>
 
 class Menu {
 private:
@@ -16,11 +17,11 @@ private:
     std::optional<sf::Sprite> spriteFondo;
 
     std::vector<sf::Text> contenedorTitulo; 
-    std::vector<sf::String> opciones;
+    std::vector<std::string> opciones;
     std::vector<Boton> botones;
 
 public:
-    Menu(float anchoVentana, float altoVentana, const sf::String& titulo, const std::vector<sf::String>& items);
+    Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items);
     
     void moverArriba();
     void moverAbajo();

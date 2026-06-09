@@ -18,15 +18,22 @@ void Accesibilidad::setCondicion(bool c) {
     condicion = c;
 }
 
-void Accesibilidad::hablar(const std::string& m) {
-    mensaje = m;
+void Accesibilidad::hablar(const std::string& m, bool esBoton) {
+    std::string textoFinal = m;
+    
+    if (esBoton) {
+        textoFinal += ", botón"; // La coma ayuda a la entonación del lector
+    }
+    
+    mensaje = textoFinal;
     
     if (condicion == true && Tolk_IsLoaded()) {
-        sf::String traductor(mensaje);
+        
+        sf::String traductor = sf::String::fromUtf8(mensaje.begin(), mensaje.end());
+        
         Tolk_Speak(traductor.toWideString().c_str());
     }
 }
-
 bool Accesibilidad::getCondicion() {
     return condicion;
 }

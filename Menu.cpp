@@ -4,7 +4,7 @@
 #include "headers/Accesibilidad.h"
 #include "headers/Menu.h"
 
-Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, const std::vector<sf::String>& items) {
+Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items) {
     //std::setlocale(LC_ALL, "es_ES.UTF-8");
     //std::setlocale(LC_CTYPE, "Spanish");
     SetConsoleCP(CP_UTF8);
@@ -20,7 +20,8 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
     sf::Color tituloColor(239, 231, 170, 255);
     sf::Color tituloColorBorde(78, 140, 52, 255);
     sf::Text textoTit(fuente);
-    textoTit.setString(titulo);
+    
+    textoTit.setString(sf::String::fromUtf8(titulo.begin(), titulo.end()));
     textoTit.setCharacterSize(40);
     textoTit.setFillColor(tituloColor);
     textoTit.setStyle(sf::Text::Bold);
@@ -47,8 +48,8 @@ Menu::Menu(float anchoVentana, float altoVentana, const sf::String& titulo, cons
         botones.push_back(nuevoBoton);
     }
 
-    std::string mensajeInicial = titulo.toAnsiString() + ". " + opciones[indiceSeleccionado].toAnsiString();
-    Accesibilidad::hablar(mensajeInicial + ", botón");
+    std::string mensajeInicial = titulo + ". " + opciones[indiceSeleccionado];
+    Accesibilidad::hablar(mensajeInicial);
 }
 
 
@@ -58,7 +59,7 @@ void Menu::moverArriba() {
         indiceSeleccionado--;
         botones[indiceSeleccionado].setSeleccionado(true);
         
-        Accesibilidad::hablar(opciones[indiceSeleccionado].toAnsiString() + ", botón");
+        Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
 
@@ -69,7 +70,7 @@ void Menu::moverAbajo() {
         indiceSeleccionado++;
         botones[indiceSeleccionado].setSeleccionado(true);
         
-        Accesibilidad::hablar(opciones[indiceSeleccionado].toAnsiString() + ", botón");
+        Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
 

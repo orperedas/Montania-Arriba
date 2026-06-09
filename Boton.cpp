@@ -1,7 +1,7 @@
 #include "headers/Accesibilidad.h"
 #include "headers/Boton.h"
 
-Boton::Boton(const sf::String& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura) 
+Boton::Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura) 
     : posicionBoton(posicion), 
       spriteBoton(textura), 
       etiquetaBoton(fuente) 
@@ -10,7 +10,7 @@ Boton::Boton(const sf::String& texto, sf::Vector2f posicion, const sf::Font& fue
     spriteBoton.setPosition(posicionBoton);
     spriteBoton.setScale({1.2f, 1.2f});
     
-    etiquetaBoton.setString(texto);
+    etiquetaBoton.setString(sf::String::fromUtf8(texto.begin(), texto.end()));
     etiquetaBoton.setCharacterSize(24);
     
     sf::FloatRect spriteBounds = spriteBoton.getGlobalBounds();
