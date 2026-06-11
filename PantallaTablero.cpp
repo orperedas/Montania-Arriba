@@ -2,7 +2,7 @@
 #include "headers/Accesibilidad.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana)
-    : tablero(8), personaje(3), dado({600,600}) { 
+    : tablero(8), personaje(3), dado({600.f,600.f}) { 
 }
  EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
@@ -22,6 +22,7 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana)
             }
         }
     }
+    
     return EstadoID::Ninguno;
 }
 
@@ -37,7 +38,7 @@ void PantallaTablero::actualizar() {
 
             Casilla* casillaActual = tablero.obtenerCasilla(nuevaPosicion);
             if (casillaActual != nullptr) {
-                casillaActual->consecuencia((rand() % 3) + 1, personaje); // O tu lógica de aleatoriedad
+                casillaActual->consecuencia((rand() % 3) + 1, personaje);
             }
 
             faseActual = ESPERANDO_TIRO;

@@ -8,17 +8,18 @@
 Dado::Dado(sf::Vector2f posicion) 
     : spriteDado(texturaDado), animando(false), contadorCambios(0), resultadoFinal(1) {
 
-    if (!texturaDado.loadFromFile("imagenes/dado_sprites.png")) {
+    if (!texturaDado.loadFromFile("imagenes/dado_sprites_horizontal.png")) {
         std::cerr << "Error al cargar la imagen del dado." << std::endl;
     }
     
     spriteDado.setTexture(texturaDado, true);
     
-    sf::FloatRect limites = spriteDado.getLocalBounds();
-    spriteDado.setOrigin({limites.size.x / 2.0f, limites.size.y / 2.0f});
+    //sf::FloatRect limites = spriteDado.getLocalBounds();
+    //spriteDado.setOrigin({limites.size.x / 2.0f, limites.size.y / 2.0f});
+    spriteDado.setOrigin({40.0f, 40.0f});
     
     spriteDado.setPosition(posicion);
-    //spriteDado.setTextureRect(sf::IntRect({0, 81}, {81, 160}));
+    spriteDado.setTextureRect(sf::IntRect({0, 0}, {80, 80}));
 }
 
 int Dado::tirar() {
@@ -36,17 +37,28 @@ int Dado::tirar() {
 
 void Dado::actualizar() {
     if (animando) {
-        if (relojAnimacion.getElapsedTime().asMilliseconds() > 30) {
-            
-            spriteDado.setRotation(sf::degrees(45.f));
+        if (relojAnimacion.getElapsedTime()>= sf::seconds(0.15f)) {
+            spriteDado.rotate(sf::degrees(45.f));
             
             contadorCambios++;
+            
+            int cuadroActual = contadorCambios % 12;
+            int posX = cuadroActual * 80;
+
+            spriteDado.setTextureRect(sf::IntRect{{posX, 0}, {80, 80}});
+
+            std::cout << "X: " << spriteDado.getPosition().x 
+                      << " Y: " << spriteDado.getPosition().y << std::endl;
+
             relojAnimacion.restart();
 
-            if (contadorCambios >= 20) {
+            if (contadorCambios >= 24) {
                 animando = false;
                 
                 spriteDado.setRotation(sf::degrees(0.f)); 
+                
+                int finalX = (resultadoFinal - 1) * 80;
+                spriteDado.setTextureRect({{finalX, 0}, {80, 80}});
                 
                 Accesibilidad::hablar("Salió un " + std::to_string(resultadoFinal));
             }
