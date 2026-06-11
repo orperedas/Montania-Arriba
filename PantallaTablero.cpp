@@ -2,38 +2,56 @@
 #include "headers/Accesibilidad.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana)
-    : tablero(8), personaje(3) { 
+    : tablero(8), personaje(3), dado({600,600}) { 
 }
-    
-EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
+ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
-            Accesibilidad::hablar("Volviendo al menú principal.");
             return EstadoID::MenuPrincipal; 
         }
         
+        if (keyPressed->code == sf::Keyboard::Key::Space && faseActual == ESPERANDO_TIRO) {
+            
+            if (personaje.puedeJugar()) {
+                casillasAAvanzar = dado.tirar();
+                faseActual = ANIMANDO_DADO;
+            } else {
+                personaje.descontarTurnoPerdido();
+                Accesibilidad::hablar("Pierdes este turno.");
+            }
+        }
     }
-    
     return EstadoID::Ninguno;
 }
-    
+
 void PantallaTablero::actualizar() {
-    int casillaLogicaActual = personaje.getPosicion();
+    dado.actualizar();
 
-    Casilla* casillaActual = tablero.obtenerCasilla(casillaLogicaActual);
+    if (faseActual == ANIMANDO_DADO) {
+        
+        if (!dado.estaAnimando()) {
+            
+            int nuevaPosicion = personaje.getPosicion() + casillasAAvanzar;
+            personaje.moverACasilla(nuevaPosicion);
 
-    if (casillaActual != nullptr) {
-        sf::Vector2f coordenadasCasilla = casillaActual->getPosicionVisual();
+            Casilla* casillaActual = tablero.obtenerCasilla(nuevaPosicion);
+            if (casillaActual != nullptr) {
+                casillaActual->consecuencia((rand() % 3) + 1, personaje); // O tu lógica de aleatoriedad
+            }
 
-        float centroX = coordenadasCasilla.x + 25.f;
-        float centroY = coordenadasCasilla.y + 25.f;
-
-        personaje.setPosicionVisual({centroX, centroY});
+            faseActual = ESPERANDO_TIRO;
+        }
     }
-}
-    
+
+    Casilla* casillaVisual = tablero.obtenerCasilla(personaje.getPosicion());
+    if (casillaVisual != nullptr) {
+        sf::Vector2f coord = casillaVisual->getPosicionVisual();
+        personaje.setPosicionVisual({coord.x + 25.f, coord.y + 25.f});
+    }
+}   
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     tablero.dibujar(ventana);
     ventana.draw(personaje);
+    dado.draw(ventana);
 }

@@ -4,6 +4,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
+#include "Personaje.h"
+
 class Casilla {
 protected:
     int numeroPosicion;
@@ -16,7 +18,7 @@ public:
     
     virtual ~Casilla() = default; 
 
-    virtual void consecuencia(int numeroAleatorio) = 0;
+    virtual void consecuencia(int numeroAleatorio, Personaje personaje) = 0;
     virtual void dibujar(sf::RenderWindow& ventana);
     
     void setPosicionVisual(sf::Vector2f posicion);

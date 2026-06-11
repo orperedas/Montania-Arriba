@@ -5,14 +5,11 @@
 #include "headers/Menu.h"
 
 Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items) {
-    //std::setlocale(LC_ALL, "es_ES.UTF-8");
-    //std::setlocale(LC_CTYPE, "Spanish");
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
 
     if (!fuente.openFromFile("fuentes/verdanab.ttf")) {
         std::cerr << "Error al cargar la fuente." << std::endl;
     }
+
     if (!texturaBoton.loadFromFile("imagenes/menu_boton.png")) {
         std::cerr << "Error al cargar la textura del botón." << std::endl;
     }

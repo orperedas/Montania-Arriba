@@ -6,7 +6,7 @@
 class Beneficio : public Casilla {
 public:
     Beneficio(int num, const sf::Texture& textura);
-    void consecuencia(int numeroAleatorio) override;
+    void consecuencia(int numeroAleatorio, Personaje personaje) override;
 };
 
 #endif

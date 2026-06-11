@@ -1,20 +1,24 @@
 #include "headers/Dado.h"
 #include "headers/Accesibilidad.h"
 #include <iostream>
+
 #include <cstdlib>
 #include <string>
 
-Dado::Dado(sf::Vector2f posicion) : animando(false), contadorCambios(0), resultadoFinal(1) {
-    if (!texturaDado.loadFromFile("imagenes/dado.png")) {
+Dado::Dado(sf::Vector2f posicion) 
+    : spriteDado(texturaDado), animando(false), contadorCambios(0), resultadoFinal(1) {
+
+    if (!texturaDado.loadFromFile("imagenes/dado_sprites.png")) {
         std::cerr << "Error al cargar la imagen del dado." << std::endl;
     }
     
-    spriteDado.setTexture(texturaDado);
+    spriteDado.setTexture(texturaDado, true);
     
     sf::FloatRect limites = spriteDado.getLocalBounds();
     spriteDado.setOrigin({limites.size.x / 2.0f, limites.size.y / 2.0f});
     
     spriteDado.setPosition(posicion);
+    //spriteDado.setTextureRect(sf::IntRect({0, 81}, {81, 160}));
 }
 
 int Dado::tirar() {
@@ -27,14 +31,14 @@ int Dado::tirar() {
         Accesibilidad::hablar("Tirando dado...");
         relojAnimacion.restart(); 
     }
-    return resultadoFinal; // Devolvemos el int tal cual lo pediste
+    return resultadoFinal; 
 }
 
 void Dado::actualizar() {
     if (animando) {
         if (relojAnimacion.getElapsedTime().asMilliseconds() > 30) {
             
-            spriteDado.rotate(45.f);
+            spriteDado.setRotation(sf::degrees(45.f));
             
             contadorCambios++;
             relojAnimacion.restart();
@@ -42,7 +46,7 @@ void Dado::actualizar() {
             if (contadorCambios >= 20) {
                 animando = false;
                 
-                spriteDado.setRotation(0.f); 
+                spriteDado.setRotation(sf::degrees(0.f)); 
                 
                 Accesibilidad::hablar("Salió un " + std::to_string(resultadoFinal));
             }
