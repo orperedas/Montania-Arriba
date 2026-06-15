@@ -20,6 +20,7 @@ private:
     FaseTurno faseActual = ESPERANDO_TIRO;
     int casillasAAvanzar = 0;
     sf::RectangleShape fondoDado;
+    sf::RectangleShape fondoOscuro;
 public:
     PantallaTablero(float anchoVentana, float altoVentana);
     

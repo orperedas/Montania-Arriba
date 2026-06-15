@@ -1,7 +1,7 @@
 #include "headers/Accesibilidad.h"
 #include "headers/Boton.h"
 
-Boton::Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura) 
+Boton::Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura, std::function<void()> accion) 
     : posicionBoton(posicion), 
       spriteBoton(textura), 
       etiquetaBoton(fuente) 
@@ -37,6 +37,26 @@ void Boton::setSeleccionado(bool seleccionado) {
         sf::Color noSeleccionadoColor(175, 175, 175, 255);
         etiquetaBoton.setFillColor(noSeleccionadoColor);
     }
+}
+
+
+void Boton::actualizarHover(sf::Vector2f mousePos){
+    if (spriteBoton.getGlobalBounds().contains(mousePos)) {
+        setSeleccionado(true);
+    } else {
+        setSeleccionado(false);
+    }
+}
+
+
+bool Boton::procesarClick(sf::Vector2f mousePos){
+    if (spriteBoton.getGlobalBounds().contains(mousePos)) {
+        if (onAction) onAction();
+        
+        return true;
+    }
+    
+    return false;
 }
 
 

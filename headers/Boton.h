@@ -2,6 +2,7 @@
 #define BOTON_H
 
 #include <SFML/Graphics.hpp>
+#include <functional>
 #include <string>
 
 class Boton {
@@ -11,13 +12,16 @@ private:
     sf::Sprite spriteBoton;
     sf::Text etiquetaBoton;
     sf::Vector2f mousePos;
+    std::function<void()> onAction;
 
 public:
-    Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura);
+    Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura, std::function<void()> accion = nullptr);
     
     ~Boton() = default;
 
     void setSeleccionado(bool seleccionado);
+    void actualizarHover(sf::Vector2f mousePos);
+    bool procesarClick(sf::Vector2f mousePos);
     void dibujar(sf::RenderWindow& ventana);
 };
 
