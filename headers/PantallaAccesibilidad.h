@@ -7,7 +7,7 @@
 class PantallaAccesibilidad : public Estado {
 private:
     Menu menu;
-
+    
 public:
     PantallaAccesibilidad(float anchoVentana, float altoVentana);
     

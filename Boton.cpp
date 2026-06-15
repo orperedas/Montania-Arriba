@@ -26,6 +26,7 @@ Boton::Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fu
     setSeleccionado(false); 
 }
 
+
 void Boton::setSeleccionado(bool seleccionado) {
     if (seleccionado) {
         spriteBoton.setTextureRect({{280, 0}, {560 , 72}});
@@ -37,6 +38,7 @@ void Boton::setSeleccionado(bool seleccionado) {
         etiquetaBoton.setFillColor(noSeleccionadoColor);
     }
 }
+
 
 void Boton::dibujar(sf::RenderWindow& ventana) {
     ventana.draw(spriteBoton);

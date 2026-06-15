@@ -2,9 +2,15 @@
 #include "headers/Accesibilidad.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana)
-    : tablero(8), personaje(3), dado({600.f,600.f}) { 
+    : tablero(8), personaje(3), dado({580.f,660.f}), fondoDado(){ 
+        /*
+        fondoDado.setFillColor(sf::Color::Black);
+        fondoDado.setSize({200.f, 80.f});
+        fondoDado.setPosition({420.f, 610.f});
+        */
 }
- EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
+
+EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
@@ -54,5 +60,6 @@ void PantallaTablero::actualizar() {
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     tablero.dibujar(ventana);
     ventana.draw(personaje);
+    //ventana.draw(fondoDado);
     dado.draw(ventana);
 }

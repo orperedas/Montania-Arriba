@@ -10,6 +10,7 @@ private:
     sf::Vector2f posicionBoton;
     sf::Sprite spriteBoton;
     sf::Text etiquetaBoton;
+    sf::Vector2f mousePos;
 
 public:
     Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura);

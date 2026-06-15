@@ -12,8 +12,6 @@ private:
     int indiceSeleccionado;
     sf::Font fuente;
     sf::Texture texturaBoton;
-    
-    sf::Texture texturaFondo;
     std::optional<sf::Sprite> spriteFondo;
 
     std::vector<sf::Text> contenedorTitulo; 

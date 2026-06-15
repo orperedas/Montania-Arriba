@@ -2,6 +2,7 @@
 
 #include "headers/PantallaAccesibilidad.h"
 #include "headers/Accesibilidad.h"
+#include "headers/Boton.h"
 
 PantallaAccesibilidad::PantallaAccesibilidad(float anchoVentana, float altoVentana) 
     : menu(anchoVentana, altoVentana, "¿Desea que el juego inicie con accesibilidad?",{"Si, usar accesibilidad", "No, gracias"}) {

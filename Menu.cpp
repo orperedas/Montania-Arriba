@@ -33,7 +33,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
 
     for (size_t i = 0; i < opciones.size(); ++i) {
         float xPos = (anchoVentana - (texturaBoton.getSize().x / 2.0f)) / 2.0f;
-        float yPos = altoVentana / (opciones.size() + 2) * (i + 1.5);
+        float yPos = altoVentana / (opciones.size() + 2) * (i + 1);
         sf::Vector2f posicionElemento = {xPos, yPos};
 
         Boton nuevoBoton(opciones[i], posicionElemento, fuente, texturaBoton);
