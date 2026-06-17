@@ -15,6 +15,7 @@
                 "-o", "${workspaceFolder}\\main.exe",
                 "-lsfml-graphics",
                 "-lsfml-window",
+                "-lsfml-audio", 
                 "-lsfml-system",
                 "${workspaceFolder}\\Tolk.dll"
             ],

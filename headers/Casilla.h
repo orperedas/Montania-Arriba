@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Personaje.h"
+#include "Sonido.h"
 
 class Casilla {
 protected:
@@ -18,7 +19,7 @@ public:
     
     virtual ~Casilla() = default; 
 
-    virtual void consecuencia(int numeroAleatorio, Personaje personaje) = 0;
+    virtual void consecuencia(int numeroAleatorio, Personaje& personaje) = 0;
     virtual void dibujar(sf::RenderWindow& ventana);
     
     void setPosicionVisual(sf::Vector2f posicion);

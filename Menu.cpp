@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-
+#include "headers/Sonido.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Menu.h"
 
@@ -56,7 +56,7 @@ void Menu::moverArriba() {
         botones[indiceSeleccionado].setSeleccionado(false);
         indiceSeleccionado--;
         botones[indiceSeleccionado].setSeleccionado(true);
-        
+        Sonido::reproducir(IDSonido::MenuDesplazar);
         Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
@@ -67,13 +67,14 @@ void Menu::moverAbajo() {
         botones[indiceSeleccionado].setSeleccionado(false);
         indiceSeleccionado++;
         botones[indiceSeleccionado].setSeleccionado(true);
-        
-        Accesibilidad::hablar(opciones[indiceSeleccionado], true);
+        Sonido::reproducir(IDSonido::MenuDesplazar);
+                Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
 
 
 int Menu::obtenerSeleccion() const {
+        Sonido::reproducir(IDSonido::MenuConfirmar);
     return indiceSeleccionado;
 }
 
