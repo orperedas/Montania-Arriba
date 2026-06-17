@@ -25,10 +25,10 @@ int main() {
 
     Accesibilidad::cargarAccesibilidad();
 
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Montaña arriba");
+    sf::RenderWindow window(sf::VideoMode({1366, 768}), "Montaña arriba");
     // sf::RenderWindow window(sf::VideoMode({1280, 720}), "SFML 3 + Tolk - UTN", sf::State::Fullscreen);
 
-    std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(1280.f, 700.f);
+    std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(1366.f, 768.f);
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
@@ -42,11 +42,11 @@ int main() {
 
             if (proximoEstado != EstadoID::Ninguno) {
                 if (proximoEstado == EstadoID::MenuPrincipal) {
-                     estadoActual = std::make_unique<PantallaPrincipal>(1280.f, 720.f);
+                     estadoActual = std::make_unique<PantallaPrincipal>(1366.f, 768.f);
                 }
                 
                 if (proximoEstado == EstadoID::Jugando) {
-                     estadoActual = std::make_unique<PantallaTablero>(1280.f, 700.f);
+                     estadoActual = std::make_unique<PantallaTablero>(1366.f, 768.f);
                 }
                 else if (proximoEstado == EstadoID::Salir) {
                     window.close();

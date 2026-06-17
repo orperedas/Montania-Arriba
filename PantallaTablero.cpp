@@ -8,8 +8,6 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana)
         fondoDado.setSize({200.f, 80.f});
         fondoDado.setPosition({420.f, 610.f});
         */
-
-        
 }
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
