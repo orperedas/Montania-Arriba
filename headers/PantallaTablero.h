@@ -7,10 +7,12 @@
 #include <SFML/Graphics.hpp>
 #include "Personaje.h"
 #include "Dado.h"
+#include "ReglasJuego.h"
 
 enum FaseTurno {
     ESPERANDO_TIRO,
-    ANIMANDO_DADO
+    ANIMANDO_DADO,
+        MOVIENDO_PERSONAJE
 };
 class PantallaTablero : public Estado {
 private:
@@ -18,11 +20,14 @@ private:
     Personaje personaje;
     Dado dado;
     FaseTurno faseActual = ESPERANDO_TIRO;
+    int posicionObjetivo;
+    sf::Clock relojMovimiento;
+    ReglasJuego reglas;
     int casillasAAvanzar = 0;
     sf::RectangleShape fondoDado;
     sf::RectangleShape fondoOscuro;
 public:
-    PantallaTablero(float anchoVentana, float altoVentana);
+    PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida);
     
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;

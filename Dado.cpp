@@ -1,7 +1,7 @@
 #include "headers/Dado.h"
 #include "headers/Accesibilidad.h"
 #include <iostream>
-
+#include "headers/Sonido.h"
 #include <cstdlib>
 #include <string>
 
@@ -28,8 +28,7 @@ int Dado::tirar() {
         contadorCambios = 0;
         
         resultadoFinal = (rand() % 6) + 1; 
-        
-        Accesibilidad::hablar("Tirando dado...");
+Sonido::reproducir(IDSonido::TirarDado);
         relojAnimacion.restart(); 
     }
     return resultadoFinal; 

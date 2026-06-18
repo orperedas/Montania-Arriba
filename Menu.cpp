@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-
+#include "headers/Sonido.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -25,7 +25,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
 
     sf::FloatRect boundsLogo = spriteLogo.getGlobalBounds();
     spriteLogo.setOrigin({boundsLogo.size.x / 2.f, 0.f});
-    spriteLogo.setPosition({anchoVentana / 2.f, 50.f});
+    spriteLogo.setPosition({anchoVentana / 2.f, 30.f});
     
     sf::Color tituloColor(255, 222, 148, 255);
     sf::Color tituloColorBorde(12, 58, 94, 255);
@@ -78,7 +78,7 @@ void Menu::moverArriba() {
         botones[indiceSeleccionado].setSeleccionado(false);
         indiceSeleccionado--;
         botones[indiceSeleccionado].setSeleccionado(true);
-        
+        Sonido::reproducir(IDSonido::MenuDesplazar);
         Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
@@ -89,13 +89,14 @@ void Menu::moverAbajo() {
         botones[indiceSeleccionado].setSeleccionado(false);
         indiceSeleccionado++;
         botones[indiceSeleccionado].setSeleccionado(true);
-        
-        Accesibilidad::hablar(opciones[indiceSeleccionado], true);
+        Sonido::reproducir(IDSonido::MenuDesplazar);
+                Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
 
 
 int Menu::obtenerSeleccion() const {
+        Sonido::reproducir(IDSonido::MenuConfirmar);
     return indiceSeleccionado;
 }
 

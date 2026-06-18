@@ -6,7 +6,7 @@
 CasillaNormal::CasillaNormal(int num, const sf::Texture& textura) : Casilla(num, textura) {
 }
 
-void CasillaNormal::consecuencia(int numeroAleatorio, Personaje personaje) {
+void CasillaNormal::consecuencia(int numeroAleatorio, Personaje& personaje) {
     
     if (numeroAleatorio % 2 == 0) {
         mensaje = "Casilla " + std::to_string(numeroPosicion) + ". Terreno seguro. El clima es agradable.";

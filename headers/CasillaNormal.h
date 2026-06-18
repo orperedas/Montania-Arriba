@@ -8,7 +8,7 @@ private:
 
 public:
     CasillaNormal(int num, const sf::Texture& textura);
-    void consecuencia(int numeroAleatorio, Personaje personaje) override;
+    void consecuencia(int numeroAleatorio, Personaje& personaje) override;
     // void dibujar(sf::RenderWindow& ventana) override;
 };
 
