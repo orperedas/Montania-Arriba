@@ -21,8 +21,13 @@ void Sonido::cargarSonidos() {
         std::cerr << "Error cargando enter.wav" << std::endl;
     }
     if (!buffers[IDSonido::avalancha].loadFromFile("sonidos/gameplay/avalancha.wav")) {
+        std::cerr << "Error cargando avalancha.wav" << std::endl;
+    }
+    if (!buffers[IDSonido::ganarVida].loadFromFile("sonidos/gameplay/ganar_vida.wav")) {
+        std::cerr << "Error cargando ganar_vida.wav" << std::endl;
+    }
 }
-}
+
 
 void Sonido::reproducir(IDSonido id) {
     canales.remove_if([](const sf::Sound& s) {

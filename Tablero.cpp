@@ -30,8 +30,10 @@ Tablero::Tablero(int baseNum) : base(baseNum) {
 void Tablero::crearTablero() {
     int dimencionTablero = base * base;     
     casillas.reserve(dimencionTablero);
-    beneficios.resize((base + (base * 2)) / 4);
-    castigos.resize((base + (base * 2)) / 4); 
+    //beneficios.resize((base + (base * 2)) / 4);
+    //castigos.resize((base + (base * 2)) / 4); 
+    beneficios.resize(base);
+    castigos.resize(base); 
 
     posicionesCasEspecial(castigos, beneficios, dimencionTablero);
     

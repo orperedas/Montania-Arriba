@@ -28,7 +28,7 @@ int Dado::tirar() {
         contadorCambios = 0;
         
         resultadoFinal = (rand() % 6) + 1; 
-Sonido::reproducir(IDSonido::TirarDado);
+        Sonido::reproducir(IDSonido::TirarDado);
         relojAnimacion.restart(); 
     }
     return resultadoFinal; 

@@ -8,7 +8,7 @@ void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
     switch (numeroAleatorio) {
         case 1:
             mensaje = "Casilla " + std::to_string(numeroPosicion) + ". ¡Un oso salvaje! Pierdes una vida.";
-Sonido::reproducir(IDSonido::rujidoOso);
+            Sonido::reproducir(IDSonido::rujidoOso);
             personaje.modificarVidas(-1);
             break;
         case 2:
@@ -17,7 +17,7 @@ Sonido::reproducir(IDSonido::rujidoOso);
             break;
         case 3:
             mensaje = "Casilla " + std::to_string(numeroPosicion) + ". Avalancha. Retrocedes 2 casillas.";
-Sonido::reproducir(IDSonido::avalancha);
+            Sonido::reproducir(IDSonido::avalancha);
             personaje.moverACasilla(personaje.getPosicion() -2);
             break;
         default:

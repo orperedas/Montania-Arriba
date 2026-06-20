@@ -12,7 +12,7 @@ void Musica::inicializar() {
     
     std::cout << "LOG [Musica]: Rutas registradas correctamente (" << rutas.size() << " audios)." << std::endl;
     
-    reproductor.setVolume(20.f); 
+    reproductor.setVolume(25.f); 
     std::cout << "LOG [Musica]: Volumen configurado al 20%." << std::endl;
 }
 

@@ -6,6 +6,7 @@
 
 #include "headers/Accesibilidad.h"
 #include "headers/Menu.h"
+#include "headers/Sonido.h"
 
 Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items) : spriteLogo(texturaLogo) {
 

@@ -16,18 +16,18 @@ Accesibilidad::hablar("Volviendo al menú principal");
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             int seleccion = menu.obtenerSeleccion();
             
-if (seleccion == 0) {
-    dificultadGlobal = Dificultad::FACIL; // <--- Fíjate: Dificultad::FACIL
-    Accesibilidad::hablar("Iniciando en dificultad Fácil.");
-} else if (seleccion == 1) {
-    dificultadGlobal = Dificultad::MEDIO; // <--- Fíjate: Dificultad::MEDIO
-    Accesibilidad::hablar("Iniciando en dificultad Medio.");
-} else if (seleccion == 2) {
-    dificultadGlobal = Dificultad::DIFICIL; // <--- Fíjate: Dificultad::DIFICIL
-    Accesibilidad::hablar("Iniciando en dificultad Difícil.");
-}            
-    return EstadoID::Jugando; 
-}
+            if (seleccion == 0) {
+                dificultadGlobal = Dificultad::FACIL;
+                Accesibilidad::hablar("Iniciando en dificultad Fácil.");
+            } else if (seleccion == 1) {
+                dificultadGlobal = Dificultad::MEDIO;
+                Accesibilidad::hablar("Iniciando en dificultad Medio.");
+            } else if (seleccion == 2) {
+                dificultadGlobal = Dificultad::DIFICIL;
+                Accesibilidad::hablar("Iniciando en dificultad Difícil.");
+            }            
+                return EstadoID::Jugando; 
+        }
     } 
 
     return EstadoID::Ninguno; 
