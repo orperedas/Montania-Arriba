@@ -26,7 +26,8 @@ private:
     int casillasAAvanzar = 0;
     sf::RectangleShape fondoDado;
     sf::RectangleShape fondoOscuro;
-public:
+    EstadoID estadoPendiente = EstadoID::Ninguno;
+    public:
     PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida);
     
     EstadoID manejarEventos(const sf::Event& evento) override;

@@ -16,7 +16,8 @@ enum class IDSonido {
     avalancha,
     paso,
     masticar,
-    ganarVida
+    ganarVida,
+    suvida
 };
 
 class Sonido {

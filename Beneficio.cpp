@@ -15,6 +15,7 @@ void Beneficio::consecuencia(int numeroAleatorio, Personaje& personaje) {
             break;
         case 2:
             mensaje = "Casilla " + std::to_string(numeroPosicion) + ". Atajo encontrado. Avanzas 3 casillas.";
+            Sonido::reproducir(IDSonido::suvida);
             personaje.moverACasilla(personaje.getPosicion() + 3);
             break;
         case 3:

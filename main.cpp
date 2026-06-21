@@ -14,6 +14,7 @@
 #include "headers/PantallaTablero.h"
 #include "headers/Musica.h"
 #include "headers/Sonido.h"
+#include "headers/PantallaVictoria.h"
 
 
 Dificultad Dif;
@@ -98,6 +99,10 @@ int main() {
                 else if (proximoEstado == EstadoID::Jugando) {
                     Musica::reproducir(IDMusica::FondoTablero);
                     estadoActual = std::make_unique<PantallaTablero>(anchoVentana, altoVentana, Dif);
+                }
+                else if (proximoEstado == EstadoID::Victoria) {
+                    Musica::reproducir(IDMusica::FondoTablero);
+                    estadoActual = std::make_unique<PantallaVictoria>(anchoVentana, altoVentana);
                 }
                 else if (proximoEstado == EstadoID::Salir) {
                     window.close();

@@ -1,6 +1,7 @@
 #include "headers/PantallaTablero.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Sonido.h"
+#include "headers/Estado.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida)
     : tablero(8), personaje(3), dado({580.f,660.f}), fondoDado(), reglas(difElegida, 64){ 
@@ -14,6 +15,9 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificult
 }
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
+    if (estadoPendiente != EstadoID::Ninguno) {
+        return estadoPendiente;
+    }
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
@@ -50,7 +54,7 @@ void PantallaTablero::actualizar() {
         
         if (relojMovimiento.getElapsedTime() >= sf::seconds(0.6f)) {
             
-            int posActual = personaje.getPosicion();
+            int posActual = personaje.getPosicion();    
 
             if (posActual < posicionObjetivo) {
                 Sonido::reproducir(IDSonido::paso);
@@ -77,7 +81,7 @@ void PantallaTablero::actualizar() {
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
                     if (estado == EstadoPartida::VICTORIA) {
-                        Accesibilidad::hablar("¡Llegaste a la cima! Has completado el recorrido.");
+        estadoPendiente = EstadoID::Victoria; // Guardamos el estado, no hacemos return
                     } else if (estado == EstadoPartida::DERROTA) {
                         Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
                     }
