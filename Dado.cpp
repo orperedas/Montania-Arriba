@@ -36,7 +36,7 @@ int Dado::tirar() {
 
 void Dado::actualizar() {
     if (animando) {
-        if (relojAnimacion.getElapsedTime()>= sf::seconds(0.2f)) {
+        if (relojAnimacion.getElapsedTime()>= sf::seconds(0.1f)) {
             spriteDado.rotate(sf::degrees(45.f));
             
             contadorCambios++;
