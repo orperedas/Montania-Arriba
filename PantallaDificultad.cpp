@@ -26,7 +26,8 @@ Accesibilidad::hablar("Volviendo al menú principal");
                 dificultadGlobal = Dificultad::DIFICIL;
                 Accesibilidad::hablar("Iniciando en dificultad Difícil.");
             }            
-                return EstadoID::Jugando; 
+            
+            return EstadoID::Jugando; 
         }
     } 
 

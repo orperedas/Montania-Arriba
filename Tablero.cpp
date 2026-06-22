@@ -30,8 +30,6 @@ Tablero::Tablero(int baseNum) : base(baseNum) {
 void Tablero::crearTablero() {
     int dimencionTablero = base * base;     
     casillas.reserve(dimencionTablero);
-    //beneficios.resize((base + (base * 2)) / 4);
-    //castigos.resize((base + (base * 2)) / 4); 
     beneficios.resize(base);
     castigos.resize(base); 
 
@@ -54,26 +52,43 @@ void Tablero::crearTablero() {
 
 
 void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero) {
-    std::unordered_set<int> numerosUsados;
-    
+    /*
+    Modificando el método para que no haya castigos ni beneficios a menos de 3 casillas
+    Creando una lista con todos los números posibles en el rango [7, 60]
+    */
+    std::vector<int> disponibles;
+    for (int i = 7; i <= 60; i++) {
+        disponibles.push_back(i);
+    }
+
+    // Lambda auxiliar para seleccionar un número y limpiar sus vecinos cercanos
+    auto seleccionarYLimpiar = [&]() -> int {
+        if (disponibles.empty()) return -1; // por si se acaban los números
+
+        // Elegir un índice al azar de los que quedan disponibles
+        int indiceAleatorio = rand() % disponibles.size();
+        int numeroElegido = disponibles[indiceAleatorio];
+
+        /*
+        Remover el número elegido y cualquier otro que esté a distancia menor a 3, es decir,
+        eliminar del vector todo lo que esté entre numeroElegido - 2 y numeroElegido + 2
+        */
+        disponibles.erase(
+            std::remove_if(disponibles.begin(), disponibles.end(), [numeroElegido](int x) {
+                return std::abs(x - numeroElegido) < 3;
+            }),
+            disponibles.end()
+        );
+
+        return numeroElegido;
+    };
+
     for (size_t i = 0; i < posVector1.size(); i++) {
-        int aleatorio;
-        do {
-            aleatorio = 7 + rand() % 54;
-        } while (numerosUsados.count(aleatorio));
-        
-        posVector1[i] = aleatorio;
-        numerosUsados.insert(aleatorio);
+        posVector1[i] = seleccionarYLimpiar();
     }
 
     for (size_t i = 0; i < posVector2.size(); i++) {
-        int aleatorio;
-        do {
-            aleatorio = 7 + rand() % 54;
-        } while (numerosUsados.count(aleatorio));
-        
-        posVector2[i] = aleatorio;
-        numerosUsados.insert(aleatorio);
+        posVector2[i] = seleccionarYLimpiar();
     }
 
     std::sort(posVector1.begin(), posVector1.end());
