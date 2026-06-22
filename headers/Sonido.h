@@ -17,7 +17,10 @@ enum class IDSonido {
     paso,
     masticar,
     ganarVida,
-    suvida
+    suvida,
+    hueso,
+    grito,
+    pasoatras
 };
 
 class Sonido {

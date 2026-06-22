@@ -13,6 +13,8 @@ void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
             break;
         case 2:
             mensaje = "Casilla " + std::to_string(numeroPosicion) + ". Caíste en una grieta. Pierdes un turno.";
+            Sonido::reproducir(IDSonido::grito);
+            Sonido::reproducir(IDSonido::hueso);
             personaje.descontarTurnoPerdido();
             break;
         case 3:

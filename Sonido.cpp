@@ -32,6 +32,15 @@ void Sonido::cargarSonidos() {
     if (!buffers[IDSonido::suvida].loadFromFile("sonidos/gameplay/ojas.wav")) {
         std::cerr << "Error cargando ojas.wav" << std::endl;
     }
+    if (!buffers[IDSonido::hueso].loadFromFile("sonidos/gameplay/huesoRoto.wav")) {
+        std::cerr << "Error cargando huesoRoto.wav" << std::endl;
+    }
+    if (!buffers[IDSonido::grito].loadFromFile("sonidos/gameplay/dolor.wav")) {
+        std::cerr << "Error cargando dolor.wav" << std::endl;
+    }
+    if (!buffers[IDSonido::pasoatras].loadFromFile("sonidos/gameplay/pasoatras.wav")) {
+        std::cerr << "Error cargando pasoatras.wav" << std::endl;
+    }
 
 }
 

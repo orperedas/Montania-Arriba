@@ -61,7 +61,7 @@ void PantallaTablero::actualizar() {
                 personaje.moverACasilla(posActual + 1);
             } 
             else if (posActual > posicionObjetivo) {
-                Sonido::reproducir(IDSonido::paso);
+                Sonido::reproducir(IDSonido::pasoatras);
                 personaje.moverACasilla(posActual - 1);
             } 
             else {
