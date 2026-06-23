@@ -15,9 +15,6 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificult
 }
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
-    if (estadoPendiente != EstadoID::Ninguno) {
-        return estadoPendiente;
-    }
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {

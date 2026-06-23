@@ -16,8 +16,8 @@
 #include "headers/Sonido.h"
 #include "headers/PantallaVictoria.h"
 
-
 Dificultad Dif;
+
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
     
@@ -52,6 +52,8 @@ int main() {
     std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(anchoVentana, altoVentana);
 
     while (window.isOpen()) {
+        EstadoID proximoEstado = EstadoID::Ninguno; // Variable maestra para controlar el cambio
+
         while (const std::optional event = window.pollEvent()) {
 
             if (const auto* resized = event->getIf<sf::Event::Resized>()) { // [5, 7]
@@ -85,32 +87,38 @@ int main() {
 
             estadoActual->teclasGlobales(*event);
 
-            EstadoID proximoEstado = estadoActual->manejarEventos(*event);
-
-            if (proximoEstado != EstadoID::Ninguno) {
-                if (proximoEstado == EstadoID::MenuPrincipal) {
-                    Musica::reproducir(IDMusica::FondoMenu);
-                    estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
-                }
-                else if (proximoEstado == EstadoID::Dificultad) {
-                     estadoActual = std::make_unique<PantallaDificultad>(anchoVentana, altoVentana, Dif);
-                }
-                
-                else if (proximoEstado == EstadoID::Jugando) {
-                    Musica::reproducir(IDMusica::FondoTablero);
-                    estadoActual = std::make_unique<PantallaTablero>(anchoVentana, altoVentana, Dif);
-                }
-                else if (proximoEstado == EstadoID::Victoria) {
-                    Musica::reproducir(IDMusica::FondoTablero);
-                    estadoActual = std::make_unique<PantallaVictoria>(anchoVentana, altoVentana);
-                }
-                else if (proximoEstado == EstadoID::Salir) {
-                    window.close();
-                }
+            EstadoID estadoPorEvento = estadoActual->manejarEventos(*event);
+            if (estadoPorEvento != EstadoID::Ninguno) {
+                proximoEstado = estadoPorEvento;
             }
         }
 
         estadoActual->actualizar();
+
+        if (proximoEstado == EstadoID::Ninguno) {
+            proximoEstado = estadoActual->getEstadoPendiente();
+        }
+
+        if (proximoEstado != EstadoID::Ninguno) {
+            if (proximoEstado == EstadoID::MenuPrincipal) {
+                Musica::reproducir(IDMusica::FondoMenu);
+                estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
+            }
+            else if (proximoEstado == EstadoID::Dificultad) {
+                 estadoActual = std::make_unique<PantallaDificultad>(anchoVentana, altoVentana, Dif);
+            }
+            else if (proximoEstado == EstadoID::Jugando) {
+                Musica::reproducir(IDMusica::FondoTablero);
+                estadoActual = std::make_unique<PantallaTablero>(anchoVentana, altoVentana, Dif);
+            }
+            else if (proximoEstado == EstadoID::Victoria) {
+                Musica::reproducir(IDMusica::FondoTablero);
+                estadoActual = std::make_unique<PantallaVictoria>(anchoVentana, altoVentana);
+            }
+            else if (proximoEstado == EstadoID::Salir) {
+                window.close();
+            }
+        }
 
         window.clear();
         window.draw(spriteBackground);
