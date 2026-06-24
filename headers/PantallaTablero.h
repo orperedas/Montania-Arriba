@@ -12,7 +12,7 @@
 enum FaseTurno {
     ESPERANDO_TIRO,
     ANIMANDO_DADO,
-        MOVIENDO_PERSONAJE
+    MOVIENDO_PERSONAJE
 };
 class PantallaTablero : public Estado {
 private:
