@@ -33,6 +33,9 @@ private:
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;
     void dibujar(sf::RenderWindow& ventana) override;
+    EstadoID getEstadoPendiente() const override { 
+        return estadoPendiente; 
+    }
 };
 
 #endif

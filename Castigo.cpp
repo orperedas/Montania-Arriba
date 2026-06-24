@@ -7,18 +7,18 @@ Castigo::Castigo(int num, const sf::Texture& textura) : Casilla(num, textura) {
 void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
     switch (numeroAleatorio) {
         case 1:
-            mensaje = "Casilla " + std::to_string(numeroPosicion) + ". ¡Un oso salvaje! Pierdes una vida.";
+            mensaje += ". ¡Un oso salvaje! Pierdes una vida.";
             Sonido::reproducir(IDSonido::rujidoOso);
             personaje.modificarVidas(-1);
             break;
         case 2:
-            mensaje = "Casilla " + std::to_string(numeroPosicion) + ". Caíste en una grieta. Pierdes un turno.";
+            mensaje += ". Caíste en una grieta. Pierdes un turno.";
             Sonido::reproducir(IDSonido::grito);
             Sonido::reproducir(IDSonido::hueso);
             personaje.descontarTurnoPerdido();
             break;
         case 3:
-            mensaje = "Casilla " + std::to_string(numeroPosicion) + ". Avalancha. Retrocedes 2 casillas.";
+            mensaje += ". Avalancha. Retrocedes 2 casillas.";
             Sonido::reproducir(IDSonido::avalancha);
             personaje.moverACasilla(personaje.getPosicion() -2);
             break;
