@@ -28,7 +28,7 @@ int Dado::tirar() {
         contadorCambios = 0;
         
         resultadoFinal = (rand() % 6) + 1; 
-Sonido::reproducir(IDSonido::TirarDado);
+        Sonido::reproducir(IDSonido::TirarDado);
         relojAnimacion.restart(); 
     }
     return resultadoFinal; 
@@ -36,7 +36,7 @@ Sonido::reproducir(IDSonido::TirarDado);
 
 void Dado::actualizar() {
     if (animando) {
-        if (relojAnimacion.getElapsedTime()>= sf::seconds(0.2f)) {
+        if (relojAnimacion.getElapsedTime()>= sf::seconds(0.1f)) {
             spriteDado.rotate(sf::degrees(45.f));
             
             contadorCambios++;

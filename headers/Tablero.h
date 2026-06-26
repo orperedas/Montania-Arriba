@@ -7,7 +7,7 @@
 class Tablero {
 private:
     int base;
-std::vector<Casilla*> casillas;
+    std::vector<Casilla*> casillas;
     std::vector<int> beneficios;
     std::vector<int> castigos;
     sf::Texture texturaNormal;

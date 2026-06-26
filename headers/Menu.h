@@ -10,10 +10,13 @@
 class Menu {
 private:
     int indiceSeleccionado;
-    sf::Font fuente;
     sf::Texture texturaBoton;
     std::optional<sf::Sprite> spriteFondo;
-
+    sf::Texture texturaLogo;
+    sf::Sprite spriteLogo;
+    
+    sf::Font fuenteTitulo;
+    sf::Font fuenteBoton;
     std::vector<sf::Text> contenedorTitulo; 
     std::vector<std::string> opciones;
     std::vector<Boton> botones;

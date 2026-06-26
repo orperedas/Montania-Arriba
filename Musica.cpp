@@ -8,7 +8,7 @@ void Musica::inicializar() {
     std::cout << "LOG [Musica]: Inicializando el sistema de musica..." << std::endl;
     
     rutas[IDMusica::FondoMenu] = "musica/menu.wav";
-    rutas[IDMusica::FondoTablero] = "musica/fondo.wav";
+    rutas[IDMusica::FondoTablero] = "musica/Path of the Hight Canopi.mp3";
     
     std::cout << "LOG [Musica]: Rutas registradas correctamente (" << rutas.size() << " audios)." << std::endl;
     

@@ -1,6 +1,7 @@
 #include "headers/PantallaTablero.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Sonido.h"
+#include "headers/Estado.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida)
     : tablero(8), personaje(3), dado({580.f,660.f}), fondoDado(), reglas(difElegida, 64){ 
@@ -50,14 +51,14 @@ void PantallaTablero::actualizar() {
         
         if (relojMovimiento.getElapsedTime() >= sf::seconds(0.6f)) {
             
-            int posActual = personaje.getPosicion();
+            int posActual = personaje.getPosicion();    
 
             if (posActual < posicionObjetivo) {
-Sonido::reproducir(IDSonido::paso);
+                Sonido::reproducir(IDSonido::paso);
                 personaje.moverACasilla(posActual + 1);
             } 
             else if (posActual > posicionObjetivo) {
-Sonido::reproducir(IDSonido::paso);
+                Sonido::reproducir(IDSonido::pasoatras);
                 personaje.moverACasilla(posActual - 1);
             } 
             else {
@@ -77,7 +78,7 @@ Sonido::reproducir(IDSonido::paso);
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
                     if (estado == EstadoPartida::VICTORIA) {
-                        Accesibilidad::hablar("¡Llegaste a la cima! Has completado el recorrido.");
+        estadoPendiente = EstadoID::Victoria; // Guardamos el estado, no hacemos return
                     } else if (estado == EstadoPartida::DERROTA) {
                         Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
                     }
@@ -85,50 +86,19 @@ Sonido::reproducir(IDSonido::paso);
                     faseActual = ESPERANDO_TIRO; 
                 }
             }
+            
             relojMovimiento.restart();
         }
     }
 
-    // --- ACTUALIZACIÓN VISUAL ---
     Casilla* casillaVisual = tablero.obtenerCasilla(personaje.getPosicion());
     if (casillaVisual != nullptr) {
         sf::Vector2f coord = casillaVisual->getPosicionVisual();
         personaje.setPosicionVisual({coord.x + 25.f, coord.y + 25.f});
     }
 }
-/*
-void PantallaTablero::actualizar() {
-    dado.actualizar();
 
-    if (faseActual == ANIMANDO_DADO) {
-        
-        if (!dado.estaAnimando()) {
-            
-    // El cerebro se encarga de todo el turno
-    reglas.jugarTurno(personaje, tablero, casillasAAvanzar);
-    faseActual = ESPERANDO_TIRO;
-        
-    // Preguntamos si el juego terminó
-    EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
-    if (estado == EstadoPartida::VICTORIA) {
-        // Lógica para volver al menú o ir a pantalla de victoria
-        return; // o cambiar de estado
-    } else if (estado == EstadoPartida::DERROTA) {
-        Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
-        // Lógica para Game Over
-        return;
-    }
-        }
-    }
-
-    Casilla* casillaVisual = tablero.obtenerCasilla(personaje.getPosicion());
-    if (casillaVisual != nullptr) {
-        sf::Vector2f coord = casillaVisual->getPosicionVisual();
-        personaje.setPosicionVisual({coord.x + 25.f, coord.y + 25.f});
-    }
-}   
-*/
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     tablero.dibujar(ventana);
     ventana.draw(personaje);

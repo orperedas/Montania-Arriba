@@ -7,10 +7,10 @@ enum class EstadoID {
     Ninguno,
     Accesibilidad,
     MenuPrincipal,
-Dificultad,
+    Dificultad,
     Jugando,
-Victoria,
-Derrota,
+    Victoria,
+    Derrota,
     Salir
 };
 
@@ -21,6 +21,9 @@ public:
     virtual EstadoID manejarEventos(const sf::Event& evento) = 0;
     virtual void actualizar() = 0;
     virtual void dibujar(sf::RenderWindow& ventana) = 0;
+    virtual EstadoID getEstadoPendiente() const { 
+        return EstadoID::Ninguno; 
+    }
     void teclasGlobales(const sf::Event& evento);
 };
 #endif

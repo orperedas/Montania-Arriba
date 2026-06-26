@@ -15,7 +15,12 @@ enum class IDSonido {
     rujidoOso,
     avalancha,
     paso,
-    masticar
+    masticar,
+    ganarVida,
+    suvida,
+    hueso,
+    grito,
+    pasoatras
 };
 
 class Sonido {

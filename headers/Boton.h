@@ -2,10 +2,11 @@
 #define BOTON_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 #include <functional>
 #include <string>
 
-class Boton {
+class Boton{
 private:
     std::string textoBoton;
     sf::Vector2f posicionBoton;
