@@ -37,27 +37,21 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
 void PantallaTablero::actualizar() {
     dado.actualizar();
 
-    // --- FASE 1: DADO TERMINA DE GIRAR ---
     if (faseActual == ANIMANDO_DADO) {
         if (!dado.estaAnimando()) {
-            // Calculamos el destino final según la dificultad (ReglasJuego)
             posicionObjetivo = reglas.calcularDestino(personaje.getPosicion(), casillasAAvanzar);
             
-            // Pasamos a la fase de movimiento animado
             faseActual = MOVIENDO_PERSONAJE; 
             relojMovimiento.restart(); 
         }
     }
     
-    // --- FASE 2: CAMINANDO PASO A PASO ---
     else if (faseActual == MOVIENDO_PERSONAJE) {
         
-        // Control de velocidad: 0.2f segundos entre cada paso
         if (relojMovimiento.getElapsedTime() >= sf::seconds(0.6f)) {
             
             int posActual = personaje.getPosicion();
 
-            // Avanza o retrocede de a uno hasta llegar a la meta
             if (posActual < posicionObjetivo) {
 Sonido::reproducir(IDSonido::paso);
                 personaje.moverACasilla(posActual + 1);
@@ -67,10 +61,8 @@ Sonido::reproducir(IDSonido::paso);
                 personaje.moverACasilla(posActual - 1);
             } 
             else {
-                // LLEGÓ A LA META (posActual == posicionObjetivo)
                 int posAntes = personaje.getPosicion();
                 
-                // Ejecutamos la consecuencia de la casilla actual
                 Casilla* casillaActual = tablero.obtenerCasilla(posActual);
                 if (casillaActual != nullptr) {
                     casillaActual->consecuencia((rand() % 3) + 1, personaje);
@@ -78,13 +70,10 @@ Sonido::reproducir(IDSonido::paso);
 
                 int posDespues = personaje.getPosicion();
 
-                // ¿La consecuencia nos teletransportó? (ej. castigo que retrocede)
                 if (posAntes != posDespues) {
-                    // Deshacemos el salto instantáneo y fijamos el nuevo objetivo
                     personaje.moverACasilla(posAntes); 
                     posicionObjetivo = posDespues;
                 } else {
-                    // Si no hubo salto extra, evaluamos fin de juego
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
                     if (estado == EstadoPartida::VICTORIA) {
@@ -93,7 +82,6 @@ Sonido::reproducir(IDSonido::paso);
                         Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
                     }
                     
-                    // Finalizamos el turno volviendo a esperar
                     faseActual = ESPERANDO_TIRO; 
                 }
             }

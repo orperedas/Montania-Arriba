@@ -31,7 +31,7 @@ int main() {
     Accesibilidad::cargarAccesibilidad();
 Sonido::cargarSonidos();
     Musica::inicializar();
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Montaña arriba");
+    sf::RenderWindow window(sf::VideoMode({1280, 720}), L"Montaña arriba");
 
     std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(1280.f, 700.f);
 
