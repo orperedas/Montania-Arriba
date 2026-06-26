@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "headers/Accesibilidad.h"
+#include "headers/Fuente.h"
 #include "headers/PantallaAccesibilidad.h"
 #include "headers/PantallaPrincipal.h"
 #include "headers/PantallaDificultad.h"
@@ -44,6 +45,7 @@ int main() {
     spriteBackground.scale({anchoVentana / fondoTamanioX, altoVentana / fondoTamanioY});
 
     Accesibilidad::cargarAccesibilidad();
+    Fuente::cargarFuente();
     Sonido::cargarSonidos();
     Musica::inicializar();
     

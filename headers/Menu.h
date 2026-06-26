@@ -15,7 +15,8 @@ private:
     sf::Texture texturaLogo;
     sf::Sprite spriteLogo;
     
-    sf::Font fuente;
+    sf::Font fuenteTitulo;
+    sf::Font fuenteBoton;
     std::vector<sf::Text> contenedorTitulo; 
     std::vector<std::string> opciones;
     std::vector<Boton> botones;

@@ -1,18 +1,17 @@
 #include <iostream>
 #include <windows.h>
-#include "headers/Sonido.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "headers/Accesibilidad.h"
+#include "headers/Fuente.h"
 #include "headers/Menu.h"
 #include "headers/Sonido.h"
 
 Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items) : spriteLogo(texturaLogo) {
 
-    if (!fuente.openFromFile("fuentes/verdanab.ttf")) {
-        std::cerr << "Error al cargar la fuente." << std::endl;
-    }
+    fuenteTitulo = Fuente::getFuente(IDFuente::InputNombre);
+    fuenteBoton = Fuente::getFuente(IDFuente::BotonMenu);
 
     if (!texturaBoton.loadFromFile("imagenes/menu_boton.png")) {
         std::cerr << "Error al cargar la textura del botón." << std::endl;
@@ -30,7 +29,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     
     sf::Color tituloColor(255, 222, 148, 255);
     sf::Color tituloColorBorde(12, 58, 94, 255);
-    sf::Text textoTit(fuente);
+    sf::Text textoTit(fuenteTitulo);
     
     textoTit.setString(sf::String::fromUtf8(titulo.begin(), titulo.end()));
     textoTit.setCharacterSize(40);
@@ -46,25 +45,20 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     indiceSeleccionado = 0;
     
     sf::FloatRect boundsTextoTit = textoTit.getGlobalBounds();
-    std::cout << "spriteLogo position: " << spriteLogo.getPosition().y << std::endl;
-    std::cout << "spriteLogo GlogalBounds: " << boundsLogo.size.y << std::endl;
-    std::cout << "textoTit position: " << textoTit.getPosition().y << std::endl;
-    std::cout << "textoTit GlogalBounds: " << boundsTextoTit.size.y << std::endl;
+    float xPos = (anchoVentana - (texturaBoton.getSize().x / 2.0f)) / 2.0f;
+    //float yPos = altoVentana / (opciones.size() + 2) * (i + 1.1);
+    float yPos = boundsTextoTit.position.y + boundsTextoTit.size.y + 50.0f;
 
     for (size_t i = 0; i < opciones.size(); ++i) {
-        float xPos = (anchoVentana - (texturaBoton.getSize().x / 2.0f)) / 2.0f;
-        float yPos = altoVentana / (opciones.size() + 2) * (i + 1.1);
-        
-        //float yPos = boundsTextoTit.position.y + boundsTextoTit.size.y + 30.f;
         sf::Vector2f posicionElemento = {xPos, yPos};
-
-
-        Boton nuevoBoton(opciones[i], posicionElemento, fuente, texturaBoton);
-        //std::cout << "Botón : " << i << nuevoBoton.getPosition().y << std::endl;
+        
+        Boton nuevoBoton(opciones[i], posicionElemento, fuenteBoton, texturaBoton);
         
         if (i == 0) {
             nuevoBoton.setSeleccionado(true);
         }
+        
+        yPos += texturaBoton.getSize().y * 1.25;
         
         botones.push_back(nuevoBoton);
     }
