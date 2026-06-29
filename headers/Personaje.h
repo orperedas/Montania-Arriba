@@ -11,8 +11,14 @@ private:
 
     sf::CircleShape mShape;
 
+    sf::String nombre;
+    sf::Font fuenteNombre;
+    sf::Text etiquetaNombre;
+
 public:
-    Personaje(int vidasIniciales = 3);
+    Personaje(const sf::Font& fuente, int vidasIniciales = 3);
+
+    sf::String getNombre() const { return nombre; };
 
     void moverACasilla(int nuevaPosicion);
     void setPosicionVisual(sf::Vector2f coordenadas);

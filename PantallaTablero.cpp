@@ -1,10 +1,11 @@
 #include "headers/PantallaTablero.h"
 #include "headers/Accesibilidad.h"
+#include "headers/Fuente.h"
 #include "headers/Sonido.h"
 #include "headers/Estado.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida)
-    : tablero(8), personaje(3), dado({580.f,660.f}), fondoDado(), reglas(difElegida, 64){ 
+    : tablero(8), personaje(Fuente::getFuente(IDFuente::TituloPantalla), 3), dado({580.f,660.f}), fondoDado(), reglas(difElegida, 64){ 
         /*
         fondoDado.setFillColor(sf::Color::Black);
         fondoDado.setSize({200.f, 80.f});

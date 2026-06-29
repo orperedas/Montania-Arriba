@@ -9,13 +9,14 @@
 
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
+#include "headers/imagen.h"
+#include "headers/Musica.h"
 #include "headers/PantallaAccesibilidad.h"
 #include "headers/PantallaPrincipal.h"
 #include "headers/PantallaDificultad.h"
 #include "headers/PantallaTablero.h"
-#include "headers/Musica.h"
-#include "headers/Sonido.h"
 #include "headers/PantallaVictoria.h"
+#include "headers/Sonido.h"
 
 Dificultad Dif;
 
@@ -31,10 +32,9 @@ int main() {
     float anchoVentana = static_cast<float>(desktopMode.size.x);
     float altoVentana = static_cast<float>(desktopMode.size.y);
 
-    sf::Texture textureBackground;
-    if (!textureBackground.loadFromFile("imagenes/fondo.png")) {
-        std::cerr << "Error al cargar la textura de fondo." << std::endl;
-    }
+    Imagen::cargarImagen();
+
+    sf::Texture textureBackground = Imagen::getImagen(IDImagen::Fondo);
 
     sf::Sprite spriteBackground(textureBackground);
     spriteBackground.setPosition({0.f, 0.f});

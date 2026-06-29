@@ -1,7 +1,7 @@
 #ifndef FUENTE_H
 #define FUENTE_H
 
-#include <unordered_map>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 
@@ -13,7 +13,7 @@ enum class IDFuente{
 
 class Fuente{
 private:
-    static std::unordered_map<IDFuente, sf::Font> fuentes;
+    static std::map<IDFuente, sf::Font> fuentes;
 
 public:
     static void cargarFuente();

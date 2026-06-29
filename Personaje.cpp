@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-Personaje::Personaje(int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0) {
+Personaje::Personaje(const sf::Font& fuente, int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0), etiquetaNombre(fuente) {
     mShape.setRadius(15.f); 
     mShape.setFillColor(sf::Color::Yellow);
     

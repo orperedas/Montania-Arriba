@@ -5,21 +5,19 @@
 
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
+#include "headers/imagen.h"
 #include "headers/Menu.h"
 #include "headers/Sonido.h"
 
 Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items) : spriteLogo(texturaLogo) {
-
-    fuenteTitulo = Fuente::getFuente(IDFuente::InputNombre);
+    
+    // Instanciando fuentes cargadas
+    fuenteTitulo = Fuente::getFuente(IDFuente::TituloPantalla);
     fuenteBoton = Fuente::getFuente(IDFuente::BotonMenu);
 
-    if (!texturaBoton.loadFromFile("imagenes/menu_boton.png")) {
-        std::cerr << "Error al cargar la textura del botón." << std::endl;
-    }
-
-    if (!texturaLogo.loadFromFile("imagenes/montania_arriba_logo_pequenio.png")) {
-        std::cerr << "Error al cargar la textura del botón." << std::endl;
-    }
+    // instanciando imágenes cargadas
+    texturaLogo = Imagen::getImagen(IDImagen::LogoPequenio);
+    texturaBoton = Imagen::getImagen(IDImagen::BotonMenu);
 
     spriteLogo.setTexture(texturaLogo, true);
 
@@ -46,8 +44,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     
     sf::FloatRect boundsTextoTit = textoTit.getGlobalBounds();
     float xPos = (anchoVentana - (texturaBoton.getSize().x / 2.0f)) / 2.0f;
-    //float yPos = altoVentana / (opciones.size() + 2) * (i + 1.1);
-    float yPos = boundsTextoTit.position.y + boundsTextoTit.size.y + 50.0f;
+    float yPos = boundsTextoTit.position.y + boundsTextoTit.size.y + 70.0f;
 
     for (size_t i = 0; i < opciones.size(); ++i) {
         sf::Vector2f posicionElemento = {xPos, yPos};
