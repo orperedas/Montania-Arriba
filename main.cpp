@@ -14,6 +14,7 @@
 #include "headers/PantallaAccesibilidad.h"
 #include "headers/PantallaPrincipal.h"
 #include "headers/PantallaDificultad.h"
+#include "headers/PantallaNombreJugador.h"
 #include "headers/PantallaTablero.h"
 #include "headers/PantallaVictoria.h"
 #include "headers/Sonido.h"
@@ -103,6 +104,9 @@ int main() {
             if (proximoEstado == EstadoID::MenuPrincipal) {
                 Musica::reproducir(IDMusica::FondoMenu);
                 estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
+            }
+            if (proximoEstado == EstadoID::NombreJugador) {
+                estadoActual = std::make_unique<PantallaNombreJugador>(anchoVentana, altoVentana);
             }
             else if (proximoEstado == EstadoID::Dificultad) {
                  estadoActual = std::make_unique<PantallaDificultad>(anchoVentana, altoVentana, Dif);

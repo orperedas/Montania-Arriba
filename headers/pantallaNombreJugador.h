@@ -1,14 +1,14 @@
 #ifndef PANTALLA_NOMBRE_JUGADOR_H
 #define PANTALLA_NOMBRE_JUGADOR_H
 
-#include "estado.h"
+#include "Estado.h"
 #include "Personaje.h"
 
-class PantallaNombreJugador : public Estado{
+class PantallaNombreJugador : public Estado {
 private:
     Personaje personaje;
 
-    sf::Font fuenteNombre;
+    sf::Text textoIndicacion;
     sf::Text n_textoVisual;
     sf::String n_inputBuffer;
 

@@ -12,7 +12,7 @@ Personaje::Personaje(const sf::Font& fuente, int vidasIniciales) : posicion(0), 
 
 
 void Personaje::setNombre(sf::String nuevoNombre){
-    nombre = "Otto";
+    nombre = nuevoNombre;
     etiquetaNombre.setString(nombre);
     etiquetaNombre.setFillColor(sf::Color::Black);
     etiquetaNombre.setCharacterSize(20);
