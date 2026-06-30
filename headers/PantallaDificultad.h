@@ -3,7 +3,8 @@
 
 #include "Estado.h"
 #include "Menu.h"
-#include "ReglasJuego.h" // <-- ¡FALTA ESTA LÍNEA!
+#include "ReglasJuego.h"
+
 class PantallaDificultad : public Estado {
 private:
     Menu menu;

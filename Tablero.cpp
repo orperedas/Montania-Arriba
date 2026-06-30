@@ -52,27 +52,18 @@ void Tablero::crearTablero() {
 
 
 void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero) {
-    /*
-    Modificando el método para que no haya castigos ni beneficios a menos de 3 casillas
-    Creando una lista con todos los números posibles en el rango [7, 60]
-    */
+
     std::vector<int> disponibles;
     for (int i = 7; i <= 60; i++) {
         disponibles.push_back(i);
     }
 
-    // Lambda auxiliar para seleccionar un número y limpiar sus vecinos cercanos
     auto seleccionarYLimpiar = [&]() -> int {
         if (disponibles.empty()) return -1; // por si se acaban los números
 
-        // Elegir un índice al azar de los que quedan disponibles
         int indiceAleatorio = rand() % disponibles.size();
         int numeroElegido = disponibles[indiceAleatorio];
 
-        /*
-        Remover el número elegido y cualquier otro que esté a distancia menor a 3, es decir,
-        eliminar del vector todo lo que esté entre numeroElegido - 2 y numeroElegido + 2
-        */
         disponibles.erase(
             std::remove_if(disponibles.begin(), disponibles.end(), [numeroElegido](int x) {
                 return std::abs(x - numeroElegido) < 3;
@@ -142,7 +133,7 @@ void Tablero::dibujar(sf::RenderWindow& ventana) {
             columna = (base - 1) - (pasoVisual % base);
         }
 
-        float x = offsetX + (columna * tamanoCasilla);
+        float x = offsetX + (columna * tamanoCasilla + 20.f);
         float y = offsetY + (fila * tamanoCasilla);
 
         casillas[i]->setPosicionVisual({x, y});

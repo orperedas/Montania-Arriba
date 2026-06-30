@@ -7,6 +7,7 @@ enum class EstadoID {
     Ninguno,
     Accesibilidad,
     MenuPrincipal,
+    NombreJugador,
     Dificultad,
     Jugando,
     Victoria,

@@ -1,9 +1,8 @@
 #include <iostream>
-#include <unordered_map>
 
 #include "headers/Fuente.h"
 
-std::unordered_map<IDFuente, sf::Font> Fuente::fuentes;
+std::map<IDFuente, sf::Font> Fuente::fuentes;
 
 void Fuente::cargarFuente(){
     if (!fuentes[IDFuente::BotonMenu].openFromFile("fuentes/ARIALNB.TTF")){

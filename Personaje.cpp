@@ -2,12 +2,27 @@
 
 #include <algorithm>
 
-Personaje::Personaje(int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0) {
+Personaje::Personaje(const sf::Font& fuente, int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0), etiquetaNombre(fuente) {
     mShape.setRadius(15.f); 
     mShape.setFillColor(sf::Color::Yellow);
     
     sf::FloatRect bounds = mShape.getLocalBounds();
     setOrigin({bounds.size.x / 2.f, bounds.size.y / 2.f}); 
+}
+
+
+void Personaje::setNombre(sf::String nuevoNombre){
+    nombre = "Otto";
+    etiquetaNombre.setString(nombre);
+    etiquetaNombre.setFillColor(sf::Color::Black);
+    etiquetaNombre.setCharacterSize(20);
+
+    //sf::FloatRect etiquetaBounds = etiquetaNombre.getLocalBounds();
+    //etiquetaNombre.setOrigin({etiquetaBounds.size.x / 2.f, etiquetaBounds.size.y + 20.f});
+
+    sf::FloatRect mShapeBounds = mShape.getGlobalBounds();
+    //etiquetaNombre.setPosition({mShapeBounds.position.x + (mShapeBounds.size.x /2), mShapeBounds.position.y + (mShapeBounds.size.y / 2)});
+    etiquetaNombre.setPosition({150.f, 300.f});
 }
 
 
@@ -50,4 +65,5 @@ int Personaje::getPosicion() {
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform(); 
     target.draw(mShape, states);
+    target.draw(etiquetaNombre, states);
 }
