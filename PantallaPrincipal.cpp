@@ -15,7 +15,7 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
             int seleccion = menu.obtenerSeleccion();
             
             if (seleccion == 0) {
-                return EstadoID::Dificultad;
+                return EstadoID::NombreJugador;
             } else if (seleccion == 1) {
                 Accesibilidad::hablar("Cargando partida...");
             } else if (seleccion == 2) {

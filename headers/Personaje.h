@@ -16,10 +16,11 @@ private:
     sf::Text etiquetaNombre;
 
 public:
-    Personaje(const sf::Font& fuente, int vidasIniciales = 3);
-
+    Personaje(const sf::Font& fuenteNombre, int vidasIniciales = 3);
+    
     void setNombre(sf::String nuevoNombre);
-    sf::String getNombre() const { return nombre; };
+
+    sf::String getNombre() const;
 
     void moverACasilla(int nuevaPosicion);
     void setPosicionVisual(sf::Vector2f coordenadas);

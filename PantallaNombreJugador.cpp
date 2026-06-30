@@ -43,7 +43,7 @@ EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento){
             }
 
             if (keyPressed->code == sf::Keyboard::Key::Enter) {
-                return EstadoID::Jugando;
+                return EstadoID::Dificultad;
             }   
         }
     }

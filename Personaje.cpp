@@ -26,6 +26,11 @@ void Personaje::setNombre(sf::String nuevoNombre){
 }
 
 
+sf::String Personaje::getNombre() const{
+    return nombre;
+}
+
+
 void Personaje::moverACasilla(int nuevaPosicion) {
     posicion = nuevaPosicion;
 }
