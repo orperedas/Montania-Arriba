@@ -17,11 +17,7 @@ void Personaje::setNombre(sf::String nuevoNombre){
     etiquetaNombre.setFillColor(sf::Color::Black);
     etiquetaNombre.setCharacterSize(20);
 
-    //sf::FloatRect etiquetaBounds = etiquetaNombre.getLocalBounds();
-    //etiquetaNombre.setOrigin({etiquetaBounds.size.x / 2.f, etiquetaBounds.size.y + 20.f});
-
     sf::FloatRect mShapeBounds = mShape.getGlobalBounds();
-    //etiquetaNombre.setPosition({mShapeBounds.position.x + (mShapeBounds.size.x /2), mShapeBounds.position.y + (mShapeBounds.size.y / 2)});
     etiquetaNombre.setPosition({150.f, 300.f});
 }
 

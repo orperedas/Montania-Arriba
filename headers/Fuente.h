@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 enum class IDFuente{
-    BotonMenu,
+    TextoBotonMenu,
     InputNombre,
     TituloPantalla
 };

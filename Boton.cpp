@@ -1,10 +1,12 @@
 #include "headers/Accesibilidad.h"
 #include "headers/Boton.h"
+#include "headers/Fuente.h"
+#include "headers/Imagen.h"
 
 Boton::Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura, std::function<void()> accion) 
     : posicionBoton(posicion), 
       spriteBoton(textura), 
-      etiquetaBoton(fuente) 
+      etiquetaBoton(Fuente::getFuente(IDFuente::TextoBotonMenu)) 
 {
     spriteBoton.setTextureRect({{0, 0}, {280, 72}});
     spriteBoton.setPosition(posicionBoton);

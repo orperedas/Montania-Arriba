@@ -5,7 +5,7 @@
 std::map<IDFuente, sf::Font> Fuente::fuentes;
 
 void Fuente::cargarFuente(){
-    if (!fuentes[IDFuente::BotonMenu].openFromFile("fuentes/ARIALNB.TTF")){
+    if (!fuentes[IDFuente::TextoBotonMenu].openFromFile("fuentes/ARIALNB.TTF")){
         std::cerr << "Error cargando ARIALNB.TTF" << std::endl;
     }
     if (!fuentes[IDFuente::InputNombre].openFromFile("fuentes/consolab.ttf")){

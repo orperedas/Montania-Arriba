@@ -20,7 +20,7 @@ void Imagen::cargarImagen(){
     if (!imagenes[IDImagen::Fondo].loadFromFile("imagenes/fondo.png")){
         std::cout << "Error cargando fondo.png0" << std::endl;
     }
-    if (!imagenes[IDImagen::LogoGrande].loadFromFile("imagenes/montania_arriba_logo_grande.png")){
+    if (!imagenes[IDImagen::LogoGrande].loadFromFile("imagenes/montania_arriba_logo_pequenio.png")){
         std::cout << "Error cargendo montania_arriba_logo_grande.png" << std::endl;
     };
     if (!imagenes[IDImagen::LogoPequenio].loadFromFile("imagenes/montania_arriba_logo_pequenio.png")){

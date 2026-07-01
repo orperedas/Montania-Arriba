@@ -19,11 +19,13 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (estadoPendiente != EstadoID::Ninguno) {
         return estadoPendiente;
     }
+    
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         if (keyPressed->code == sf::Keyboard::Key::N) {
 Accesibilidad::hablar("Estás en la casilla " + std::to_string(personaje.getPosicion()));
             Accesibilidad::hablar(personaje.getNombre());
         }
+        
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
             return EstadoID::MenuPrincipal; 
         }

@@ -4,7 +4,7 @@
 void Estado::teclasGlobales(const sf::Event& evento) {
 
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
-        if (keyPressed->code == sf::Keyboard::Key::A) {
+        if (keyPressed->code == sf::Keyboard::Key::F2) {
             if (Accesibilidad::getCondicion()) {
                 Accesibilidad::hablar("Estás desactivando la accesibilidad. No se proporcionará retroalimentación de voz.");
                 Accesibilidad::setCondicion(false);

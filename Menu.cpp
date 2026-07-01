@@ -9,14 +9,15 @@
 #include "headers/Menu.h"
 #include "headers/Sonido.h"
 
-Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items) : spriteLogo(texturaLogo) {
+Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items)
+:   texturaLogo(Imagen::getImagen(IDImagen::LogoPequenio)),
+    spriteLogo(texturaLogo) {
     
     // Instanciando fuentes cargadas
     fuenteTitulo = Fuente::getFuente(IDFuente::TituloPantalla);
-    fuenteBoton = Fuente::getFuente(IDFuente::BotonMenu);
+    fuenteBoton = Fuente::getFuente(IDFuente::TextoBotonMenu);
 
     // instanciando imágenes cargadas
-    texturaLogo = Imagen::getImagen(IDImagen::LogoPequenio);
     texturaBoton = Imagen::getImagen(IDImagen::BotonMenu);
 
     spriteLogo.setTexture(texturaLogo, true);
