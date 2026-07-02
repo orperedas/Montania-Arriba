@@ -26,6 +26,9 @@ void Imagen::cargarImagen(){
     if (!imagenes[IDImagen::LogoPequenio].loadFromFile("imagenes/montania_arriba_logo_pequenio.png")){
         std::cout << "Error cargando montania_arriga_logo_pequenio.png" << std::endl;
     }
+    if (!imagenes[IDImagen::corazon].loadFromFile("imagenes/HP.png")){
+        std::cout << "Error cargando montania_arriga_logo_pequenio.png" << std::endl;
+    }
 
 }
 

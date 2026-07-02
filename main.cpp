@@ -59,8 +59,8 @@ int main() {
 
             if (const auto* resized = event->getIf<sf::Event::Resized>()) { // [5, 7]
         
-                float anchoVentana = static_cast<float>(resized->size.x);
-                float altoVentana = static_cast<float>(resized->size.y);
+                float anchoVentana = 1440;
+                float altoVentana = 810;
                 float proporcionVentana = anchoVentana / altoVentana;
 
                 sf::FloatRect viewport{{0.f, 0.f}, {1.f, 1.f}};

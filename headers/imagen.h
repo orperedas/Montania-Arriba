@@ -13,7 +13,8 @@ enum class IDImagen{
     Fondo,
     LogoGrande,
     LogoPequenio,
-    Personaje
+    Personaje,
+    corazon
 };
 
 class Imagen{

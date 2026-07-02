@@ -63,6 +63,10 @@ int Personaje::getPosicion() {
     return posicion; 
 }
 
+int Personaje::getVida() { 
+    return vidas; 
+}
+
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform(); 
     target.draw(mShape, states);

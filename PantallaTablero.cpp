@@ -3,9 +3,15 @@
 #include "headers/Fuente.h"
 #include "headers/Sonido.h"
 #include "headers/Estado.h"
+#include "headers/Imagen.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida)
-    : tablero(8), personaje(Fuente::getFuente(IDFuente::TituloPantalla), 3), dado({580.f,660.f}), fondoDado(), reglas(difElegida, 64){ 
+    : tablero(8),
+     personaje(Fuente::getFuente(IDFuente::TituloPantalla), 3),
+      dado({580.f,660.f}),
+       fondoDado(),
+        reglas(difElegida, 64),
+               panelInfo(Fuente::getFuente(IDFuente::TituloPantalla), Imagen::getImagen(IDImagen::corazon), {anchoVentana - 270.f, 20.f}){ 
         /*
         fondoDado.setFillColor(sf::Color::Black);
         fondoDado.setSize({200.f, 80.f});
@@ -13,7 +19,8 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificult
         */
 
         personaje.moverACasilla(-1);
-}
+personaje.setNombre("lucas");
+    }
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (estadoPendiente != EstadoID::Ninguno) {
@@ -24,6 +31,9 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
         if (keyPressed->code == sf::Keyboard::Key::N) {
 Accesibilidad::hablar("Estás en la casilla " + std::to_string(personaje.getPosicion()));
             Accesibilidad::hablar(personaje.getNombre());
+        }
+        if (keyPressed->code == sf::Keyboard::Key::V) {
+Accesibilidad::hablar("Tenés " + std::to_string(personaje.getVida()) + " vidas");
         }
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
@@ -99,18 +109,22 @@ void PantallaTablero::actualizar() {
             relojMovimiento.restart();
         }
     }
-
+    panelInfo.actualizarDatos(personaje);
     Casilla* casillaVisual = tablero.obtenerCasilla(personaje.getPosicion());
     if (casillaVisual != nullptr) {
+if (personaje.getPosicion() == -1){
+casillaInicial = tablero.obtenerCasilla(0)->getPosicionVisual();
+        personaje.setPosicionVisual({casillaInicial.x + 25.f, casillaInicial.y + 70});
+}else {
         sf::Vector2f coord = casillaVisual->getPosicionVisual();
         personaje.setPosicionVisual({coord.x + 25.f, coord.y + 25.f});
     }
 }
-
+}
 
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     tablero.dibujar(ventana);
     ventana.draw(personaje);
-    //ventana.draw(fondoDado);
+    ventana.draw(panelInfo);
     dado.draw(ventana);
 }

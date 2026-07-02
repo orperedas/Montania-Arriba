@@ -8,6 +8,7 @@
 #include "Personaje.h"
 #include "Dado.h"
 #include "ReglasJuego.h"
+#include "PanelPersonaje.h"
 
 enum FaseTurno {
     ESPERANDO_TIRO,
@@ -19,6 +20,7 @@ private:
     Tablero tablero;
     Personaje personaje;
     Dado dado;
+PanelPersonaje panelInfo;
     FaseTurno faseActual = ESPERANDO_TIRO;
     int posicionObjetivo;
     sf::Clock relojMovimiento;
@@ -27,6 +29,7 @@ private:
     sf::RectangleShape fondoDado;
     sf::RectangleShape fondoOscuro;
     EstadoID estadoPendiente = EstadoID::Ninguno;
+    sf::Vector2f casillaInicial;
     public:
     PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida);
     

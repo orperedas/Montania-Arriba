@@ -32,6 +32,7 @@ public:
     bool puedeJugar();
     bool estaVivo();
     int getPosicion();
+    int getVida();
 
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
