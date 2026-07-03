@@ -4,21 +4,20 @@
 #include "headers/Sonido.h"
 #include "headers/Estado.h"
 #include "headers/Imagen.h"
+#include "headers/PartidaArchivo.h"
 
-PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida)
+PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p)
   : tablero(8),
     personaje(Fuente::getFuente(IDFuente::TituloPantalla), 3),
     dado({anchoVentana / 2.f, altoVentana / 2.f}),
     fondoDado(),
-    reglas(difElegida, 64),
-    panelInfo(  Fuente::getFuente(IDFuente::TituloPantalla), 
-                Imagen::getImagen(IDImagen::corazon),
-                {anchoVentana - 450.f, 120.f})
-    {
-        personaje.moverACasilla(-1);
-        //personaje.setNombre("lucas");
-    }
-
+    reglas(static_cast<Dificultad>(p.getDificultad()), 64),
+    panelInfo(Fuente::getFuente(IDFuente::TituloPantalla), Imagen::getImagen(IDImagen::corazon), {anchoVentana - 450.f, 120.f}),
+    partida(p)
+{ 
+    personaje.moverACasilla(-1);
+    personaje.setNombre(partida.getNombreJugador()); // Usamos los datos de la partida
+}
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (estadoPendiente != EstadoID::Ninguno) {
         return estadoPendiente;
@@ -26,8 +25,9 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         if (keyPressed->code == sf::Keyboard::Key::N) {
-            Accesibilidad::hablar("Estás en la casilla " + std::to_string(personaje.getPosicion()));
-            Accesibilidad::hablar(personaje.getNombre().toAnsiString());
+Accesibilidad::hablar(personaje.getNombre().toAnsiString() + 
+                      ", te encuentras en la casilla " + 
+                      std::to_string(personaje.getPosicion() + 1));
         }
         
         if (keyPressed->code == sf::Keyboard::Key::V) {
@@ -93,7 +93,16 @@ void PantallaTablero::actualizar() {
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
                     if (estado == EstadoPartida::VICTORIA) {
-                        estadoPendiente = EstadoID::Victoria;
+partida.setVidaJugador(personaje.getVida());
+    PartidaArchivo pArchivo;
+    
+    // Guardamos el objeto partida actual
+    if(pArchivo.guardar(partida)) {
+        Accesibilidad::hablar("Partida guardada exitosamente.");
+    } else {
+        Accesibilidad::hablar("Error al guardar la partida.");
+    }
+estadoPendiente = EstadoID::Victoria;
                     } else if (estado == EstadoPartida::DERROTA) {
                         Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
                     }

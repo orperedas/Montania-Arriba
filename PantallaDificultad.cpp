@@ -1,8 +1,8 @@
 #include "headers/PantallaDificultad.h"
 #include "headers/Accesibilidad.h"
 
-PantallaDificultad::PantallaDificultad(float anchoVentana, float altoVentana, Dificultad& di) 
-    : menu(anchoVentana, altoVentana, "Elije la dificultad de la partida", {"Fácil","Medio", "Difícil"}), dificultadGlobal(di) {
+PantallaDificultad::PantallaDificultad(float anchoVentana, float altoVentana, Partida& p) 
+    : menu(anchoVentana, altoVentana, "Elije la dificultad de la partida", {"Fácil","Medio", "Difícil"}), partida(p){
 }
 
 EstadoID PantallaDificultad::manejarEventos(const sf::Event& evento) {
@@ -15,18 +15,9 @@ Accesibilidad::hablar("Volviendo al menú principal");
         }        
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             int seleccion = menu.obtenerSeleccion();
-            
-            if (seleccion == 0) {
-                dificultadGlobal = Dificultad::FACIL;
-                Accesibilidad::hablar("Iniciando en dificultad Fácil.");
-            } else if (seleccion == 1) {
-                dificultadGlobal = Dificultad::MEDIO;
-                Accesibilidad::hablar("Iniciando en dificultad Medio.");
-            } else if (seleccion == 2) {
-                dificultadGlobal = Dificultad::DIFICIL;
-                Accesibilidad::hablar("Iniciando en dificultad Difícil.");
-            }            
-            
+        partida.setDificultad(seleccion); 
+        
+        Accesibilidad::hablar("Iniciando partida.");            
             return EstadoID::Jugando; 
         }
     } 

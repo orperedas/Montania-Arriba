@@ -5,8 +5,9 @@
 
 #include <iostream>
 
-PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVentana) 
-:   personaje(Fuente::getFuente(IDFuente::TituloPantalla), 3),
+PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVentana, Partida& p) 
+:   
+partida(p),
     textoIndicacion(Fuente::getFuente(IDFuente::TituloPantalla), "Ingrese su nombre:"),
     n_textoVisual(Fuente::getFuente(IDFuente::InputNombre), ""), 
     n_inputBuffer(""),
@@ -53,8 +54,6 @@ PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVenta
 }
 
 EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
-    Partida partida;
-    PartidaManager pManager;
     
     if (const auto* textoEvento = evento.getIf<sf::Event::TextEntered>()) {
         char32_t codepoint = textoEvento->unicode;
@@ -79,7 +78,8 @@ EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
 
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             if (!n_inputBuffer.isEmpty()) {
-                personaje.setNombre(n_inputBuffer.toAnsiString());
+    partida.setNombreJugador(                n_inputBuffer.toAnsiString());
+
                 
                 Accesibilidad::hablar("Nombre guardado. Seleccione dificultad.");
                 return EstadoID::Dificultad;
@@ -89,9 +89,6 @@ EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
         }   
     }
 
-    std::string nombreActual = n_inputBuffer.toAnsiString();
-
-    partida.setNombreJugador(nombreActual);
 
     n_mostrarCursor = true;
     n_relojCursor.restart();

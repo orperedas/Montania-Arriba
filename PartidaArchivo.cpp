@@ -23,7 +23,7 @@ Partida PartidaArchivo::cargarPartida() {
 }
 
 bool PartidaArchivo::guardar(const Partida& partida) {
-    FILE* pArchivo = fopen(_nombreArchivo.c_str(), "wb");
+    FILE* pArchivo = fopen(_nombreArchivo.c_str(), "ab");
     bool exito;
     
     if (pArchivo == nullptr) {

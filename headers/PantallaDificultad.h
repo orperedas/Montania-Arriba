@@ -3,14 +3,14 @@
 
 #include "Estado.h"
 #include "Menu.h"
-#include "ReglasJuego.h"
+#include "Partida.h"
 
 class PantallaDificultad : public Estado {
 private:
     Menu menu;
-    Dificultad& dificultadGlobal; 
+    Partida& partida; 
 public:
-    PantallaDificultad(float anchoVentana, float altoVentana, Dificultad& di);
+    PantallaDificultad(float anchoVentana, float altoVentana, Partida& p);
     
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;

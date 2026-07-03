@@ -18,6 +18,7 @@
 #include "headers/PantallaTablero.h"
 #include "headers/PantallaVictoria.h"
 #include "headers/Sonido.h"
+#include "headers/Partida.h"
 
 Dificultad Dif;
 
@@ -49,7 +50,7 @@ int main() {
     Fuente::cargarFuente();
     Sonido::cargarSonidos();
     Musica::inicializar();
-    
+    Partida partida;
     std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(anchoVentana, altoVentana);
 
     while (window.isOpen()) {
@@ -103,14 +104,14 @@ int main() {
                 estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
             }
             if (proximoEstado == EstadoID::NombreJugador) {
-                estadoActual = std::make_unique<PantallaNombreJugador>(anchoVentana, altoVentana);
+                estadoActual = std::make_unique<PantallaNombreJugador>(anchoVentana, altoVentana,partida);
             }
             else if (proximoEstado == EstadoID::Dificultad) {
-                 estadoActual = std::make_unique<PantallaDificultad>(anchoVentana, altoVentana, Dif);
+                 estadoActual = std::make_unique<PantallaDificultad>(anchoVentana, altoVentana, partida);
             }
             else if (proximoEstado == EstadoID::Jugando) {
                 Musica::reproducir(IDMusica::FondoTablero);
-                estadoActual = std::make_unique<PantallaTablero>(anchoVentana, altoVentana, Dif);
+                estadoActual = std::make_unique<PantallaTablero>(anchoVentana, altoVentana, partida);
             }
             else if (proximoEstado == EstadoID::Victoria) {
                 Musica::reproducir(IDMusica::FondoTablero);

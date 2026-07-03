@@ -9,6 +9,7 @@
 #include "Dado.h"
 #include "ReglasJuego.h"
 #include "PanelPersonaje.h"
+#include "Partida.h"
 
 enum FaseTurno {
     ESPERANDO_TIRO,
@@ -21,7 +22,8 @@ private:
     Personaje personaje;
     Dado dado;
 PanelPersonaje panelInfo;
-    FaseTurno faseActual = ESPERANDO_TIRO;
+Partida &partida;
+FaseTurno faseActual = ESPERANDO_TIRO;
     int posicionObjetivo;
     sf::Clock relojMovimiento;
     ReglasJuego reglas;
@@ -31,7 +33,7 @@ PanelPersonaje panelInfo;
     EstadoID estadoPendiente = EstadoID::Ninguno;
     sf::Vector2f casillaInicial;
     public:
-    PantallaTablero(float anchoVentana, float altoVentana, Dificultad difElegida);
+    PantallaTablero(float anchoVentana, float altoVentana, Partida& p);
     
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;

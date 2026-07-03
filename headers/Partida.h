@@ -2,16 +2,13 @@
 #define PARTIDA_H
 
 #include <string>
-
-#include "Partida.h"
-#include "Personaje.h"
+#include <cstring>
 
 class Partida {
 private:
-    Personaje personaje;
-
+    int _dificultad;
     int _idPartida;
-    std::string _nombreJugador;
+    char _nombreJugador[32]; // Tamaño fijo para el archivo binario
     int _vidasJugador;
     int _posicionJugador;
     bool _jugadorActivo;
@@ -28,7 +25,10 @@ public:
     bool getjugadorActivo() const;
     bool getGanador() const;
 
-    void setNombreJugador(std::string& nombre);
+    void setNombreJugador(const std::string& nombre);
+    void setDificultad(int dificultad);
+    int getDificultad() const;
+ void setVidaJugador(int v);
 };
 
 #endif

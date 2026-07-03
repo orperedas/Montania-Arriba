@@ -6,12 +6,10 @@
 #include "Estado.h"
 #include "Partida.h"
 #include "PartidaManager.h"
-#include "Personaje.h"
 
 class PantallaNombreJugador : public Estado {
 private:
-    Personaje personaje;
-    Partida partida;
+    Partida &partida;
 
     sf::Text textoIndicacion;
     sf::Text n_textoVisual;
@@ -27,7 +25,7 @@ private:
     bool n_mostrarCursor;
 
 public:
-    PantallaNombreJugador(float anchoVentana, float altoVentana);
+    PantallaNombreJugador(float anchoVentana, float altoVentana, Partida& p);
     
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;
