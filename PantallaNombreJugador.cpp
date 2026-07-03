@@ -11,7 +11,8 @@ PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVenta
     n_textoVisual(Fuente::getFuente(IDFuente::InputNombre), ""), 
     n_inputBuffer(""),
     logoTextura(Imagen::getImagen(IDImagen::LogoPequenio)),
-    logoSprite(logoTextura)
+    logoSprite(logoTextura),
+    n_mostrarCursor(true) 
 {
     sf::FloatRect textoIndicacionBounds = textoIndicacion.getLocalBounds();
     sf::FloatRect textoVisualBounds = n_textoVisual.getGlobalBounds();
@@ -32,24 +33,28 @@ PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVenta
     logoSprite.setOrigin({logoBounds.size.x / 2.f, logoBounds.size.y / 2.f});
     logoSprite.setPosition({anchoVentana / 2.f, altoVentana / 2.f - textoIndicacionBounds.size.y - logoBounds.size.y});
 
-    textoIndicacion.setOrigin({textoIndicacionBounds.size.x / 2.f, textoIndicacionBounds.size.y / 2.f});
+    textoIndicacion.setOrigin({textoIndicacionBounds.size.x / 2.f, 0.f});
     textoIndicacion.setPosition({anchoVentana / 2.f, (altoVentana / 2.f) - textoIndicacionBounds.size.y});
 
-    inputBox.setSize({textoIndicacionBounds.size.x * 1.1f, textoIndicacionBounds.size.y * 1.25f});
+    inputBox.setSize({textoIndicacionBounds.size.x * 1.1f, textoIndicacionBounds.size.y * 1.3f});
     inputBox.setOrigin({inputBox.getSize().x / 2.f, 0.f});
-    inputBox.setPosition({(anchoVentana / 2.f) + textoVisualBounds.size.x, (altoVentana + 50.f) / 2.f});
+    inputBox.setPosition({(anchoVentana / 2.f) + textoVisualBounds.size.x, altoVentana / 2.f + 70.f});
     inputBox.setFillColor(inputBoxColor);
     inputBox.setOutlineColor(inputColor);
     inputBox.setOutlineThickness(2.f);
 
-    n_textoVisual.setPosition({(anchoVentana / 2.f) + textoVisualBounds.size.x, (altoVentana + 50.f) / 2.f});
+    n_textoVisual.setPosition({(anchoVentana / 2.f) + textoVisualBounds.size.x, altoVentana / 2.f + 70.f});
     n_textoVisual.setOrigin({textoIndicacionBounds.size.x / 2.f, 0.f});
     n_textoVisual.setFillColor(sf::Color::White);
 
     Accesibilidad::hablar("Ingrese su nombre");
+
+
 }
 
 EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
+    Partida partida;
+    PartidaManager pManager;
     
     if (const auto* textoEvento = evento.getIf<sf::Event::TextEntered>()) {
         char32_t codepoint = textoEvento->unicode;
@@ -77,18 +82,39 @@ EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
                 personaje.setNombre(n_inputBuffer.toAnsiString());
                 
                 Accesibilidad::hablar("Nombre guardado. Seleccione dificultad.");
-                return EstadoID::Dificultad; // Avanzamos de pantalla
+                return EstadoID::Dificultad;
             } else {
                 Accesibilidad::hablar("El nombre no puede estar vacío.");
             }
         }   
     }
 
+    std::string nombreActual = n_inputBuffer.toAnsiString();
+
+    partida.setNombreJugador(nombreActual);
+
+    n_mostrarCursor = true;
+    n_relojCursor.restart();
+    
+    sf::String textoAMostrar = n_inputBuffer;
+    textoAMostrar += "|";
+    n_textoVisual.setString(textoAMostrar);
+
     return EstadoID::Ninguno;
 }
 
 void PantallaNombreJugador::actualizar() {
-    
+    if (n_relojCursor.getElapsedTime().asSeconds() >= 0.5f) {
+        n_mostrarCursor = !n_mostrarCursor;
+        n_relojCursor.restart();
+
+        sf::String textoAMostrar = n_inputBuffer;
+        if (n_mostrarCursor) {
+            textoAMostrar += "|";
+        }
+        
+        n_textoVisual.setString(textoAMostrar);
+    }
 }
 
 void PantallaNombreJugador::dibujar(sf::RenderWindow& ventana) {

@@ -3,15 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "Personaje.h"
+#include "Partida.h"
 
 class PanelPersonaje : public sf::Drawable, public sf::Transformable {
 private:
-    sf::RectangleShape fondo;
+    Partida partida;
     
+    sf::RectangleShape fondo;
+    sf::Font fuente;
     sf::Text textoNombre;
     sf::Text textoPosicion;
-    
+    sf::Text textoVidas;
     sf::Texture texturaCorazon;
     std::vector<sf::Sprite> corazones;
 

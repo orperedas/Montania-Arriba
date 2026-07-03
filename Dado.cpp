@@ -13,13 +13,10 @@ Dado::Dado(sf::Vector2f posicion)
     }
     
     spriteDado.setTexture(texturaDado, true);
-    
-    //sf::FloatRect limites = spriteDado.getLocalBounds();
-    //spriteDado.setOrigin({limites.size.x / 2.0f, limites.size.y / 2.0f});
     spriteDado.setOrigin({40.0f, 40.0f});
-    
     spriteDado.setPosition(posicion);
     spriteDado.setTextureRect(sf::IntRect({0, 80}, {80, 160}));
+    spriteDado.setScale({1.25f, 1.25f});
 }
 
 int Dado::tirar() {

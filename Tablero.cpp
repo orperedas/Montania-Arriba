@@ -133,8 +133,8 @@ void Tablero::dibujar(sf::RenderWindow& ventana) {
             columna = (base - 1) - (pasoVisual % base);
         }
 
-        float x = offsetX + (columna * tamanoCasilla + 20.f);
-        float y = offsetY + (fila * tamanoCasilla);
+        float x = offsetX + (columna * tamanoCasilla);
+        float y = offsetY + (fila * tamanoCasilla + (tamanoCasilla * 0.5f));
 
         casillas[i]->setPosicionVisual({x, y});
         casillas[i]->dibujar(ventana);

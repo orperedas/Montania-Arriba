@@ -28,9 +28,11 @@ int main() {
     
     sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
     
-    float anchoVentana = static_cast<float>(desktopMode.size.x);
-    float altoVentana = static_cast<float>(desktopMode.size.y);
+    float anchoVentana = 1440.f;
+    float altoVentana = 810.f;
 
+    const float proporcionObjetivo = 16.0f / 9.0f;
+    
     Imagen::cargarImagen();
 
     sf::Texture textureBackground = Imagen::getImagen(IDImagen::Fondo);
@@ -48,19 +50,14 @@ int main() {
     Sonido::cargarSonidos();
     Musica::inicializar();
     
-    const float proporcionObjetivo = 16.0f / 9.0f;
-
     std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(anchoVentana, altoVentana);
 
     while (window.isOpen()) {
-        EstadoID proximoEstado = EstadoID::Ninguno; // Variable maestra para controlar el cambio
+        EstadoID proximoEstado = EstadoID::Ninguno;
 
         while (const std::optional event = window.pollEvent()) {
 
-            if (const auto* resized = event->getIf<sf::Event::Resized>()) { // [5, 7]
-        
-                float anchoVentana = 1440;
-                float altoVentana = 810;
+            if (const auto* resized = event->getIf<sf::Event::Resized>()) {
                 float proporcionVentana = anchoVentana / altoVentana;
 
                 sf::FloatRect viewport{{0.f, 0.f}, {1.f, 1.f}};
@@ -78,7 +75,7 @@ int main() {
                 }
 
                 sf::View view = window.getView();
-                view.setViewport(viewport); // [9]
+                view.setViewport(viewport);
                 window.setView(view);
             }
             

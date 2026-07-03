@@ -4,19 +4,27 @@
 #include <SFML/Graphics.hpp>
 
 #include "Estado.h"
+#include "Partida.h"
+#include "PartidaManager.h"
 #include "Personaje.h"
 
 class PantallaNombreJugador : public Estado {
 private:
     Personaje personaje;
+    Partida partida;
 
     sf::Text textoIndicacion;
     sf::Text n_textoVisual;
     sf::String n_inputBuffer;
+
     sf::RectangleShape fondoBox;
     sf::RectangleShape inputBox;
+    
     sf::Texture logoTextura;
     sf::Sprite logoSprite;
+
+    sf::Clock n_relojCursor;
+    bool n_mostrarCursor;
 
 public:
     PantallaNombreJugador(float anchoVentana, float altoVentana);

@@ -16,23 +16,24 @@ private:
     sf::Text etiquetaNombre;
 
 public:
+    Personaje();
     Personaje(const sf::Font& fuenteNombre, int vidasIniciales = 3);
     
-    void setNombre(sf::String nuevoNombre);
-
-    sf::String getNombre() const;
-
     void moverACasilla(int nuevaPosicion);
-    void setPosicionVisual(sf::Vector2f coordenadas);
-
     void modificarVidas(int cantidad);
     void agregarTurnoPerdido(int cantidad);
     void descontarTurnoPerdido();
-
     bool puedeJugar();
     bool estaVivo();
+    
+    sf::String getNombre() const;
     int getPosicion();
     int getVida();
+    
+    void setNombre(sf::String nuevoNombre);
+    void setPosicionVisual(sf::Vector2f coordenadas);
+
+    ~Personaje() = default;    
 
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
