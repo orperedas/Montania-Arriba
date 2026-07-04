@@ -11,7 +11,7 @@ public:
     PartidaArchivo();
     PartidaArchivo(std::string nombreArchivo);
     Partida cargarPartida();
-
+    void cargarPartidas();
     int tamanioArchivo() const;
     int tamanioRegistro() const;
     bool guardar(const Partida& partida);

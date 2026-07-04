@@ -32,3 +32,20 @@ void PartidaManager::guardarPartida() {
         std::cout << "Error inesperado, no se guard∩┐╜ el registro" << std::endl;
     }
 }
+
+void PartidaManager::listarPartidas() {
+    PartidaArchivo pArchivo;
+    Partida registro;
+    
+    int tam_registro = sizeof(Partida);
+    int tam_archivo = pArchivo.tamanioArchivo();
+    int cantidad_registros = tam_archivo / tam_registro;
+
+    std::cout << "Cantidad de partidas guardadas: " << cantidad_registros << std::endl;
+
+    /*
+    for (int i = 0; i < cantidad_registros; ++i) {
+        registro = pArchivo.cargarPartidas();
+        std::cout << registro.mostrarPartida() << std::endl;
+    }*/
+}

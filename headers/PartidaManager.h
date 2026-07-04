@@ -21,6 +21,7 @@ public:
     void buscarPartida();
     void cargarPartida();
     void guardarPartida();
+    void listarPartidas();
 
     ~PartidaManager() = default;
 };

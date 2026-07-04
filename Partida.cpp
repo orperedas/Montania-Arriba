@@ -1,3 +1,6 @@
+#include <iostream>
+#include <cstring>
+
 #include "headers/Partida.h"
 
 Partida::Partida() : _idPartida(0), _vidasJugador(0), _posicionJugador(0), _jugadorActivo(false), _ganador(false) {
@@ -28,13 +31,22 @@ int Partida::getVidasJugador() const { return _vidasJugador; }
 int Partida::getPosicionJugador() const { return _posicionJugador; }
 bool Partida::getjugadorActivo() const { return _jugadorActivo; }
 bool Partida::getGanador() const { return _ganador; }
-void Partida::setDificultad(int dificultad) {
-    _dificultad = dificultad;
-}
+void Partida::setDificultad(int dificultad) { _dificultad = dificultad; }
 
 int Partida::getDificultad() const {
     return _dificultad;
 }
+
 void Partida::setVidaJugador(int v){
     _vidasJugador=v;
-    }
+}
+
+std::string Partida::mostrarPartida() const {
+    return "ID: " + std::to_string(_idPartida) +
+           ", Dificultad: " + std::to_string(_dificultad) +
+           ", Nombre: " + std::string(_nombreJugador) +
+           ", Vidas: " + std::to_string(_vidasJugador) +
+           ", Posición: " + std::to_string(_posicionJugador) +
+           ", Activo: " + (_jugadorActivo ? "Sí" : "No") +
+           ", Ganador: " + (_ganador ? "Sí" : "No");
+}

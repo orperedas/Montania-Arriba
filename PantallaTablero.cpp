@@ -93,16 +93,19 @@ void PantallaTablero::actualizar() {
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
                     if (estado == EstadoPartida::VICTORIA) {
-partida.setVidaJugador(personaje.getVida());
-    PartidaArchivo pArchivo;
-    
-    // Guardamos el objeto partida actual
-    if(pArchivo.guardar(partida)) {
-        Accesibilidad::hablar("Partida guardada exitosamente.");
-    } else {
-        Accesibilidad::hablar("Error al guardar la partida.");
-    }
-estadoPendiente = EstadoID::Victoria;
+                        partida.setVidaJugador(personaje.getVida());
+
+                        PartidaArchivo pArchivo;
+                        
+                        // Guardamos el objeto partida actual
+                        if(pArchivo.guardar(partida)) {
+                            Accesibilidad::hablar("Partida guardada exitosamente.");
+                        } else {
+                            Accesibilidad::hablar("Error al guardar la partida.");
+                        }
+                        
+                        estadoPendiente = EstadoID::Victoria;
+                        
                     } else if (estado == EstadoPartida::DERROTA) {
                         Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
                     }

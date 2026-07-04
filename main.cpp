@@ -19,6 +19,8 @@
 #include "headers/PantallaVictoria.h"
 #include "headers/Sonido.h"
 #include "headers/Partida.h"
+#include "headers/PartidaArchivo.h"
+#include "headers/PartidaManager.h"
 
 Dificultad Dif;
 
@@ -28,7 +30,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({1440, 810}), L"Montaña arriba");
     
     sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
-    
+
     float anchoVentana = 1440.f;
     float altoVentana = 810.f;
 
@@ -50,7 +52,19 @@ int main() {
     Fuente::cargarFuente();
     Sonido::cargarSonidos();
     Musica::inicializar();
+
+    PartidaArchivo partidaArchivo;
+    PartidaManager partidaManager;
     Partida partida;
+
+    std::cout << std::endl;
+    std::cout << "Tamaño del archivo: " << partidaArchivo.tamanioArchivo() << " bytes" << std::endl;
+    std::cout << "Tamaño del registro: " << partidaArchivo.tamanioRegistro() << " bytes" << std::endl;
+    std::cout << "Registros en el archivo: " << partidaArchivo.tamanioArchivo() / partidaArchivo.tamanioRegistro() << std::endl;
+    partidaArchivo.cargarPartidas();
+    
+    std::cout << std::endl;
+
     std::unique_ptr<Estado> estadoActual = std::make_unique<PantallaAccesibilidad>(anchoVentana, altoVentana);
 
     while (window.isOpen()) {

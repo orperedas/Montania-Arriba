@@ -21,9 +21,10 @@ private:
     Tablero tablero;
     Personaje personaje;
     Dado dado;
-PanelPersonaje panelInfo;
-Partida &partida;
-FaseTurno faseActual = ESPERANDO_TIRO;
+    PanelPersonaje panelInfo;
+    Partida &partida;
+    FaseTurno faseActual = ESPERANDO_TIRO;
+    
     int posicionObjetivo;
     sf::Clock relojMovimiento;
     ReglasJuego reglas;

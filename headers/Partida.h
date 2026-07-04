@@ -28,7 +28,8 @@ public:
     void setNombreJugador(const std::string& nombre);
     void setDificultad(int dificultad);
     int getDificultad() const;
- void setVidaJugador(int v);
+    void setVidaJugador(int v);
+    std::string mostrarPartida() const;
 };
 
 #endif

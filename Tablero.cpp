@@ -11,9 +11,12 @@
 #include "headers/CasillaNormal.h"
 #include "headers/Beneficio.h"
 #include "headers/Castigo.h"
+#include "headers/Imagen.h"
 #include "headers/Tablero.h"
 
-Tablero::Tablero(int baseNum) : base(baseNum) {
+Tablero::Tablero(int baseNum)
+:   base(baseNum),
+    texturaNormal(Imagen::getImagen(IDImagen::Casilla)) {
     if (!texturaNormal.loadFromFile("imagenes/normal.png")) {
         std::cerr << "Error al cargar casilla_normal.png" << std::endl;
     }
