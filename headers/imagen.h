@@ -9,12 +9,16 @@ enum class IDImagen{
     Abalancha,
     BotonMenu,
     Casilla,
+    CasillaNormal,
+    CasillaBeneficio,
+    CasillaCastigo,
+    Corazon,
     Dado,
     Fondo,
     LogoGrande,
     LogoPequenio,
     Personaje,
-    corazon
+    Tilegrass
 };
 
 class Imagen{

@@ -12,7 +12,7 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
     dado({anchoVentana / 2.f, altoVentana / 2.f}),
     fondoDado(),
     reglas(static_cast<Dificultad>(p.getDificultad()), 64),
-    panelInfo(Fuente::getFuente(IDFuente::TituloPantalla), Imagen::getImagen(IDImagen::corazon), {anchoVentana - 450.f, 120.f}),
+    panelInfo(Fuente::getFuente(IDFuente::TituloPantalla), Imagen::getImagen(IDImagen::Corazon), {anchoVentana - 450.f, 120.f}),
     partida(p)
 { 
     personaje.moverACasilla(-1);
@@ -93,19 +93,16 @@ void PantallaTablero::actualizar() {
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(personaje);
 
                     if (estado == EstadoPartida::VICTORIA) {
-                        partida.setVidaJugador(personaje.getVida());
-
-                        PartidaArchivo pArchivo;
-                        
-                        // Guardamos el objeto partida actual
-                        if(pArchivo.guardar(partida)) {
-                            Accesibilidad::hablar("Partida guardada exitosamente.");
-                        } else {
-                            Accesibilidad::hablar("Error al guardar la partida.");
-                        }
-                        
-                        estadoPendiente = EstadoID::Victoria;
-                        
+partida.setVidaJugador(personaje.getVida());
+    PartidaArchivo pArchivo;
+    
+    // Guardamos el objeto partida actual
+    if(pArchivo.guardar(partida)) {
+        Accesibilidad::hablar("Partida guardada exitosamente.");
+    } else {
+        Accesibilidad::hablar("Error al guardar la partida.");
+    }
+estadoPendiente = EstadoID::Victoria;
                     } else if (estado == EstadoPartida::DERROTA) {
                         Accesibilidad::hablar("Te has quedado sin vidas. Fin del juego.");
                     }

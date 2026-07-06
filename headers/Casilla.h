@@ -12,7 +12,8 @@ protected:
     int numeroPosicion;
     std::string mensaje;
     
-    sf::Sprite casillaVisual; 
+    sf::Texture texturaCasilla;
+    sf::Sprite casillaVisual;
 
 public:
     Casilla(int num, const sf::Texture& textura); 

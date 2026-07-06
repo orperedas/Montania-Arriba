@@ -1,17 +1,19 @@
-#include "headers/Dado.h"
-#include "headers/Accesibilidad.h"
 #include <iostream>
-#include "headers/Sonido.h"
 #include <cstdlib>
 #include <string>
 
-Dado::Dado(sf::Vector2f posicion) 
-    : spriteDado(texturaDado), animando(false), contadorCambios(0), resultadoFinal(1) {
+#include "headers/Accesibilidad.h"
+#include "headers/Dado.h"
+#include "headers/Imagen.h"
+#include "headers/Sonido.h"
 
-    if (!texturaDado.loadFromFile("imagenes/dado_sprites.png")) {
-        std::cerr << "Error al cargar la imagen del dado." << std::endl;
-    }
-    
+Dado::Dado(sf::Vector2f posicion) 
+: spriteDado(texturaDado),
+    animando(false),
+    contadorCambios(0),
+    resultadoFinal(1),
+    texturaDado(Imagen::getImagen(IDImagen::Dado))
+{
     spriteDado.setTexture(texturaDado, true);
     spriteDado.setOrigin({40.0f, 40.0f});
     spriteDado.setPosition(posicion);

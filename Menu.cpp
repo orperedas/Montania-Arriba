@@ -8,23 +8,19 @@
 #include "headers/imagen.h"
 #include "headers/Menu.h"
 #include "headers/Sonido.h"
+#include "headers/Visual.h"
 
 Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, const std::vector<std::string>& items)
 :   texturaLogo(Imagen::getImagen(IDImagen::LogoPequenio)),
-    spriteLogo(texturaLogo) {
-    
-    // Instanciando fuentes cargadas
-    fuenteTitulo = Fuente::getFuente(IDFuente::TituloPantalla);
-    fuenteBoton = Fuente::getFuente(IDFuente::TextoBotonMenu);
-
-    // instanciando imágenes cargadas
-    texturaBoton = Imagen::getImagen(IDImagen::BotonMenu);
-
-    spriteLogo.setTexture(texturaLogo, true);
-
+    spriteLogo(texturaLogo),
+    fuenteTitulo(Fuente::getFuente(IDFuente::TituloPantalla)),
+    fuenteBoton(Fuente::getFuente(IDFuente::TextoBotonMenu)),
+    texturaBoton(Imagen::getImagen(IDImagen::BotonMenu))
+{
     sf::FloatRect boundsLogo = spriteLogo.getGlobalBounds();
     spriteLogo.setOrigin({boundsLogo.size.x / 2.f, 0.f});
     spriteLogo.setPosition({anchoVentana / 2.f, 30.f});
+    std::cout << "Logo position: (" << spriteLogo.getPosition().x << ", " << spriteLogo.getPosition().y << ")" << std::endl;
     
     sf::Color tituloColor(255, 222, 148, 255);
     sf::Color tituloColorBorde(12, 58, 94, 255);

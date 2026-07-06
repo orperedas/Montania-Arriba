@@ -21,6 +21,7 @@
 #include "headers/Partida.h"
 #include "headers/PartidaArchivo.h"
 #include "headers/PartidaManager.h"
+#include "headers/Visual.h"
 
 Dificultad Dif;
 
@@ -52,6 +53,7 @@ int main() {
     Fuente::cargarFuente();
     Sonido::cargarSonidos();
     Musica::inicializar();
+    Visual::inicializarVisual();
 
     PartidaArchivo partidaArchivo;
     PartidaManager partidaManager;

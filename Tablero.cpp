@@ -16,7 +16,9 @@
 
 Tablero::Tablero(int baseNum)
 :   base(baseNum),
-    texturaNormal(Imagen::getImagen(IDImagen::Casilla)) {
+    texturaNormal(Imagen::getImagen(IDImagen::CasillaNormal)),
+    texturaBeneficio(Imagen::getImagen(IDImagen::CasillaBeneficio)),
+    texturaCastigo(Imagen::getImagen(IDImagen::CasillaCastigo)) {
     if (!texturaNormal.loadFromFile("imagenes/normal.png")) {
         std::cerr << "Error al cargar casilla_normal.png" << std::endl;
     }

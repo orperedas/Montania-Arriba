@@ -2,8 +2,9 @@
 
 Casilla::Casilla(int num, const sf::Texture& textura) 
     : numeroPosicion(num), 
-      mensaje("Casilla " + std::to_string(num + 1)), 
-      casillaVisual(textura) 
+      mensaje("Casilla " + std::to_string(num + 1)),
+      texturaCasilla(textura),
+      casillaVisual(textura)
 {
 }
 

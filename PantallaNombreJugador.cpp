@@ -2,6 +2,7 @@
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
 #include "headers/imagen.h"
+#include "headers/Visual.h"
 
 #include <iostream>
 
@@ -19,17 +20,22 @@ partida(p),
     sf::FloatRect textoVisualBounds = n_textoVisual.getGlobalBounds();
     sf::FloatRect inputBounds = textoIndicacion.getGlobalBounds();
     sf::FloatRect logoBounds = logoSprite.getGlobalBounds();
-
-    sf::Color fondoBoxColor(0, 0, 0, 200);
+    
+    //sf::Color fondoBoxColor(0, 0, 0, 200);
     sf::Color inputBoxColor(10, 58, 94, 200);
     sf::Color inputColor(243, 210, 140, 255);
     
+    Visual fondoBox;
+    fondoBox.ventanaFondoTransparente({anchoVentana / 2.f, altoVentana / 2.f}, {anchoVentana / 2.f, altoVentana / 2.f}, sf::Color(0, 0, 0, 180));
+    
+    /*/
     fondoBox.setSize({anchoVentana / 2.f, altoVentana / 2.f});
     fondoBox.setOrigin({fondoBox.getSize().x / 2.f, fondoBox.getSize().y / 2.f});
     fondoBox.setPosition({anchoVentana / 2.f, altoVentana / 2.f});
     fondoBox.setFillColor(fondoBoxColor);
     fondoBox.setOutlineColor(inputColor);
     fondoBox.setOutlineThickness(3.f);
+    */
 
     logoSprite.setOrigin({logoBounds.size.x / 2.f, logoBounds.size.y / 2.f});
     logoSprite.setPosition({anchoVentana / 2.f, altoVentana / 2.f - textoIndicacionBounds.size.y - logoBounds.size.y});

@@ -28,9 +28,7 @@ void Accesibilidad::hablar(const std::string& m, bool esBoton) {
     mensaje = textoFinal;
     
     if (condicion == true && Tolk_IsLoaded()) {
-        
         sf::String traductor = sf::String::fromUtf8(mensaje.begin(), mensaje.end());
-        
         Tolk_Speak(traductor.toWideString().c_str());
     }
 }
