@@ -9,7 +9,8 @@
 
 class PantallaNombreJugador : public Estado {
 private:
-    Partida &partida;
+int indiceJugadorActual = 0;
+Partida &partida;
 
     sf::Text textoIndicacion;
     sf::Text n_textoVisual;

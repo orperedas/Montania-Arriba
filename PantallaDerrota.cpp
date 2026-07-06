@@ -1,16 +1,16 @@
 #include <iostream>
 
-#include "headers/PantallaVictoria.h"
+#include "headers/PantallaDerrota.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Boton.h"
 #include "headers/Sonido.h"
 
-PantallaVictoria::PantallaVictoria(float anchoVentana, float altoVentana, Partida& p) 
-    : menu(anchoVentana, altoVentana, "¡Felicidades! ganaste la partida!",{"Volver al menú principal","Salir del juego"}), partida(p) {
-        Sonido::reproducir(IDSonido::Victoria);
+PantallaDerrota::PantallaDerrota(float anchoVentana, float altoVentana, Partida& p) 
+    : menu(anchoVentana, altoVentana, "¡Perdieron todos!",{"Volver al menú principal","Salir del juego"}), partida(p) {
+        Sonido::reproducir(IDSonido::Derrota);
 }
 
-EstadoID PantallaVictoria::manejarEventos(const sf::Event& evento) {
+EstadoID PantallaDerrota::manejarEventos(const sf::Event& evento) {
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         if (keyPressed->code == sf::Keyboard::Key::Up) menu.moverArriba();
         if (keyPressed->code == sf::Keyboard::Key::Down) menu.moverAbajo();
@@ -33,9 +33,9 @@ EstadoID PantallaVictoria::manejarEventos(const sf::Event& evento) {
     return EstadoID::Ninguno; 
 }
 
-void PantallaVictoria::actualizar() {
+void PantallaDerrota::actualizar() {
 }
 
-void PantallaVictoria::dibujar(sf::RenderWindow& ventana) {
+void PantallaDerrota::dibujar(sf::RenderWindow& ventana) {
     menu.dibujar(ventana);
 }

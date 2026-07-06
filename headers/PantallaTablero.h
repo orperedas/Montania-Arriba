@@ -19,9 +19,10 @@ enum FaseTurno {
 class PantallaTablero : public Estado {
 private:
     Tablero tablero;
-    Personaje personaje;
+        std::vector<Personaje> jugadores; 
+    int turnoActual; 
     Dado dado;
-    PanelPersonaje panelInfo;
+    std::vector<PanelPersonaje> panelesJugadores; // Un panel por cada jugador
     Partida &partida;
     FaseTurno faseActual = ESPERANDO_TIRO;
     

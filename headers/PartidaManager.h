@@ -5,18 +5,12 @@
 
 class PartidaManager {
 private:
-    Partida partida;
-
-    int idPartida;
-    std::string nombreJugador;
-    int vidasJugador;
-    int posicionJugador;
-    bool jugadorActivo;
-    bool ganador;
+    Partida partida; // El Manager guarda una instancia de la partida actual
 
 public:
     PartidaManager() = default;
-    PartidaManager(int idPartida, std::string nombreJugador, int vidasJugador, int posicionJugador, bool jugadorActivo, bool ganador);
+    
+    PartidaManager(const Partida& p);
 
     void buscarPartida();
     void cargarPartida();

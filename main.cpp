@@ -21,8 +21,7 @@
 #include "headers/Partida.h"
 #include "headers/PartidaArchivo.h"
 #include "headers/PartidaManager.h"
-
-Dificultad Dif;
+#include "headers/PantallaCantidadJugadores.h"
 
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -117,6 +116,9 @@ int main() {
                 Musica::reproducir(IDMusica::FondoMenu);
                 estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
             }
+            if (proximoEstado == EstadoID::Cantidad) {
+                estadoActual = std::make_unique<PantallaCantidadJugadores>(anchoVentana, altoVentana,partida);
+            }
             if (proximoEstado == EstadoID::NombreJugador) {
                 estadoActual = std::make_unique<PantallaNombreJugador>(anchoVentana, altoVentana,partida);
             }
@@ -129,7 +131,7 @@ int main() {
             }
             else if (proximoEstado == EstadoID::Victoria) {
                 Musica::reproducir(IDMusica::FondoTablero);
-                estadoActual = std::make_unique<PantallaVictoria>(anchoVentana, altoVentana);
+                estadoActual = std::make_unique<PantallaVictoria>(anchoVentana, altoVentana,partida);
             }
             else if (proximoEstado == EstadoID::Salir) {
                 window.close();

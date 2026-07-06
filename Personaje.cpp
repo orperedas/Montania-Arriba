@@ -7,15 +7,12 @@
 Personaje::Personaje() : posicion(0), vidas(3), turnosPerdidos(0), etiquetaNombre(fuenteNombre) {
 }
 
-Personaje::Personaje(const sf::Font& fuente, int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0), etiquetaNombre(fuente) {
+Personaje::Personaje(const sf::Font& fuente, int nj, int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0), etiquetaNombre(fuente) {
     mShape.setRadius(15.f); 
     mShape.setFillColor(sf::Color::Yellow);
     
     sf::FloatRect bounds = mShape.getLocalBounds();
     setOrigin({bounds.size.x / 2.f, bounds.size.y / 2.f});
-
-    Partida partida;
-    nombre = partida.getNombreJugador();
 }
 
 
@@ -38,8 +35,7 @@ void Personaje::descontarTurnoPerdido() {
 }
 
 bool Personaje::puedeJugar() { 
-    return turnosPerdidos == 0; 
-}
+    return (turnosPerdidos == 0) && (vidas > 0); }
 
 bool Personaje::estaVivo() { 
     return vidas > 0; 
@@ -67,9 +63,15 @@ void Personaje::setPosicionVisual(sf::Vector2f coordenadas) {
     setPosition(coordenadas); 
 }
 
+    sf::String Personaje::getposicionVisual() const{
+return "Usted se encuentra en la posición visual: " + std::to_string(getPosition().x) + ", " + std::to_string(getPosition().y);
+    }
+    void Personaje::otorgarTurnoExtra() { turnoExtra = true;    }
+    bool Personaje::tieneTurnoExtra() const { return turnoExtra; }
+    void Personaje::usarTurnoExtra() { turnoExtra = false; }
 
 
-void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform(); 
     target.draw(mShape, states);
     target.draw(etiquetaNombre, states);

@@ -29,6 +29,9 @@ void Sonido::cargarSonidos() {
     if (!buffers[IDSonido::Victoria].loadFromFile("sonidos/gameplay/victoria.wav")) {
         std::cerr << "Error cargando victoria.wav" << std::endl;
     }
+    if (!buffers[IDSonido::Derrota].loadFromFile("sonidos/gameplay/perdida.wav")) {
+        std::cerr << "Error cargando perdida.wav" << std::endl;
+    }
     if (!buffers[IDSonido::suvida].loadFromFile("sonidos/gameplay/ojas.wav")) {
         std::cerr << "Error cargando ojas.wav" << std::endl;
     }

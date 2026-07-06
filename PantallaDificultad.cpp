@@ -17,8 +17,7 @@ Accesibilidad::hablar("Volviendo al menú principal");
             int seleccion = menu.obtenerSeleccion();
         partida.setDificultad(seleccion); 
         
-        Accesibilidad::hablar("Iniciando partida.");            
-            return EstadoID::Jugando; 
+            return EstadoID::NombreJugador; 
         }
     } 
 
