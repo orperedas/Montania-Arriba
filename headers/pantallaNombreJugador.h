@@ -10,7 +10,8 @@
 
 class PantallaNombreJugador : public Estado {
 private:
-    Partida &partida;
+int indiceJugadorActual = 0;
+Partida &partida;
     Visual fondoBox;
 
     sf::Text textoIndicacion;

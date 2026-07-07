@@ -8,7 +8,7 @@ private:
     int posicion;
     int vidas;
     int turnosPerdidos;
-
+    bool turnoExtra = false;
     sf::CircleShape mShape;
 
     sf::String nombre;
@@ -17,7 +17,7 @@ private:
 
 public:
     Personaje();
-    Personaje(const sf::Font& fuenteNombre, int vidasIniciales = 3);
+    Personaje(const sf::Font& fuenteNombre, int nj, int vidasIniciales = 3);
     
     void moverACasilla(int nuevaPosicion);
     void modificarVidas(int cantidad);
@@ -27,8 +27,13 @@ public:
     bool estaVivo();
     
     sf::String getNombre() const;
+    sf::String getposicionVisual() const;
+
     int getPosicion();
     int getVida();
+    void otorgarTurnoExtra() ;
+    bool tieneTurnoExtra() const ;
+    void usarTurnoExtra() ;
     
     void setNombre(sf::String nuevoNombre);
     void setPosicionVisual(sf::Vector2f coordenadas);

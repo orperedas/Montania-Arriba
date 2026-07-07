@@ -15,7 +15,7 @@ void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
             mensaje += ". Caíste en una grieta. Pierdes un turno.";
             Sonido::reproducir(IDSonido::grito);
             Sonido::reproducir(IDSonido::hueso);
-            personaje.descontarTurnoPerdido();
+            personaje.agregarTurnoPerdido(1);
             break;
         case 3:
             mensaje += ". Avalancha. Retrocedes 2 casillas.";

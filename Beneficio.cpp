@@ -20,7 +20,7 @@ void Beneficio::consecuencia(int numeroAleatorio, Personaje& personaje) {
             break;
         case 3:
             mensaje += ". beneficio. Tiras el dado otra vez.";
-            
+            personaje.otorgarTurnoExtra(); // ACTIVAMOS EL TURNO EXTRA
             break;
         default:
             mensaje = "";

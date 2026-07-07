@@ -1,16 +1,16 @@
-#ifndef PANTALLA_VICTORIA_H
-#define PANTALLA_VICTORIA_H
+#ifndef PANTALLA_CANTIDAD_JUGADORES_H
+#define PANTALLA_CANTIDAD_JUGADORES_H
 
 #include "Estado.h"
 #include "Menu.h"
 #include "Partida.h"
 
-class PantallaVictoria : public Estado {
+class PantallaCantidadJugadores: public Estado {
 private:
     Menu menu;
-    Partida& partida;
+    Partida& partida; 
 public:
-    PantallaVictoria(float anchoVentana, float altoVentana, Partida& p);
+    PantallaCantidadJugadores(float anchoVentana, float altoVentana, Partida& p);
     
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;

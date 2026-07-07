@@ -1,15 +1,16 @@
 #include "headers/PantallaNombreJugador.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
-#include "headers/imagen.h"
+#include "headers/Imagen.h" // Asegurate de la mayúscula en Imagen.h si corresponde
 #include "headers/Visual.h"
 
 #include <iostream>
 
 PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVentana, Partida& p) 
 :   
-partida(p),
-    textoIndicacion(Fuente::getFuente(IDFuente::TituloPantalla), "Ingrese su nombre:"),
+    partida(p),
+    indiceJugadorActual(0), // Inicializamos el contador en el jugador 1 (índice 0)
+    textoIndicacion(Fuente::getFuente(IDFuente::TituloPantalla), "Ingrese nombre del jugador 1:"),
     n_textoVisual(Fuente::getFuente(IDFuente::InputNombre), ""), 
     n_inputBuffer(""),
     logoTextura(Imagen::getImagen(IDImagen::LogoPequenio)),
@@ -47,9 +48,7 @@ partida(p),
     n_textoVisual.setOrigin({textoIndicacionBounds.size.x / 2.f, 0.f});
     n_textoVisual.setFillColor(sf::Color::White);
 
-    Accesibilidad::hablar("Ingrese su nombre");
-
-
+    Accesibilidad::hablar("Ingrese el nombre del jugador 1");
 }
 
 EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
@@ -77,17 +76,38 @@ EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
 
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             if (!n_inputBuffer.isEmpty()) {
-    partida.setNombreJugador(                n_inputBuffer.toAnsiString());
-
                 
-                Accesibilidad::hablar("Nombre guardado. Seleccione dificultad.");
-                return EstadoID::Dificultad;
+                partida.setNombreJugador(indiceJugadorActual, n_inputBuffer.toAnsiString());
+
+                indiceJugadorActual++;
+
+                if (indiceJugadorActual < partida.getCantidadJugadores()) {
+                    
+                    n_inputBuffer = "";
+                    n_textoVisual.setString("");
+                    
+                    std::string nuevoTexto = "Ingrese nombre del jugador " + std::to_string(indiceJugadorActual + 1) + ":";
+                    textoIndicacion.setString(nuevoTexto);
+                    
+                    sf::FloatRect textoIndicacionBounds = textoIndicacion.getLocalBounds();
+                    textoIndicacion.setOrigin({textoIndicacionBounds.size.x / 2.f, 0.f});
+                    
+                    Accesibilidad::hablar("Nombre guardado. " + nuevoTexto);
+                    
+                    return EstadoID::Ninguno;
+                    
+                } else {
+                    indiceJugadorActual = 0; 
+                    
+                    Accesibilidad::hablar("Todos los nombres han sido guardados. Seleccione dificultad.");
+                    return EstadoID::Jugando;
+                }
+                
             } else {
                 Accesibilidad::hablar("El nombre no puede estar vacío.");
             }
         }   
     }
-
 
     n_mostrarCursor = true;
     n_relojCursor.restart();
