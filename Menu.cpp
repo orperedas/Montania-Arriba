@@ -17,6 +17,11 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     fuenteBoton(Fuente::getFuente(IDFuente::TextoBotonMenu)),
     texturaBoton(Imagen::getImagen(IDImagen::BotonMenu))
 {
+    fondoBox.fondoVentanaTransparente(
+        {anchoVentana / 2.f, altoVentana / 3.f * 2.f},
+        {anchoVentana / 2.f, altoVentana / 2.f},
+        visual.getColor(IDVisual::Negro_Transparente));
+
     sf::FloatRect boundsLogo = spriteLogo.getGlobalBounds();
     spriteLogo.setOrigin({boundsLogo.size.x / 2.f, 0.f});
     spriteLogo.setPosition({anchoVentana / 2.f, 30.f});
@@ -26,8 +31,9 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     sf::Color tituloColorBorde(12, 58, 94, 255);
     sf::Text textoTit(fuenteTitulo);
     
+    
     textoTit.setString(sf::String::fromUtf8(titulo.begin(), titulo.end()));
-    textoTit.setCharacterSize(40);
+    textoTit.setCharacterSize(30);
     textoTit.setFillColor(tituloColor);
     textoTit.setStyle(sf::Text::Bold);
     textoTit.setPosition({(anchoVentana - textoTit.getLocalBounds().size.x) / 2.0f, spriteLogo.getPosition().y + boundsLogo.size.y + 30.f});
@@ -52,7 +58,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
             nuevoBoton.setSeleccionado(true);
         }
         
-        yPos += texturaBoton.getSize().y * 1.25;
+        yPos += texturaBoton.getSize().y * 1.1;
         
         botones.push_back(nuevoBoton);
     }
@@ -91,6 +97,8 @@ int Menu::obtenerSeleccion() const {
 
 
 void Menu::dibujar(sf::RenderWindow& ventana) {
+    fondoBox.dibujar(ventana);
+
     if (spriteFondo.has_value()) {
         ventana.draw(*spriteFondo);
     }

@@ -10,6 +10,7 @@
 #include "ReglasJuego.h"
 #include "PanelPersonaje.h"
 #include "Partida.h"
+#include "Visual.h"
 
 enum FaseTurno {
     ESPERANDO_TIRO,
@@ -18,26 +19,26 @@ enum FaseTurno {
 };
 class PantallaTablero : public Estado {
 private:
-    Tablero tablero;
-    Personaje personaje;
     Dado dado;
-    FaseTurno faseActual = ESPERANDO_TIRO;
-    std::vector<PanelPersonaje> panelesJugadores; // Un panel por cada jugador
+    EstadoID estadoPendiente = EstadoID::Ninguno;
     Partida &partida;
-    Personaje personaje;
+    FaseTurno faseActual = ESPERANDO_TIRO;
     ReglasJuego reglas;
     Tablero tablero;
+    Visual visual;
     
-    EstadoID estadoPendiente = EstadoID::Ninguno;
-
+    int turnoActual; 
     int posicionObjetivo;
-    sf::Clock relojMovimiento;
     int casillasAAvanzar = 0;
+    
+    std::vector<Personaje> jugadores; 
+    std::vector<PanelPersonaje> panelesJugadores; // Un panel por cada jugador
+    
+    sf::Clock relojMovimiento;
     sf::RectangleShape fondoDado;
-    sf::Texture texturaFondoTablero;
-    sf::Sprite spriteFondoTablero;
+    sf::RectangleShape fondoOscuro;
     sf::Vector2f casillaInicial;
-
+    
 public:
     PantallaTablero(float anchoVentana, float altoVentana, Partida& p);
     

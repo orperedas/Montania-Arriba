@@ -6,10 +6,15 @@
 #include <SFML/Graphics.hpp>
 
 enum class IDVisual {
-    ColorAzul,
-    ColorNaranjaClaro,
-    ColorNaranjaOscuro,
-    ColorNegroTransparente,
+    Azul_Solido,
+    Blanco_Solido,
+    GrisClaro_Solido,
+    GrisMedio_Solido,
+    GrisOscuro_Solido,
+    NaranjaClaro_Solido,
+    NaranjaOscuro_Solido,
+    Negro_Transparente,
+
     FondoTablero,
     FondoVentana
 };
@@ -20,22 +25,20 @@ private:
     sf::Texture texturaFondoTablero;
     sf::Sprite spriteFondoTablero;
     
-    sf::Color azul;
-    sf::Color naranjaClaro;
-    sf::Color naranjaOscuro;
-    sf::Color negroSolido;
-    sf::Color negrotransparente;
-    
+    std::map<IDVisual, sf::Color> colores;
     std::map<IDVisual, sf::Texture> visuales;
-
+    
 public:
     Visual();
 
-    void inicializarVisual();
     sf::Texture& getVisual(IDVisual id);
-    void fondoVentanaTablero(sf::Vector2f posicion, sf::Texture& fondo);
+    sf::Color getColor(IDVisual id);
+
+    void inicializarVisual();
+    void fondoVentanaTablero(sf::Vector2f tamanio, sf::Vector2f posicion);
     void fondoVentanaTransparente(sf::Vector2f tamanio, sf::Vector2f posicion, sf::Color colorFondo);
     void dibujar(sf::RenderWindow& ventana);
+    
     ~Visual() = default;
 };
 

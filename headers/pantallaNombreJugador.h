@@ -13,6 +13,7 @@ private:
 int indiceJugadorActual = 0;
 Partida &partida;
     Visual fondoBox;
+    Visual visual;
 
     sf::Text textoIndicacion;
     sf::Text n_textoVisual;

@@ -6,12 +6,12 @@ PanelPersonaje::PanelPersonaje(const sf::Font& fuente, const sf::Texture& textur
     setPosition(posicionPantalla);
 
     fondo.setSize({350.f, 100.f});
-    fondo.setFillColor(sf::Color(12, 58, 95, 255));
-    fondo.setOutlineThickness(2.f);
-    fondo.setOutlineColor(sf::Color::White);
+    fondo.setFillColor(sf::Color(20, 20, 20));
+    fondo.setOutlineThickness(3.f);
+    fondo.setOutlineColor(sf::Color(100, 100, 100));
 
     textoNombre.setCharacterSize(20);
-    textoNombre.setFillColor(sf::Color::White);
+    textoNombre.setFillColor(sf::Color(200, 200, 200));
     textoNombre.setPosition({10.f, 10.f});
 
     textoPosicion.setCharacterSize(18);

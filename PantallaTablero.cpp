@@ -1,35 +1,35 @@
-#include "headers/PantallaTablero.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
 #include "headers/Sonido.h"
 #include "headers/Estado.h"
 #include "headers/Imagen.h"
+#include "headers/PantallaTablero.h"
 #include "headers/PartidaArchivo.h"
-
-namespace {
-    int turnoActual = 0;
-}
+#include "headers/Visual.h"
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p)
   : tablero(8),
     dado({anchoVentana / 2.f, altoVentana / 2.f}),
     fondoDado(),
     reglas(static_cast<Dificultad>(p.getDificultad()), 64),
-    partida(p)
+    partida(p),
+    turnoActual(0)
 { 
-    turnoActual = 0; // Inicializamos el turno en el primer jugador (índice 0)
+    visual.fondoVentanaTablero(
+        {anchoVentana / 2.f, altoVentana / 2.f},
+        {anchoVentana / 2.f, altoVentana / 2.f} );
+
     int cantidad = partida.getCantidadJugadores();
-    float espacioVertical = 150.f; // Separación entre los paneles
+    float espacioVertical = 120.f;
 
     for (int i = 0; i < cantidad; ++i) {
         Personaje nuevoPersonaje(Fuente::getFuente(IDFuente::TituloPantalla), i);
-        nuevoPersonaje.setNombre(partida.getNombreJugador(i)); // Tomamos el nombre correcto
+        nuevoPersonaje.setNombre(partida.getNombreJugador(i)); 
         nuevoPersonaje.moverACasilla(-1);
         jugadores.push_back(nuevoPersonaje);
 
-        // 2. Instanciamos el panel de este jugador, bajando en el eje Y según el índice
         PanelPersonaje panel(Fuente::getFuente(IDFuente::TituloPantalla), 
-                             Imagen::getImagen(IDImagen::corazon), 
+                             Imagen::getImagen(IDImagen::Corazon), 
                              {anchoVentana - 450.f, 120.f + (i * espacioVertical)});
         panelesJugadores.push_back(panel);
     }
@@ -198,7 +198,7 @@ void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     }
     
     for (auto& panel : panelesJugadores) {
-ventana.draw(panel);
+        ventana.draw(panel);
     }
     
     dado.draw(ventana);

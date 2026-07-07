@@ -1,14 +1,20 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <SFML/Graphics.hpp>
-#include "Boton.h"
-#include <vector>
 #include <optional>
 #include <string>
+#include <vector>
+
+#include <SFML/Graphics.hpp>
+
+#include "Boton.h"
+#include "Visual.h"
 
 class Menu {
 private:
+    Visual fondoBox;
+    Visual visual;
+
     int indiceSeleccionado;
     sf::Texture texturaBoton;
     std::optional<sf::Sprite> spriteFondo;

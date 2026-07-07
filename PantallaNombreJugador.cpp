@@ -1,7 +1,7 @@
 #include "headers/PantallaNombreJugador.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
-#include "headers/Imagen.h" // Asegurate de la mayúscula en Imagen.h si corresponde
+#include "headers/Imagen.h"
 #include "headers/Visual.h"
 
 #include <iostream>
@@ -22,14 +22,10 @@ PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVenta
     sf::FloatRect inputBounds = textoIndicacion.getGlobalBounds();
     sf::FloatRect logoBounds = logoSprite.getGlobalBounds();
     
-    //sf::Color fondoBoxColor(0, 0, 0, 200);
-    sf::Color inputBoxColor(10, 58, 94, 200);
-    sf::Color inputColor(243, 210, 140, 255);
-    
     fondoBox.fondoVentanaTransparente(
-        {anchoVentana / 2.f, altoVentana / 3.f * 2},
         {anchoVentana / 2.f, altoVentana / 2.f},
-        sf::Color(0, 0, 0, 180));
+        {anchoVentana / 2.f, altoVentana / 2.f},
+        visual.getColor(IDVisual::Negro_Transparente));
 
     logoSprite.setOrigin({logoBounds.size.x / 2.f, logoBounds.size.y / 2.f});
     logoSprite.setPosition({anchoVentana / 2.f, altoVentana / 2.f - textoIndicacionBounds.size.y - logoBounds.size.y});
@@ -40,8 +36,8 @@ PantallaNombreJugador::PantallaNombreJugador(float anchoVentana, float altoVenta
     inputBox.setSize({textoIndicacionBounds.size.x * 1.1f, textoIndicacionBounds.size.y * 1.3f});
     inputBox.setOrigin({inputBox.getSize().x / 2.f, 0.f});
     inputBox.setPosition({(anchoVentana / 2.f) + textoVisualBounds.size.x, altoVentana / 2.f + 70.f});
-    inputBox.setFillColor(inputBoxColor);
-    inputBox.setOutlineColor(inputColor);
+    inputBox.setFillColor(visual.getColor(IDVisual::Azul_Solido));
+    inputBox.setOutlineColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
     inputBox.setOutlineThickness(2.f);
 
     n_textoVisual.setPosition({(anchoVentana / 2.f) + textoVisualBounds.size.x, altoVentana / 2.f + 70.f});

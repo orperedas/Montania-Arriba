@@ -73,7 +73,9 @@ int main() {
         while (const std::optional event = window.pollEvent()) {
 
             if (const auto* resized = event->getIf<sf::Event::Resized>()) {
-                float proporcionVentana = anchoVentana / altoVentana;
+                float nuevoAncho = static_cast<float>(resized->size.x);
+                float nuevoAlto = static_cast<float>(resized->size.y);
+                float proporcionVentana = nuevoAncho / nuevoAlto;
 
                 sf::FloatRect viewport{{0.f, 0.f}, {1.f, 1.f}};
                 bool necesitaAjuste = false;
@@ -89,7 +91,10 @@ int main() {
                     necesitaAjuste = true;
                 }
 
-                sf::View view = window.getView();
+                //sf::View view = window.getView();
+                sf::View view;
+                view.setSize({1440.f, 810.f});
+                view.setCenter({1440.f / 2.f, 810.f / 2.f});
                 view.setViewport(viewport);
                 window.setView(view);
             }
