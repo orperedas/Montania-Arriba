@@ -6,16 +6,17 @@
 #include "Estado.h"
 #include "Partida.h"
 #include "PartidaManager.h"
+#include "Visual.h"
 
 class PantallaNombreJugador : public Estado {
 private:
     Partida &partida;
+    Visual fondoBox;
 
     sf::Text textoIndicacion;
     sf::Text n_textoVisual;
     sf::String n_inputBuffer;
-
-    sf::RectangleShape fondoBox;
+    
     sf::RectangleShape inputBox;
     
     sf::Texture logoTextura;

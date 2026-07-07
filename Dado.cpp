@@ -18,7 +18,7 @@ Dado::Dado(sf::Vector2f posicion)
     spriteDado.setOrigin({40.0f, 40.0f});
     spriteDado.setPosition(posicion);
     spriteDado.setTextureRect(sf::IntRect({0, 80}, {80, 160}));
-    spriteDado.setScale({1.25f, 1.25f});
+    spriteDado.setScale({1.3f, 1.3f});
 }
 
 int Dado::tirar() {

@@ -25,17 +25,10 @@ partida(p),
     sf::Color inputBoxColor(10, 58, 94, 200);
     sf::Color inputColor(243, 210, 140, 255);
     
-    Visual fondoBox;
-    fondoBox.ventanaFondoTransparente({anchoVentana / 2.f, altoVentana / 2.f}, {anchoVentana / 2.f, altoVentana / 2.f}, sf::Color(0, 0, 0, 180));
-    
-    /*/
-    fondoBox.setSize({anchoVentana / 2.f, altoVentana / 2.f});
-    fondoBox.setOrigin({fondoBox.getSize().x / 2.f, fondoBox.getSize().y / 2.f});
-    fondoBox.setPosition({anchoVentana / 2.f, altoVentana / 2.f});
-    fondoBox.setFillColor(fondoBoxColor);
-    fondoBox.setOutlineColor(inputColor);
-    fondoBox.setOutlineThickness(3.f);
-    */
+    fondoBox.fondoVentanaTransparente(
+        {anchoVentana / 2.f, altoVentana / 3.f * 2},
+        {anchoVentana / 2.f, altoVentana / 2.f},
+        sf::Color(0, 0, 0, 180));
 
     logoSprite.setOrigin({logoBounds.size.x / 2.f, logoBounds.size.y / 2.f});
     logoSprite.setPosition({anchoVentana / 2.f, altoVentana / 2.f - textoIndicacionBounds.size.y - logoBounds.size.y});
@@ -121,7 +114,7 @@ void PantallaNombreJugador::actualizar() {
 }
 
 void PantallaNombreJugador::dibujar(sf::RenderWindow& ventana) {
-    ventana.draw(fondoBox);
+    fondoBox.dibujar(ventana);
     ventana.draw(logoSprite);
     ventana.draw(textoIndicacion);
     ventana.draw(inputBox);

@@ -18,22 +18,25 @@ enum FaseTurno {
 };
 class PantallaTablero : public Estado {
 private:
-    Tablero tablero;
-    Personaje personaje;
     Dado dado;
+    FaseTurno faseActual = ESPERANDO_TIRO;
     PanelPersonaje panelInfo;
     Partida &partida;
-    FaseTurno faseActual = ESPERANDO_TIRO;
+    Personaje personaje;
+    ReglasJuego reglas;
+    Tablero tablero;
     
+    EstadoID estadoPendiente = EstadoID::Ninguno;
+
     int posicionObjetivo;
     sf::Clock relojMovimiento;
-    ReglasJuego reglas;
     int casillasAAvanzar = 0;
     sf::RectangleShape fondoDado;
-    sf::RectangleShape fondoOscuro;
-    EstadoID estadoPendiente = EstadoID::Ninguno;
+    sf::Texture texturaFondoTablero;
+    sf::Sprite spriteFondoTablero;
     sf::Vector2f casillaInicial;
-    public:
+
+public:
     PantallaTablero(float anchoVentana, float altoVentana, Partida& p);
     
     EstadoID manejarEventos(const sf::Event& evento) override;

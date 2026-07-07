@@ -53,7 +53,6 @@ int main() {
     Fuente::cargarFuente();
     Sonido::cargarSonidos();
     Musica::inicializar();
-    Visual::inicializarVisual();
 
     PartidaArchivo partidaArchivo;
     PartidaManager partidaManager;
