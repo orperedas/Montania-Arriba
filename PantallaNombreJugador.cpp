@@ -95,7 +95,7 @@ EstadoID PantallaNombreJugador::manejarEventos(const sf::Event& evento) {
                 } else {
                     indiceJugadorActual = 0; 
                     
-                    Accesibilidad::hablar("Todos los nombres han sido guardados. Seleccione dificultad.");
+                    Accesibilidad::hablar("Todos los nombres han sido guardados.");
                     return EstadoID::Jugando;
                 }
                 

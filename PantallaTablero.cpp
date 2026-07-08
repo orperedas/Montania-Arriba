@@ -33,6 +33,7 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
                              {anchoVentana - 450.f, 120.f + (i * espacioVertical)});
         panelesJugadores.push_back(panel);
     }
+Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
 }
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {

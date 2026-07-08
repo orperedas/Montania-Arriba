@@ -7,12 +7,12 @@ CasillaNormal::CasillaNormal(int num, const sf::Texture& textura) : Casilla(num,
 }
 
 void CasillaNormal::consecuencia(int numeroAleatorio, Personaje& personaje) {
-
+std::string mActual = "";
     if (numeroAleatorio % 2 == 0) {
-        mensaje += ". Terreno seguro. El clima es agradable.";
+        mActual = ". Terreno seguro. El clima es agradable.";
     } else {
-        mensaje += ". Camino firme y despejado. Avanzas sin problemas.";
+        mActual = ". Camino firme y despejado. Avanzas sin problemas.";
     }
 
-    Accesibilidad::hablar(mensaje);
+    Accesibilidad::hablar(mensaje + mActual);
 }

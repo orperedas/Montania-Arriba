@@ -5,20 +5,21 @@ Castigo::Castigo(int num, const sf::Texture& textura) : Casilla(num, textura) {
 }
 
 void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
+std::string mActual = "";
     switch (numeroAleatorio) {
         case 1:
-            mensaje += ". ¡Un oso salvaje! Pierdes una vida.";
+            mActual = ". ¡Un oso salvaje! Pierdes una vida.";
             Sonido::reproducir(IDSonido::rujidoOso);
             personaje.modificarVidas(-1);
             break;
         case 2:
-            mensaje += ". Caíste en una grieta. Pierdes un turno.";
+            mActual = ". Caíste en una grieta. Pierdes un turno.";
             Sonido::reproducir(IDSonido::grito);
             Sonido::reproducir(IDSonido::hueso);
             personaje.agregarTurnoPerdido(1);
             break;
         case 3:
-            mensaje += ". Avalancha. Retrocedes 2 casillas.";
+            mActual = ". Avalancha. Retrocedes 2 casillas.";
             Sonido::reproducir(IDSonido::avalancha);
             personaje.moverACasilla(personaje.getPosicion() -2);
             break;
@@ -27,5 +28,5 @@ void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
             break;
     }
 
-    Accesibilidad::hablar(mensaje);
+    Accesibilidad::hablar(mensaje + mActual);
 }

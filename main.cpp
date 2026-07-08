@@ -23,6 +23,7 @@
 #include "headers/PartidaManager.h"
 #include "headers/Visual.h"
 #include "headers/PantallaCantidadJugadores.h"
+#include "headers/PantallaDerrota.h"
 
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -138,6 +139,9 @@ int main() {
             else if (proximoEstado == EstadoID::Victoria) {
                 Musica::reproducir(IDMusica::FondoTablero);
                 estadoActual = std::make_unique<PantallaVictoria>(anchoVentana, altoVentana,partida);
+            }
+            else if (proximoEstado == EstadoID::Derrota) {
+                estadoActual = std::make_unique<PantallaDerrota>(anchoVentana, altoVentana,partida);
             }
             else if (proximoEstado == EstadoID::Salir) {
                 window.close();
