@@ -17,10 +17,10 @@ void Visual::inicializarVisual(){
     colores[IDVisual::Blanco_Solido] = sf::Color(255, 255, 255);
     colores[IDVisual::GrisClaro_Solido] = sf::Color(200, 200, 200);
     colores[IDVisual::GrisMedio_Solido] = sf::Color(100, 100, 100);
-    colores[IDVisual::GrisOscuro_Solido] = sf::Color(25, 25, 25);
-    colores[IDVisual::NaranjaClaro_Solido] = sf::Color(255, 165, 0);
-    colores[IDVisual::NaranjaOscuro_Solido] = sf::Color(204, 85, 0);
-    colores[IDVisual::Negro_Transparente] = sf::Color(0, 0, 0, 180);
+    colores[IDVisual::GrisOscuro_Solido] = sf::Color(32, 32, 32);
+    colores[IDVisual::NaranjaClaro_Solido] = sf::Color(252, 219, 142);
+    colores[IDVisual::NaranjaOscuro_Solido] = sf::Color(224, 112, 34);
+    colores[IDVisual::Negro_Transparente] = sf::Color(0, 0, 0, 200);
 }
 
 sf::Color Visual::getColor(IDVisual id) {

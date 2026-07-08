@@ -5,7 +5,7 @@
 #include "headers/Boton.h"
 
 PantallaAccesibilidad::PantallaAccesibilidad(float anchoVentana, float altoVentana) 
-    : menu(anchoVentana, altoVentana, "¿Desea que el juego inicie con accesibilidad?",{"Si, usar accesibilidad", "No, gracias"}) {
+    : menu(anchoVentana, altoVentana, "¿Desea que el juego\ninicie con accesibilidad?",{"Si, usar accesibilidad", "No, gracias"}) {
 }
 
 EstadoID PantallaAccesibilidad::manejarEventos(const sf::Event& evento) {

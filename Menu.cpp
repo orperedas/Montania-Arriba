@@ -27,8 +27,8 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     spriteLogo.setPosition({anchoVentana / 2.f, 30.f});
     std::cout << "Logo position: (" << spriteLogo.getPosition().x << ", " << spriteLogo.getPosition().y << ")" << std::endl;
     
-    sf::Color tituloColor(255, 222, 148, 255);
-    sf::Color tituloColorBorde(12, 58, 94, 255);
+    sf::Color tituloColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
+    sf::Color tituloColorBorde(visual.getColor(IDVisual::Azul_Solido));
     sf::Text textoTit(fuenteTitulo);
     
     
@@ -58,7 +58,7 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
             nuevoBoton.setSeleccionado(true);
         }
         
-        yPos += texturaBoton.getSize().y * 1.1;
+        yPos += texturaBoton.getSize().y * 1.2;
         
         botones.push_back(nuevoBoton);
     }

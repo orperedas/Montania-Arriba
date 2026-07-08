@@ -6,6 +6,8 @@
 #include <functional>
 #include <string>
 
+#include "Visual.h"
+
 class Boton{
 private:
     std::string textoBoton;
