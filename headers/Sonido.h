@@ -20,7 +20,10 @@ enum class IDSonido {
     suvida,
     hueso,
     grito,
-    pasoatras
+    pasoatras,
+    turno,
+    calma1,
+    calma2
 };
 
 class Sonido {

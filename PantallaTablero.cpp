@@ -52,18 +52,12 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
             Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getVida()) + " vidas");
         }
         
-        if (keyPressed->code == sf::Keyboard::Key::P) {
-            // Accesibilidad::hablar(jugadores[turnoActual].getposicionVisual().toAnsiString()); 
-            // Nota: Asegúrate de tener implementado toAnsiString() o similar si usas sf::Vector2f aquí
-        }
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
             return EstadoID::MenuPrincipal; 
         }
         
         if (keyPressed->code == sf::Keyboard::Key::Space && faseActual == ESPERANDO_TIRO) {
-            // Como la rotación de turnos (al final de actualizar) ya salta a los jugadores bloqueados,
-            // si el código llega aquí y está esperando tiro, es porque el jugador actual SÍ puede jugar.
             if (jugadores[turnoActual].puedeJugar()) {
                 casillasAAvanzar = dado.tirar();
                 faseActual = ANIMANDO_DADO;

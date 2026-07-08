@@ -9,8 +9,10 @@ CasillaNormal::CasillaNormal(int num, const sf::Texture& textura) : Casilla(num,
 void CasillaNormal::consecuencia(int numeroAleatorio, Personaje& personaje) {
 std::string mActual = "";
     if (numeroAleatorio % 2 == 0) {
+Sonido::reproducir(IDSonido::calma1);
         mActual = ". Terreno seguro. El clima es agradable.";
     } else {
+Sonido::reproducir(IDSonido::calma2);
         mActual = ". Camino firme y despejado. Avanzas sin problemas.";
     }
 
