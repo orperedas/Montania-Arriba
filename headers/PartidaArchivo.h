@@ -10,11 +10,12 @@ private:
 public:
     PartidaArchivo();
     PartidaArchivo(std::string nombreArchivo);
-    Partida cargarPartida();
+    Partida cargarPartida(int indice); 
     void cargarPartidas();
     int tamanioArchivo() const;
     int tamanioRegistro() const;
     bool guardar(const Partida& partida);
+    int contarPartidas(); 
 
     ~PartidaArchivo() = default;
 };

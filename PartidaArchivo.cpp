@@ -11,18 +11,29 @@ PartidaArchivo::PartidaArchivo(std::string nombreArchivo) {
     _nombreArchivo = nombreArchivo;
 }
 
-Partida PartidaArchivo::cargarPartida() {
+Partida PartidaArchivo::cargarPartida(int indice) {
     Partida registro;
     FILE* pArchivo = fopen(_nombreArchivo.c_str(), "rb");
 
-    if (pArchivo == nullptr) {
-        return registro;
-    }
+    if (pArchivo == nullptr) return registro;
 
+    fseek(pArchivo, indice * sizeof(Partida), SEEK_SET); 
+    
     fread(&registro, sizeof(Partida), 1, pArchivo);
     fclose(pArchivo);
 
     return registro;
+}
+
+int PartidaArchivo::contarPartidas() {
+    FILE* pArchivo = fopen(_nombreArchivo.c_str(), "rb");
+    if (pArchivo == nullptr) return 0; // Si no hay archivo, hay 0 partidas
+
+    fseek(pArchivo, 0, SEEK_END); // Nos vamos al final del archivo
+    int bytes = ftell(pArchivo);  // Preguntamos en qué byte estamos
+    fclose(pArchivo);
+
+    return bytes / sizeof(Partida); // Dividimos el total por lo que pesa una partida
 }
 
 void PartidaArchivo::cargarPartidas() {

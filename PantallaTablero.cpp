@@ -6,6 +6,8 @@
 #include "headers/PantallaTablero.h"
 #include "headers/PartidaArchivo.h"
 #include "headers/Visual.h"
+#include "headers/PartidaManager.h"
+
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p)
   : tablero(8),
@@ -110,16 +112,14 @@ void PantallaTablero::actualizar() {
 
                     if (estado == EstadoPartida::VICTORIA) {
                         
-                        // Guardado multijugador completo
                         for (size_t i = 0; i < jugadores.size(); ++i) {
                             partida.setVidaJugador(i, jugadores[i].getVida());
                             partida.setPosicionJugador(i, jugadores[i].getPosicion());
                             partida.setGanador(i, (i == turnoActual)); // Solo es true si es su turno
                         }
 
-                        PartidaArchivo pArchivo;
-                        pArchivo.guardar(partida);
-                        
+PartidaManager manager(partida); 
+manager.guardarPartida();
                         Accesibilidad::hablar("¡Victoria de " + jugadores[turnoActual].getNombre().toAnsiString() + "!");
                         estadoPendiente = EstadoID::Victoria;
                         
