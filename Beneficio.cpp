@@ -15,14 +15,16 @@ std::string mActual = "";
             personaje.modificarVidas(1);
             break;
         case 2:
-            mActual = ". Atajo encontrado. Avanzas 3 casillas.";
-            Sonido::reproducir(IDSonido::suvida);
-            personaje.moverACasilla(personaje.getPosicion() + 3);
-            break;
-        case 3:
             mActual = ". beneficio. Tiras el dado otra vez.";
-            personaje.otorgarTurnoExtra(); // ACTIVAMOS EL TURNO EXTRA
+            Sonido::reproducir(IDSonido::turno);
+            personaje.otorgarTurnoExtra();
             break;
+        case 3: {
+            int num = (rand() % 7) + 1;
+            mActual = ". Atajo encontrado. Avanzas " +  std::to_string(num) + " casillas.";
+            Sonido::reproducir(IDSonido::suvida);
+            personaje.moverACasilla(personaje.getPosicion() + num);
+            } break;
         default:
             mensaje = "";
             break;

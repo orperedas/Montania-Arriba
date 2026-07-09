@@ -44,6 +44,15 @@ void Sonido::cargarSonidos() {
     if (!buffers[IDSonido::pasoatras].loadFromFile("sonidos/gameplay/pasoatras.wav")) {
         std::cerr << "Error cargando pasoatras.wav" << std::endl;
     }
+    if (!buffers[IDSonido::turno].loadFromFile("sonidos/gameplay/turno.wav")) {
+        std::cout  << "Error cargando turno.wav" << std::endl;
+    }
+    if (!buffers[IDSonido::calma1].loadFromFile("sonidos/gameplay/calma1.wav")) {
+        std::cout  << "Error cargando calma1.wav" << std::endl;
+    }
+    if (!buffers[IDSonido::calma2].loadFromFile("sonidos/gameplay/calma2.wav")) {
+        std::cout  << "Error cargando calma2.wav" << std::endl;
+    }
 
 }
 

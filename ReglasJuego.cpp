@@ -65,7 +65,12 @@ void ReglasJuego::jugarTurno(Personaje& personaje, Tablero& tablero, int valorDa
         Casilla* casillaActual = tablero.obtenerCasilla(nuevaPosicion);
         if (casillaActual != nullptr) {
             // Le pasamos el personaje por referencia para que le afecte la vida/turnos
-            casillaActual->consecuencia((rand() % 3) + 1, personaje);
+            int cantJugadores = partida.getCantidadJugadores();
+            if (cantJugadores > 1){
+                casillaActual->consecuencia((rand() % 3) + 1, personaje);
+            } else {
+                casillaActual->consecuencia((rand() % 2) + 1, personaje);
+            }
         }
     }
 }

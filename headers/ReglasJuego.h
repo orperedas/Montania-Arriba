@@ -1,6 +1,7 @@
 #ifndef REGLASJUEGO_H
 #define REGLASJUEGO_H
 
+#include "Partida.h"
 #include "Personaje.h"
 #include "Tablero.h"
 
@@ -12,6 +13,7 @@ enum class EstadoPartida { EN_CURSO, VICTORIA, DERROTA };
 
 class ReglasJuego {
 private:
+    Partida partida;
     Dificultad dificultad;
     int ultimaCasilla;
 

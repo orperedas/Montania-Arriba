@@ -32,18 +32,6 @@ void Tablero::crearTablero() {
 
     posicionesCasEspecial(castigos, beneficios, dimencionTablero);
     
-    std::cout << "Valores de beneficios: ";
-    for (const auto& valor : beneficios) {
-        std::cout << valor << " ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Valores de castigos: ";
-    for (const auto& valor : castigos) {
-        std::cout << valor << " ";
-    }
-    std::cout << std::endl;
-
     asignarCasillas(casillas, dimencionTablero);
 }
 
@@ -65,6 +53,7 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
             std::remove_if(disponibles.begin(), disponibles.end(), [numeroElegido](int x) {
                 return std::abs(x - numeroElegido) < 3;
             }),
+            
             disponibles.end()
         );
 

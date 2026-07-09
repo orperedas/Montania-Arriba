@@ -18,11 +18,12 @@ std::string mActual = "";
             Sonido::reproducir(IDSonido::hueso);
             personaje.agregarTurnoPerdido(1);
             break;
-        case 3:
-            mActual = ". Avalancha. Retrocedes 2 casillas.";
+        case 3: {
+            int num = (rand() % 7) + 1;
+            mActual = ". Avalancha. Retrocedes " +std::to_string(num) + " casillas.";
             Sonido::reproducir(IDSonido::avalancha);
-            personaje.moverACasilla(personaje.getPosicion() -2);
-            break;
+            personaje.moverACasilla(personaje.getPosicion() -num);
+            } break;
         default:
             mensaje = "";
             break;
