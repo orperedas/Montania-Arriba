@@ -99,7 +99,11 @@ void PantallaTablero::actualizar() {
                 Casilla* casillaActual = tablero.obtenerCasilla(posActual);
                 
                 if (casillaActual != nullptr) {
-                    casillaActual->consecuencia((rand() % 3) + 1, jugadores[turnoActual]);
+                    if (partida.getCantidadJugadores() > 1){
+                        casillaActual->consecuencia((rand() % 3) + 1, jugadores[turnoActual]);
+                    } else {
+                        casillaActual->consecuencia((rand() % 2) + 1, jugadores[turnoActual]);
+                    }
                 }
 
                 int posDespues = jugadores[turnoActual].getPosicion();
