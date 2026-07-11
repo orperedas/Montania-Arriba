@@ -9,7 +9,7 @@
 #include "headers/PartidaManager.h"
 
 
-PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p)
+PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga)
   : tablero(8),
     dado({anchoVentana / 2.f, altoVentana / 2.f}),
     fondoDado(),
@@ -28,6 +28,9 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
         Personaje nuevoPersonaje(Fuente::getFuente(IDFuente::TituloPantalla), i);
         nuevoPersonaje.setNombre(partida.getNombreJugador(i)); 
         nuevoPersonaje.moverACasilla(-1);
+    if (carga){
+nuevoPersonaje.cargaPersonaje(            partida.getVidasJugador(i),partida.getPosicionJugador(i),partida.getTiradaJugador(i));
+    }
         jugadores.push_back(nuevoPersonaje);
 
         PanelPersonaje panel(Fuente::getFuente(IDFuente::TituloPantalla), 
@@ -35,7 +38,10 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
                              {anchoVentana - 450.f, 120.f + (i * espacioVertical)});
         panelesJugadores.push_back(panel);
     }
-Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
+    if (partida.getIdPartida() == 0) {
+        guardarDatosTablero(false); 
+    }
+    Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
 }
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
@@ -53,6 +59,9 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
         if (keyPressed->code == sf::Keyboard::Key::V) {
             Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getVida()) + " vidas");
         }
+        if (keyPressed->code == sf::Keyboard::Key::T) {
+            Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getTirada()) + " tiradas");
+        }
         
         
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
@@ -63,6 +72,7 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
             if (jugadores[turnoActual].puedeJugar()) {
                 casillasAAvanzar = dado.tirar();
                 faseActual = ANIMANDO_DADO;
+jugadores[turnoActual].sumarTirada();
             }
         }
     }
@@ -115,15 +125,7 @@ void PantallaTablero::actualizar() {
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(jugadores[turnoActual]);
 
                     if (estado == EstadoPartida::VICTORIA) {
-                        
-                        for (size_t i = 0; i < jugadores.size(); ++i) {
-                            partida.setVidaJugador(i, jugadores[i].getVida());
-                            partida.setPosicionJugador(i, jugadores[i].getPosicion());
-                            partida.setGanador(i, (i == turnoActual)); // Solo es true si es su turno
-                        }
-
-PartidaManager manager(partida); 
-manager.guardarPartida();
+    guardarDatosTablero(true);
                         Accesibilidad::hablar("¡Victoria de " + jugadores[turnoActual].getNombre().toAnsiString() + "!");
                         estadoPendiente = EstadoID::Victoria;
                         
@@ -150,6 +152,7 @@ manager.guardarPartida();
                             faseActual = ESPERANDO_TIRO; // No cambiamos de jugador
                         } 
                         else {
+        int turnoAnterior = turnoActual;
                             turnoActual = (turnoActual + 1) % jugadores.size();
                             
                             while (!jugadores[turnoActual].puedeJugar()) {
@@ -157,7 +160,9 @@ manager.guardarPartida();
                                 Accesibilidad::hablar(jugadores[turnoActual].getNombre().toAnsiString() + " sigue bloqueado.");
                                 turnoActual = (turnoActual + 1) % jugadores.size();
                             }
-                            
+        if (turnoActual < turnoAnterior) {
+            guardarDatosTablero(false); // ¡Autoguardado silencioso!
+        }                            
                             Accesibilidad::hablar("Es el turno de " + jugadores[turnoActual].getNombre().toAnsiString());
                             faseActual = ESPERANDO_TIRO; 
                         }
@@ -201,4 +206,25 @@ void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
     }
     
     dado.draw(ventana);
+}
+
+void PantallaTablero::guardarDatosTablero(bool finalizada) {
+    for (size_t i = 0; i < jugadores.size(); ++i) {
+        partida.setVidaJugador(i, jugadores[i].getVida());
+        partida.setPosicionJugador(i, jugadores[i].getPosicion());
+        partida.setTiradaJugador(i, jugadores[i].getTirada());
+        
+        partida.setJugadorActivo(i, (i == turnoActual));
+        
+        if (finalizada) {
+            partida.setGanador(i, (i == turnoActual) && jugadores[i].estaVivo());
+        } else {
+            partida.setGanador(i, false);
+        }
+    }
+    
+    partida.setEstadoPartida(finalizada);
+    PartidaManager manager(partida); 
+    int idGuardado = manager.guardarPartida();
+    partida.setIdPartida(idGuardado);         
 }

@@ -90,3 +90,41 @@ int PartidaArchivo::tamanioRegistro() const {
     return sizeof(Partida);
 }
 
+bool PartidaArchivo::modificar(Partida registro, int posicion) {
+    FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb+");
+    if(pArchivo == nullptr) return false;
+
+    fseek(pArchivo, posicion * sizeof(Partida), SEEK_SET);
+    bool resultado = fwrite(&registro, sizeof(Partida), 1, pArchivo);
+
+    fclose(pArchivo);
+    return resultado;
+}
+
+std::vector<int> PartidaArchivo::obtenerIdsPartidasActivas() {
+    std::vector<int> ids;
+    Partida registro;
+    FILE* pArchivo = fopen(_nombreArchivo.c_str(), "rb");
+    
+    if (pArchivo != nullptr) {
+        while (fread(&registro, sizeof(Partida), 1, pArchivo) == 1) {
+            if (!registro.getEstadoPartida()) {
+                ids.push_back(registro.getIdPartida());
+            }
+        }
+        fclose(pArchivo);
+    }
+    return ids;
+}
+
+Partida PartidaArchivo::leer(int posicion) {
+    Partida registro;
+    FILE* pArchivo = fopen(_nombreArchivo.c_str(), "rb");
+    
+    if (pArchivo != nullptr) {
+        fseek(pArchivo, posicion * sizeof(Partida), SEEK_SET);
+        fread(&registro, sizeof(Partida), 1, pArchivo);
+        fclose(pArchivo);
+    }
+    return registro; 
+}

@@ -7,10 +7,12 @@ enum class EstadoID {
     Ninguno,
     Accesibilidad,
     MenuPrincipal,
-Cantidad,
+CargarPartida,
+    Cantidad,
     NombreJugador,
     Dificultad,
     Jugando,
+juegoCargado,
     Victoria,
     Derrota,
     Salir

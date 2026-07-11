@@ -17,7 +17,7 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
             if (seleccion == 0) {
                 return EstadoID::Cantidad;
             } else if (seleccion == 1) {
-                Accesibilidad::hablar("Cargando partida...");
+                return EstadoID::CargarPartida;
             } else if (seleccion == 2) {
                 Accesibilidad::hablar("Viendo estadísticas...");
             } else if (seleccion == 3) {

@@ -3,11 +3,11 @@
 
 #include <string>
 #include <cstring>
-
 struct DatosJugador {
     char nombre[32];
     int vidas;
     int posicion;
+int cantTiradas;
     bool activo;
     bool ganador;
 };
@@ -17,8 +17,9 @@ private:
     int _idPartida;
     int _dificultad;
     int _cantidadJugadores;
-    
-    DatosJugador _jugadores[4]; 
+bool _estadoPartida; 
+
+DatosJugador _jugadores[4]; 
 
 public:
     Partida();
@@ -30,6 +31,9 @@ public:
     
     int getCantidadJugadores() const;
     void setCantidadJugadores(int cantidad);
+    bool getEstadoPartida() const;
+    void setEstadoPartida(bool estPart);
+
 
     std::string getNombreJugador(int indice) const;
     void setNombreJugador(int indice, const std::string& nombre);
@@ -46,7 +50,10 @@ public:
     bool getGanador(int indice) const;
     void setGanador(int indice, bool ganador);
 
-    std::string mostrarPartida() const;
+    int getTiradaJugador(int indice) const;
+    void setTiradaJugador(int indice, int tir);
+void setIdPartida(int id);
+std::string mostrarPartida() const;
 };
 
 #endif

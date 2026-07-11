@@ -14,7 +14,7 @@ public:
 
     void buscarPartida();
     void cargarPartida();
-    void guardarPartida();
+    int guardarPartida();
     void listarPartidas();
 
     ~PartidaManager() = default;

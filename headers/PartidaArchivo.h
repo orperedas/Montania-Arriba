@@ -2,6 +2,7 @@
 #define PARTIDA_ARCHIVO_H
 
 #include "Partida.h"
+#include <vector>
 
 class PartidaArchivo {
 private:
@@ -16,8 +17,10 @@ public:
     int tamanioRegistro() const;
     bool guardar(const Partida& partida);
     int contarPartidas(); 
-
-    ~PartidaArchivo() = default;
+bool modificar(Partida registro, int posicion);
+std::vector<int> obtenerIdsPartidasActivas();
+Partida leer(int posicion);
+~PartidaArchivo() = default;
 };
 
 #endif

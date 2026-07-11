@@ -2,13 +2,14 @@
 #include <cstring>
 #include "headers/Partida.h"
 
-Partida::Partida() : _idPartida(0), _dificultad(0), _cantidadJugadores(1) {
+Partida::Partida() : _idPartida(0), _dificultad(0), _estadoPartida(false), _cantidadJugadores(1) {
     std::memset(_jugadores, 0, sizeof(_jugadores));
 }
 
 Partida::Partida(int idPartida, int dificultad, int cantidadJugadores)
   : _idPartida(idPartida),
     _dificultad(dificultad),
+_estadoPartida(false),
     _cantidadJugadores(cantidadJugadores) 
 {
     std::memset(_jugadores, 0, sizeof(_jugadores));
@@ -74,6 +75,7 @@ void Partida::setGanador(int indice, bool ganador) {
 std::string Partida::mostrarPartida() const {
     std::string info = "ID: " + std::to_string(_idPartida) +
                        ", Dificultad: " + std::to_string(_dificultad) +
+                ", Estado partida: " + (_estadoPartida ? "Finalizado" : "Sin finalizar") +
                        ", Cantidad Jugadores: " + std::to_string(_cantidadJugadores) + "\n";
     
     for (int i = 0; i < _cantidadJugadores; ++i) {
@@ -81,8 +83,33 @@ std::string Partida::mostrarPartida() const {
                 std::string(_jugadores[i].nombre) +
                 " | Vidas: " + std::to_string(_jugadores[i].vidas) +
                 " | Posicion: " + std::to_string(_jugadores[i].posicion) +
+                " | tiradas por jugador: " + std::to_string(_jugadores[i].cantTiradas) +
                 " | Activo: " + (_jugadores[i].activo ? "Si" : "No") +
                 " | Ganador: " + (_jugadores[i].ganador ? "Si" : "No") + "\n";
     }
     return info;
+}
+
+
+void Partida::setEstadoPartida(bool estPart) {
+    _estadoPartida=estPart;
+}
+
+bool Partida::getEstadoPartida() const {
+return _estadoPartida;
+}
+
+
+void Partida::setTiradaJugador(int indice, int tir) {
+ if (indice >= 0 && indice < 4) _jugadores[indice].cantTiradas = tir;
+   }
+
+   
+   int Partida::getTiradaJugador(int indice) const{
+     if (indice >= 0 && indice < 4) return _jugadores[indice].cantTiradas;
+     return false;
+   }
+
+   void Partida::setIdPartida(int id) { 
+    _idPartida = id; 
 }

@@ -4,10 +4,10 @@
 
 #include <algorithm>
 
-Personaje::Personaje() : posicion(0), vidas(3), turnosPerdidos(0), etiquetaNombre(fuenteNombre) {
+Personaje::Personaje() : posicion(0), vidas(3), turnosPerdidos(0), cantTirada(0),  etiquetaNombre(fuenteNombre) {
 }
 
-Personaje::Personaje(const sf::Font& fuente, int nj, int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0), etiquetaNombre(fuente) {
+Personaje::Personaje(const sf::Font& fuente, int nj, int vidasIniciales) : posicion(0), vidas(vidasIniciales), turnosPerdidos(0), cantTirada(0), etiquetaNombre(fuente) {
     mShape.setRadius(15.f); 
     mShape.setFillColor(sf::Color::Yellow);
     
@@ -69,8 +69,21 @@ return "Usted se encuentra en la posición visual: " + std::to_string(getPositio
     void Personaje::otorgarTurnoExtra() { turnoExtra = true;    }
     bool Personaje::tieneTurnoExtra() const { return turnoExtra; }
     void Personaje::usarTurnoExtra() { turnoExtra = false; }
+    
+    void Personaje::sumarTirada()  {
+cantTirada++;
+}
 
-
+    
+    int Personaje::getTirada() {
+return cantTirada;
+    }
+    
+    void Personaje::cargaPersonaje(int v, int p, int t) {
+        vidas = v;
+        posicion = p;
+        cantTirada = t;
+    }
     void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform(); 
     target.draw(mShape, states);

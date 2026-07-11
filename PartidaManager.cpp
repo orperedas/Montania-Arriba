@@ -9,36 +9,43 @@ void PartidaManager::buscarPartida() {
 
 void PartidaManager::cargarPartida() {
 }
-
-void PartidaManager::guardarPartida() {
+int PartidaManager::guardarPartida() {
     PartidaArchivo pArchivo;
     
     int id = partida.getIdPartida();
-    
-    if (id == 0) {
-        id = pArchivo.contarPartidas() + 1;
+    bool esNueva = (id == 0);
+
+    if (esNueva) {
+        int tamArchivo = pArchivo.tamanioArchivo();
+        int tamRegistro = pArchivo.tamanioRegistro();
+        id = (tamArchivo / tamRegistro) + 1; 
+        
+        partida.setIdPartida(id);
     }
 
-    int dificultad = partida.getDificultad();
-    int cantidad = partida.getCantidadJugadores();
+    Partida registro(id, partida.getDificultad(), partida.getCantidadJugadores());
+    registro.setEstadoPartida(partida.getEstadoPartida());
 
-    Partida registro(id, dificultad, cantidad);
-    for (int i = 0; i < cantidad; ++i) {
+    for (int i = 0; i < partida.getCantidadJugadores(); ++i) {
         registro.setNombreJugador(i, partida.getNombreJugador(i));
-        
         registro.setVidaJugador(i, partida.getVidasJugador(i)); 
-        
         registro.setPosicionJugador(i, partida.getPosicionJugador(i));
         registro.setJugadorActivo(i, partida.getJugadorActivo(i));
         registro.setGanador(i, partida.getGanador(i));
+        registro.setTiradaJugador(i, partida.getTiradaJugador(i)); 
     }
 
-    if (pArchivo.guardar(registro)) {
-        std::cout << "Partida guardada con éxito." << std::endl;
+    if (esNueva) {
+        if (pArchivo.guardar(registro)) {
+            std::cout << "Nueva partida guardada con éxito. ID: " << id << std::endl;
+        }
     } else {
-        std::cout << "Error inesperado, no se guardó el registro." << std::endl;
+        int posicion = id - 1; // El ID 1 está en la posición 0 del archivo
+        if (pArchivo.modificar(registro, posicion)) {
+            std::cout << "Partida actualizada con éxito. ID: " << id << std::endl;
+        }
     }
+return id;
 }
-
 void PartidaManager::listarPartidas() {
 }

@@ -38,9 +38,9 @@ private:
     sf::RectangleShape fondoDado;
     sf::RectangleShape fondoOscuro;
     sf::Vector2f casillaInicial;
-    
+void guardarDatosTablero(bool finalizada);    
 public:
-    PantallaTablero(float anchoVentana, float altoVentana, Partida& p);
+    PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga = false);
     
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;

@@ -8,6 +8,7 @@ private:
     int posicion;
     int vidas;
     int turnosPerdidos;
+    int cantTirada;
     bool turnoExtra = false;
     sf::CircleShape mShape;
 
@@ -37,8 +38,11 @@ public:
     
     void setNombre(sf::String nuevoNombre);
     void setPosicionVisual(sf::Vector2f coordenadas);
+void sumarTirada();
+int getTirada();
+void cargaPersonaje(int v, int p, int t);
 
-    ~Personaje() = default;    
+~Personaje() = default;    
 
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
