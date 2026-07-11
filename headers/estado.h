@@ -8,6 +8,7 @@ enum class EstadoID {
     Accesibilidad,
     MenuPrincipal,
 CargarPartida,
+estadisticas,
     Cantidad,
     NombreJugador,
     Dificultad,

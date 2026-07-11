@@ -33,7 +33,7 @@ EstadoID PantallaCargarPartida::manejarEventos(const sf::Event& evento) {
         
         if (keyPressed->code == sf::Keyboard::Key::Enter) {
             int seleccion = menu.obtenerSeleccion();
-                        if (seleccion == idsActivos.size()) {
+                           if (seleccion == idsActivos.size()) {
                 return EstadoID::MenuPrincipal;
             }
             if (idsActivos.empty()) {

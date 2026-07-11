@@ -19,7 +19,7 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
             } else if (seleccion == 1) {
                 return EstadoID::CargarPartida;
             } else if (seleccion == 2) {
-                Accesibilidad::hablar("Viendo estadísticas...");
+                return EstadoID::estadisticas;
             } else if (seleccion == 3) {
                 Accesibilidad::hablar("Viendo créditos...");
             } else if (seleccion == 4) {
