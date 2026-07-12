@@ -37,7 +37,7 @@ public:
     void inicializarVisual();
     void fondoVentanaTablero(sf::Vector2f tamanio, sf::Vector2f posicion);
     void fondoVentanaTransparente(sf::Vector2f tamanio, sf::Vector2f posicion, sf::Color colorFondo);
-    void dibujar(sf::RenderWindow& ventana);
+    void dibujar(sf::RenderTarget& target) const;
     
     ~Visual() = default;
 };

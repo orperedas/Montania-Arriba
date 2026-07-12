@@ -28,19 +28,9 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
     for (int i = 0; i < cantidad; ++i) {
         Personaje nuevoPersonaje(Fuente::getFuente(IDFuente::TituloPantalla), i);
         nuevoPersonaje.setNombre(partida.getNombreJugador(i)); 
-        nuevoPersonaje.moverACasilla(-1);
-    
-        if (carga){
-            nuevoPersonaje.cargaPersonaje(            partida.getVidasJugador(i),partida.getPosicionJugador(i),partida.getTiradaJugador(i));
-        }
-
+        
+        nuevoPersonaje.moverACasilla(partida.getPosicionJugador(i));
         jugadores.push_back(nuevoPersonaje);
-
-        Casilla* casillaCero = tablero.obtenerCasilla(0);
-        if (casillaCero != nullptr) {
-            sf::Vector2f coordInicial = casillaCero->getPosicionVisual();
-            nuevoPersonaje.setPosition({coordInicial.x + 0.f + (i * 10.f), coordInicial.y + 0.f});
-        }
 
         PanelPersonaje panel(Fuente::getFuente(IDFuente::TituloPantalla), 
                              Imagen::getImagen(IDImagen::Corazon),
@@ -49,7 +39,7 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
         
         panelesJugadores.push_back(panel);
     }
-    
+
     if (partida.getIdPartida() == 0) {
         guardarDatosTablero(false); 
     }
@@ -57,7 +47,31 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
     Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
 }
 
+
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
+    if (!posicionInicialEstablecida) {
+        for (size_t i = 0; i < jugadores.size(); ++i) {
+            int posGuardada = jugadores[i].getPosicion();
+
+            if (posGuardada == -1) {
+                // Nueva partida: Ubicar debajo de la casilla 0
+                Casilla* casillaCero = tablero.obtenerCasilla(0);
+                if (casillaCero != nullptr) {
+                    sf::Vector2f coordInicial = casillaCero->getPosicionVisual();
+                    jugadores[i].setPosition({coordInicial.x + (i * 12.f), coordInicial.y + 75.f});
+                }
+            } else {
+                // Partida cargada: Ubicar exactamente sobre su casilla
+                Casilla* casillaGuardada = tablero.obtenerCasilla(posGuardada);
+                if (casillaGuardada != nullptr) {
+                    sf::Vector2f coordCasilla = casillaGuardada->getPosicionVisual();
+                    jugadores[i].setPosition({coordCasilla.x + (i * 12.f), coordCasilla.y});
+                }
+            }
+        }
+        posicionInicialEstablecida = true; // Nos aseguramos de que esto corra UNA sola vez
+    }
+
     if (estadoPendiente != EstadoID::Ninguno) {
         return estadoPendiente;
     }
@@ -222,18 +236,24 @@ void PantallaTablero::actualizar() {
 }
 
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
-    visual.dibujar(ventana);
-    tablero.dibujar(ventana);
+    ventana.draw(*this);
+}
+
+void PantallaTablero::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    states.transform *= getTransform();
+    
+    visual.dibujar(target);
+    tablero.dibujar(target);
     
     for (auto& jugador : jugadores) {
-        ventana.draw(jugador);
+        target.draw(jugador, states);
     }
     
     for (auto& panel : panelesJugadores) {
-        ventana.draw(panel);
+        target.draw(panel, states);
     }
     
-    dado.draw(ventana);
+    dado.draw(target, states);
 }
 
 void PantallaTablero::guardarDatosTablero(bool finalizada) {

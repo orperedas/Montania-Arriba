@@ -19,7 +19,7 @@ enum FaseTurno {
     MOVIENDO_PERSONAJE
 };
 
-class PantallaTablero : public Estado {
+class PantallaTablero : public Estado, public sf::Drawable, public sf::Transformable {
 private:
     Dado dado;
     EstadoID estadoPendiente = EstadoID::Ninguno;
@@ -32,6 +32,7 @@ private:
     int turnoActual; 
     int posicionObjetivo;
     int casillasAAvanzar = 0;
+    bool posicionInicialEstablecida = false;
     bool primerPaso = false;
     
     std::vector<Personaje> jugadores; 
@@ -42,7 +43,7 @@ private:
     sf::RectangleShape fondoOscuro;
     sf::Vector2f casillaInicial;
 
-    void guardarDatosTablero(bool finalizada);    
+    void guardarDatosTablero(bool finalizada);
 
 public:
     PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga = false);
@@ -50,6 +51,7 @@ public:
     EstadoID manejarEventos(const sf::Event& evento) override;
     void actualizar() override;
     void dibujar(sf::RenderWindow& ventana) override;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     EstadoID getEstadoPendiente() const override { 
         return estadoPendiente; 
     }

@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Dado {
+class Dado : public sf::Drawable, public sf::Transformable{
 private:
     sf::Texture texturaDado;
     sf::Sprite spriteDado;
@@ -18,7 +18,7 @@ public:
     
     int tirar(); 
     void actualizar(); 
-    void draw(sf::RenderWindow& ventana);
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     
     bool estaAnimando() const;
 };

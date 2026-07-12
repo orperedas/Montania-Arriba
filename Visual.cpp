@@ -54,7 +54,7 @@ void Visual::fondoVentanaTransparente(sf::Vector2f tamanio, sf::Vector2f posicio
     fondoTransparente.setOutlineThickness(4.f);
 }
 
-void Visual::dibujar(sf::RenderWindow& ventana){
-    ventana.draw(fondoTransparente);
-    ventana.draw(spriteFondoTablero);
+void Visual::dibujar(sf::RenderTarget& target) const {
+    target.draw(fondoTransparente);
+    target.draw(spriteFondoTablero);
 }

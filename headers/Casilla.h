@@ -21,7 +21,7 @@ public:
     virtual ~Casilla() = default; 
 
     virtual void consecuencia(int numeroAleatorio, Personaje& personaje) = 0;
-    virtual void dibujar(sf::RenderWindow& ventana);
+    virtual void dibujar(sf::RenderTarget& target) const;
     
     void setPosicionVisual(sf::Vector2f posicion);
     sf::Vector2f getPosicionVisual() const { return casillaVisual.getPosition(); }

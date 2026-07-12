@@ -61,8 +61,8 @@ void Dado::actualizar() {
     }
 }
 
-void Dado::draw(sf::RenderWindow& ventana) {
-    ventana.draw(spriteDado);
+void Dado::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(spriteDado, states);
 }
 
 bool Dado::estaAnimando() const {

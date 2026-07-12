@@ -8,8 +8,8 @@ Casilla::Casilla(int num, const sf::Texture& textura)
 {
 }
 
-void Casilla::dibujar(sf::RenderWindow& ventana) {
-    ventana.draw(casillaVisual);
+void Casilla::dibujar(sf::RenderTarget& target) const {
+    target.draw(casillaVisual);
 }
 
 void Casilla::setPosicionVisual(sf::Vector2f posicion) {

@@ -104,7 +104,7 @@ Casilla* Tablero::obtenerCasilla(int posicion) {
 }
 
 
-void Tablero::dibujar(sf::RenderWindow& ventana) {
+void Tablero::dibujar(sf::RenderTarget& target) const {
     float tamanoCasilla = 64.f;
     float offsetX = 210.f;       
     float offsetY = 100.f;       
@@ -125,6 +125,6 @@ void Tablero::dibujar(sf::RenderWindow& ventana) {
         float y = offsetY + (fila * tamanoCasilla + (tamanoCasilla * 0.5f));
 
         casillas[i]->setPosicionVisual({x, y});
-        casillas[i]->dibujar(ventana);
+        casillas[i]->dibujar(target);
     }
 }
