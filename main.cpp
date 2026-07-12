@@ -126,6 +126,8 @@ int main() {
                 estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
             }
             if (proximoEstado == EstadoID::Cantidad) {
+Partida nuevaPartida;
+partida = nuevaPartida;
                 estadoActual = std::make_unique<PantallaCantidadJugadores>(anchoVentana, altoVentana,partida);
             }
             if (proximoEstado == EstadoID::NombreJugador) {
