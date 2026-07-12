@@ -1,46 +1,59 @@
 #include "headers/Accesibilidad.h"
-#include "headers/Fuente.h"
-#include "headers/Sonido.h"
 #include "headers/Estado.h"
+#include "headers/Fuente.h"
 #include "headers/Imagen.h"
 #include "headers/PantallaTablero.h"
 #include "headers/PartidaArchivo.h"
-#include "headers/Visual.h"
 #include "headers/PartidaManager.h"
+#include "headers/Sonido.h"
+#include "headers/Visual.h"
 
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga)
   : tablero(8),
-    dado({anchoVentana / 2.f, altoVentana / 2.f}),
+    dado({anchoVentana / 2.f + 80, altoVentana / 2.f}),
     fondoDado(),
     reglas(static_cast<Dificultad>(p.getDificultad()), 64),
     partida(p),
     turnoActual(0)
 { 
     visual.fondoVentanaTablero(
-        {anchoVentana / 2.f, altoVentana / 2.f},
+        {anchoVentana / 5.f * 4.f, altoVentana / 5.f * 4.f},
         {anchoVentana / 2.f, altoVentana / 2.f} );
 
     int cantidad = partida.getCantidadJugadores();
+    float posicionVertical = 130.f;
     float espacioVertical = 120.f;
 
     for (int i = 0; i < cantidad; ++i) {
         Personaje nuevoPersonaje(Fuente::getFuente(IDFuente::TituloPantalla), i);
         nuevoPersonaje.setNombre(partida.getNombreJugador(i)); 
         nuevoPersonaje.moverACasilla(-1);
-    if (carga){
-nuevoPersonaje.cargaPersonaje(            partida.getVidasJugador(i),partida.getPosicionJugador(i),partida.getTiradaJugador(i));
-    }
+    
+        if (carga){
+            nuevoPersonaje.cargaPersonaje(            partida.getVidasJugador(i),partida.getPosicionJugador(i),partida.getTiradaJugador(i));
+        }
+
         jugadores.push_back(nuevoPersonaje);
 
+        Casilla* casillaCero = tablero.obtenerCasilla(0);
+        if (casillaCero != nullptr) {
+            sf::Vector2f coordInicial = casillaCero->getPosicionVisual();
+            nuevoPersonaje.setPosition({coordInicial.x + 0.f + (i * 10.f), coordInicial.y + 0.f});
+        }
+
         PanelPersonaje panel(Fuente::getFuente(IDFuente::TituloPantalla), 
-                             Imagen::getImagen(IDImagen::Corazon), 
-                             {anchoVentana - 450.f, 120.f + (i * espacioVertical)});
+                             Imagen::getImagen(IDImagen::Corazon),
+                             jugadores[i].getTexture(),
+                             {anchoVentana - 580.f, 120.f + (i * espacioVertical)});
+        
         panelesJugadores.push_back(panel);
     }
+    
     if (partida.getIdPartida() == 0) {
         guardarDatosTablero(false); 
     }
+    
     Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
 }
 
@@ -59,11 +72,11 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
         if (keyPressed->code == sf::Keyboard::Key::V) {
             Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getVida()) + " vidas");
         }
+
         if (keyPressed->code == sf::Keyboard::Key::T) {
             Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getTirada()) + " tiradas");
         }
-        
-        
+
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
             return EstadoID::MenuPrincipal; 
         }
@@ -72,7 +85,7 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
             if (jugadores[turnoActual].puedeJugar()) {
                 casillasAAvanzar = dado.tirar();
                 faseActual = ANIMANDO_DADO;
-jugadores[turnoActual].sumarTirada();
+                jugadores[turnoActual].sumarTirada();
             }
         }
     }
@@ -84,24 +97,50 @@ jugadores[turnoActual].sumarTirada();
 void PantallaTablero::actualizar() {
     dado.actualizar();
 
+    for (auto& jugador : jugadores){
+        jugador.actualizar();
+    }
+
     if (faseActual == ANIMANDO_DADO) {
         if (!dado.estaAnimando()) {
             posicionObjetivo = reglas.calcularDestino(jugadores[turnoActual].getPosicion(), casillasAAvanzar);
             faseActual = MOVIENDO_PERSONAJE; 
-            relojMovimiento.restart(); 
+            primerPaso = true;
         }
     }
     else if (faseActual == MOVIENDO_PERSONAJE) {   
-        if (relojMovimiento.getElapsedTime() >= sf::seconds(0.5f)) {      
+        if (!jugadores[turnoActual].estaAnimando() || primerPaso) {      
+            primerPaso = false;
+            
             int posActual = jugadores[turnoActual].getPosicion();    
 
             if (posActual < posicionObjetivo) {
                 Sonido::reproducir(IDSonido::paso);
-                jugadores[turnoActual].moverACasilla(posActual + 1);
+                
+                int siguientePos = posActual + 1;
+
+                jugadores[turnoActual].moverACasilla(siguientePos);
+
+                Casilla* casillaVisual = tablero.obtenerCasilla(siguientePos);
+                if (casillaVisual != nullptr) {
+                    sf::Vector2f coord = casillaVisual->getPosicionVisual();
+                    sf::Vector2f destinoFinal = {coord.x + 0.f + (turnoActual * 10.f), coord.y + 0.f};
+                    jugadores[turnoActual].comenzarMovimiento(destinoFinal);
+                }
             } 
             else if (posActual > posicionObjetivo) {
                 Sonido::reproducir(IDSonido::pasoatras);
-                jugadores[turnoActual].moverACasilla(posActual - 1);
+                
+                int siguientePos = posActual - 1;
+
+                jugadores[turnoActual].moverACasilla(siguientePos);
+
+                Casilla* casillaVisual = tablero.obtenerCasilla(siguientePos >= 0 ? siguientePos : 0);
+                if (casillaVisual != nullptr) {
+                    sf::Vector2f coord = casillaVisual->getPosicionVisual();
+                    sf::Vector2f destinoFinal = {coord.x + 0.f + (turnoActual * 10.f), coord.y + 0.f};
+                    jugadores[turnoActual].comenzarMovimiento(destinoFinal);
+                }
             } 
             else {
                 int posAntes = jugadores[turnoActual].getPosicion();
@@ -125,44 +164,47 @@ void PantallaTablero::actualizar() {
                     EstadoPartida estado = reglas.evaluarEstadoDelJuego(jugadores[turnoActual]);
 
                     if (estado == EstadoPartida::VICTORIA) {
-    guardarDatosTablero(true);
+                        guardarDatosTablero(true);
                         Accesibilidad::hablar("¡Victoria de " + jugadores[turnoActual].getNombre().toAnsiString() + "!");
                         estadoPendiente = EstadoID::Victoria;
                         
                     } else if (estado == EstadoPartida::DERROTA) {
-    Accesibilidad::hablar("¡Oh no! " + jugadores[turnoActual].getNombre().toAnsiString() + " se ha quedado sin vidas y queda eliminado.");
-    bool todosMuertos = true;
-    for (auto& jugador : jugadores) {
-        if (jugador.estaVivo()) { 
-            todosMuertos = false;
-            break; 
-        }
-    }
+                        Accesibilidad::hablar("¡Oh no! " + jugadores[turnoActual].getNombre().toAnsiString() + " se ha quedado sin vidas y queda eliminado.");
 
-    if (todosMuertos) {
-        Accesibilidad::hablar("Todos los jugadores han sido eliminados. Fin del juego.");
-        estadoPendiente = EstadoID::Derrota; 
-    }
+                        bool todosMuertos = true;
+                        for (auto& jugador : jugadores) {
+                            if (jugador.estaVivo()) { 
+                                todosMuertos = false;
+                                break; 
+                            }
+                        }
+
+                        if (todosMuertos) {
+                            Accesibilidad::hablar("Todos los jugadores han sido eliminados. Fin del juego.");
+                            estadoPendiente = EstadoID::Derrota; 
+                        }
                     }
                     
                     if (estadoPendiente == EstadoID::Ninguno) {
                         if (jugadores[turnoActual].tieneTurnoExtra()) {
                             Accesibilidad::hablar("¡Turno extra! Vuelves a tirar.");
-                            jugadores[turnoActual].usarTurnoExtra(); // Consumimos el beneficio
-                            faseActual = ESPERANDO_TIRO; // No cambiamos de jugador
+                            jugadores[turnoActual].usarTurnoExtra();
+                            faseActual = ESPERANDO_TIRO;
                         } 
                         else {
-        int turnoAnterior = turnoActual;
+                            int turnoAnterior = turnoActual;
                             turnoActual = (turnoActual + 1) % jugadores.size();
                             
                             while (!jugadores[turnoActual].puedeJugar()) {
-                                jugadores[turnoActual].descontarTurnoPerdido(); // Cumple su castigo
+                                jugadores[turnoActual].descontarTurnoPerdido();
                                 Accesibilidad::hablar(jugadores[turnoActual].getNombre().toAnsiString() + " sigue bloqueado.");
                                 turnoActual = (turnoActual + 1) % jugadores.size();
                             }
-        if (turnoActual < turnoAnterior) {
-            guardarDatosTablero(false); // ¡Autoguardado silencioso!
-        }                            
+                            
+                            if (turnoActual < turnoAnterior) {
+                                guardarDatosTablero(false);
+                            }                            
+                            
                             Accesibilidad::hablar("Es el turno de " + jugadores[turnoActual].getNombre().toAnsiString());
                             faseActual = ESPERANDO_TIRO; 
                         }
@@ -175,26 +217,12 @@ void PantallaTablero::actualizar() {
     }
 
     for (size_t i = 0; i < jugadores.size(); ++i) {
-        panelesJugadores[i].actualizarDatos(jugadores[i]);
-        
-        if (jugadores[i].getPosicion() == -1) {
-            Casilla* casillaCero = tablero.obtenerCasilla(0);
-            if (casillaCero != nullptr) {
-                casillaInicial = casillaCero->getPosicionVisual();
-                jugadores[i].setPosicionVisual({casillaInicial.x + 25.f + (i * 10.f), casillaInicial.y + 70.f});
-            }
-        } 
-        else {
-            Casilla* casillaVisual = tablero.obtenerCasilla(jugadores[i].getPosicion());
-            if (casillaVisual != nullptr) {
-                sf::Vector2f coord = casillaVisual->getPosicionVisual();
-                jugadores[i].setPosicionVisual({coord.x + 25.f + (i * 10.f), coord.y + 25.f});
-            }
-        }    
+        panelesJugadores[i].actualizarDatos(jugadores[i]);   
     }
 }
 
 void PantallaTablero::dibujar(sf::RenderWindow& ventana) {
+    visual.dibujar(ventana);
     tablero.dibujar(ventana);
     
     for (auto& jugador : jugadores) {

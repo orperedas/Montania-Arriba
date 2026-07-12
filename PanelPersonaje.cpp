@@ -1,26 +1,37 @@
+#include "headers/Fuente.h"
+#include "headers/imagen.h"
 #include "headers/PanelPersonaje.h"
+#include "headers/Visual.h"
 
-PanelPersonaje::PanelPersonaje(const sf::Font& fuente, const sf::Texture& texturaCorazonUI, sf::Vector2f posicionPantalla) 
-    : textoNombre(fuente), textoPosicion(fuente), textoVidas(fuente) // <-- ACÁ LE DECIMOS QUÉ FUENTE USAN
+PanelPersonaje::PanelPersonaje(const sf::Font& fuente, const sf::Texture& texturaCorazonUI, const sf::Texture& texturaJugador, sf::Vector2f posicionPantalla) 
+  : textoNombre(fuente),
+    textoPosicion(fuente),
+    textoVidas(fuente),
+    spritePersonaje(texturaJugador)
 {
     setPosition(posicionPantalla);
 
-    fondo.setSize({350.f, 100.f});
-    fondo.setFillColor(sf::Color(20, 20, 20));
+    fondo.setSize({370.f, 100.f});
+    fondo.setFillColor(visual.getColor(IDVisual::GrisOscuro_Solido));
     fondo.setOutlineThickness(3.f);
-    fondo.setOutlineColor(sf::Color(100, 100, 100));
+    fondo.setOutlineColor(visual.getColor(IDVisual::GrisMedio_Solido));
+
+    texturaPersonaje = texturaJugador;
+    spritePersonaje.setTextureRect(sf::IntRect({15, 140}, {50, 40}));
+    spritePersonaje.setScale({2.0f, 2.0f});
+    spritePersonaje.setPosition({10.f, 10.f});
 
     textoNombre.setCharacterSize(20);
-    textoNombre.setFillColor(sf::Color(200, 200, 200));
-    textoNombre.setPosition({10.f, 10.f});
+    textoNombre.setFillColor(visual.getColor(IDVisual::GrisClaro_Solido));
+    textoNombre.setPosition({90.f, 10.f});
 
     textoPosicion.setCharacterSize(18);
-    textoPosicion.setFillColor(sf::Color::White);
-    textoPosicion.setPosition({10.f, 40.f});
+    textoPosicion.setFillColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
+    textoPosicion.setPosition({90.f, 40.f});
 
     textoVidas.setCharacterSize(18);
-    textoVidas.setFillColor(sf::Color::White);
-    textoVidas.setPosition({10.f, 70.f});
+    textoVidas.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
+    textoVidas.setPosition({90.f, 70.f});
 
     texturaCorazon = texturaCorazonUI;
 }
@@ -41,7 +52,7 @@ void PanelPersonaje::actualizarDatos(Personaje& personaje) {
 
     for (int i = 0; i < vidas; ++i) {
         sf::Sprite corazon(texturaCorazon);
-        corazon.setPosition({110.f + (i * 20.f), 75.f});
+        corazon.setPosition({190.f + (i * 20.f), 75.f});
         corazones.push_back(corazon);
     }
 }
@@ -50,6 +61,7 @@ void PanelPersonaje::draw(sf::RenderTarget& target, sf::RenderStates states) con
     states.transform *= getTransform();
     
     target.draw(fondo, states);
+    target.draw(spritePersonaje, states);
     target.draw(textoNombre, states);
     target.draw(textoPosicion, states);
     target.draw(textoVidas, states);

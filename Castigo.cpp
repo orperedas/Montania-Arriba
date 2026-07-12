@@ -13,7 +13,7 @@ std::string mActual = "";
             personaje.modificarVidas(-1);
             break;
         case 2:{
-            int num = (rand() % 7) + 1;
+            int num = (rand() % 8) + 3;
             mActual = ". Avalancha. Retrocedes " +std::to_string(num) + " casillas.";
             Sonido::reproducir(IDSonido::avalancha);
             personaje.moverACasilla(personaje.getPosicion() -num);

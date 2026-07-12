@@ -1,7 +1,7 @@
 #include <iostream>
-#include <algorithm>                // para std::find
-#include <cstdlib>                  // para rand() y srand()
-#include <ctime>                    // para time(), usado en srand(time(0))
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 #include <vector>
 #include <unordered_set>
 
@@ -44,7 +44,7 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
     }
 
     auto seleccionarYLimpiar = [&]() -> int {
-        if (disponibles.empty()) return -1; // por si se acaban los números
+        if (disponibles.empty()) return -1;
 
         int indiceAleatorio = rand() % disponibles.size();
         int numeroElegido = disponibles[indiceAleatorio];
@@ -93,6 +93,8 @@ void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTabl
 int Tablero::getCantidadCasillas() const {
     return casillas.size();
 }
+
+
 Casilla* Tablero::obtenerCasilla(int posicion) {
     if (posicion >= 0 && posicion < casillas.size()) {
         return casillas[posicion];
@@ -104,7 +106,7 @@ Casilla* Tablero::obtenerCasilla(int posicion) {
 
 void Tablero::dibujar(sf::RenderWindow& ventana) {
     float tamanoCasilla = 64.f;
-    float offsetX = 100.f;       
+    float offsetX = 210.f;       
     float offsetY = 100.f;       
 
     for (int i = 0; i < casillas.size(); ++i) {

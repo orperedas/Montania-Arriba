@@ -25,12 +25,10 @@ Menu::Menu(float anchoVentana, float altoVentana, const std::string& titulo, con
     sf::FloatRect boundsLogo = spriteLogo.getGlobalBounds();
     spriteLogo.setOrigin({boundsLogo.size.x / 2.f, 0.f});
     spriteLogo.setPosition({anchoVentana / 2.f, 30.f});
-    std::cout << "Logo position: (" << spriteLogo.getPosition().x << ", " << spriteLogo.getPosition().y << ")" << std::endl;
     
     sf::Color tituloColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
     sf::Color tituloColorBorde(visual.getColor(IDVisual::Azul_Solido));
     sf::Text textoTit(fuenteTitulo);
-    
     
     textoTit.setString(sf::String::fromUtf8(titulo.begin(), titulo.end()));
     textoTit.setCharacterSize(30);
@@ -85,7 +83,7 @@ void Menu::moverAbajo() {
         indiceSeleccionado++;
         botones[indiceSeleccionado].setSeleccionado(true);
         Sonido::reproducir(IDSonido::MenuDesplazar);
-                Accesibilidad::hablar(opciones[indiceSeleccionado], true);
+        Accesibilidad::hablar(opciones[indiceSeleccionado], true);
     }
 }
 
@@ -103,7 +101,7 @@ void Menu::dibujar(sf::RenderWindow& ventana) {
         ventana.draw(*spriteFondo);
     }
     
-    //ventana.draw(spriteLogo);
+    ventana.draw(spriteLogo);
         
     for (auto& t : contenedorTitulo) {
         ventana.draw(t);

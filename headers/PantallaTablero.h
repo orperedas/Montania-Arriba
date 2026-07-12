@@ -13,10 +13,12 @@
 #include "Visual.h"
 
 enum FaseTurno {
-    ESPERANDO_TIRO,
     ANIMANDO_DADO,
+    ANIMANDO_PERSONAJE,
+    ESPERANDO_TIRO,
     MOVIENDO_PERSONAJE
 };
+
 class PantallaTablero : public Estado {
 private:
     Dado dado;
@@ -30,15 +32,18 @@ private:
     int turnoActual; 
     int posicionObjetivo;
     int casillasAAvanzar = 0;
+    bool primerPaso = false;
     
     std::vector<Personaje> jugadores; 
-    std::vector<PanelPersonaje> panelesJugadores; // Un panel por cada jugador
+    std::vector<PanelPersonaje> panelesJugadores;
     
     sf::Clock relojMovimiento;
     sf::RectangleShape fondoDado;
     sf::RectangleShape fondoOscuro;
     sf::Vector2f casillaInicial;
-void guardarDatosTablero(bool finalizada);    
+
+    void guardarDatosTablero(bool finalizada);    
+
 public:
     PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga = false);
     

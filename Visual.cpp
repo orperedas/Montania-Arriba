@@ -28,7 +28,8 @@ sf::Color Visual::getColor(IDVisual id) {
     if (it != colores.end()) {
         return it->second;
     }
-    return sf::Color::White; // Color por defecto en caso de error
+    
+    return getColor(IDVisual::Blanco_Solido);
 }
 
 sf::Texture& getVisual(IDVisual id){
@@ -36,11 +37,11 @@ sf::Texture& getVisual(IDVisual id){
 }
 
 void Visual::fondoVentanaTablero(sf::Vector2f tamanio, sf::Vector2f posicion){
+    spriteFondoTablero.setTexture(Imagen::getImagen(IDImagen::Tilegrass));
     texturaFondoTablero.setRepeated(true);
-    sf::FloatRect bounds = spriteFondoTablero.getLocalBounds();
-    spriteFondoTablero.setOrigin({bounds.size.x / 2.f, bounds.size.y / 2.f});
+    spriteFondoTablero.setTextureRect(sf::IntRect({68, 68}, sf::Vector2i(static_cast<int>(tamanio.x), static_cast<int>(tamanio.y))));
+    spriteFondoTablero.setOrigin({tamanio.x / 2.f, tamanio.y / 2.f});
     spriteFondoTablero.setPosition(posicion);
-    spriteFondoTablero.setTextureRect(sf::IntRect(sf::Vector2i(68, 68), sf::Vector2i(static_cast<int>(tamanio.x), static_cast<int>(tamanio.y))));
 }
 
 void Visual::fondoVentanaTransparente(sf::Vector2f tamanio, sf::Vector2f posicion, sf::Color colorFondo){
@@ -50,7 +51,7 @@ void Visual::fondoVentanaTransparente(sf::Vector2f tamanio, sf::Vector2f posicio
     fondoTransparente.setPosition(posicion);
     fondoTransparente.setFillColor(colores[IDVisual::Negro_Transparente]);
     fondoTransparente.setOutlineColor(colores[IDVisual::Azul_Solido]);
-    fondoTransparente.setOutlineThickness(3.f);
+    fondoTransparente.setOutlineThickness(4.f);
 }
 
 void Visual::dibujar(sf::RenderWindow& ventana){

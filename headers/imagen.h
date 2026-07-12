@@ -17,7 +17,10 @@ enum class IDImagen{
     Fondo,
     LogoGrande,
     LogoPequenio,
-    Personaje,
+    Personaje_1_verde,
+    Personaje_2_rojo,
+    Personaje_3_amarillo,
+    Personaje_4_azul,
     Tilegrass
 };
 

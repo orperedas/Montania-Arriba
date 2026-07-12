@@ -15,7 +15,7 @@ std::string mActual = "";
             personaje.modificarVidas(1);
             break;
         case 2: {
-            int num = (rand() % 7) + 1;
+            int num = (rand() % 8) + 3;
             mActual = ". Atajo encontrado. Avanzas " +  std::to_string(num) + " casillas.";
             Sonido::reproducir(IDSonido::suvida);
             personaje.moverACasilla(personaje.getPosicion() + num);
