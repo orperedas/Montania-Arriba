@@ -21,7 +21,7 @@ EstadoID PantallaPrincipal::manejarEventos(const sf::Event& evento) {
             } else if (seleccion == 2) {
                 return EstadoID::estadisticas;
             } else if (seleccion == 3) {
-                Accesibilidad::hablar("Viendo créditos...");
+                return EstadoID::creditos;
             } else if (seleccion == 4) {
                 Accesibilidad::hablar("Saliendo...");
                 return EstadoID::Salir;

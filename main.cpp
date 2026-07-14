@@ -26,6 +26,7 @@
 #include "headers/PantallaDerrota.h"
 #include "headers/PantallaCargarPartida.h"
 #include "headers/PantallaEstadisticas.h"
+#include "headers/PantallaCreditos.h"
 
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -145,13 +146,17 @@ partida = nuevaPartida;
             else if (proximoEstado == EstadoID::CargarPartida) {
                  estadoActual = std::make_unique<PantallaCargarPartida>(anchoVentana, altoVentana, partida);
             }
-            else if (proximoEstado == EstadoID::estadisticas) {
-                 estadoActual = std::make_unique<PantallaEstadisticas>(anchoVentana, altoVentana);
-            }
             else if (proximoEstado == EstadoID::juegoCargado) {
                 Musica::reproducir(IDMusica::FondoTablero);
                 estadoActual = std::make_unique<PantallaTablero>(anchoVentana, altoVentana, partida,true);
             }
+            else if (proximoEstado == EstadoID::estadisticas) {
+                 estadoActual = std::make_unique<PantallaEstadisticas>(anchoVentana, altoVentana);
+            }
+            else if (proximoEstado == EstadoID::creditos) {
+                 estadoActual = std::make_unique<PantallaCreditos>(anchoVentana, altoVentana);
+            }
+
             else if (proximoEstado == EstadoID::Salir) {
                 window.close();
             }
