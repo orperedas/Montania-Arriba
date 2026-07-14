@@ -32,11 +32,11 @@ Boton::Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fu
 void Boton::setSeleccionado(bool seleccionado) {
     if (seleccionado) {
         spriteBoton.setTextureRect({{280, 0}, {560 , 72}});
-        sf::Color seleccionadoColor(255, 240, 100, 255);
+        sf::Color seleccionadoColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
         etiquetaBoton.setFillColor(seleccionadoColor);
     } else {
         spriteBoton.setTextureRect({{0, 0}, {280, 72}});
-        sf::Color noSeleccionadoColor(175, 175, 175, 255);
+        sf::Color noSeleccionadoColor(visual.getColor(IDVisual::GrisClaro_Solido));
         etiquetaBoton.setFillColor(noSeleccionadoColor);
     }
 }

@@ -17,6 +17,8 @@ private:
     sf::Vector2f mousePos;
     std::function<void()> onAction;
 
+    Visual visual;
+
 public:
     Boton(const std::string& texto, sf::Vector2f posicion, const sf::Font& fuente, const sf::Texture& textura, std::function<void()> accion = nullptr);
     

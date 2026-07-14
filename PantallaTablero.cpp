@@ -11,7 +11,7 @@
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga)
   : tablero(8),
-    dado({anchoVentana / 2.f + 70, altoVentana / 2.f}),
+    dado({anchoVentana / 2.f + 120, altoVentana / 2.f}),
     fondoDado(),
     reglas(static_cast<Dificultad>(p.getDificultad()), 64),
     partida(p),
@@ -45,7 +45,7 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
             Fuente::getFuente(IDFuente::TituloPantalla), 
             Imagen::getImagen(IDImagen::Corazon),
             jugadores[i].getTexture(),
-            {anchoVentana - 580.f, posicionVertical + (i * espacioVertical)});
+            {anchoVentana - 540.f, posicionVertical + (i * espacioVertical)});
         
         panelesJugadores.push_back(panel);
     }

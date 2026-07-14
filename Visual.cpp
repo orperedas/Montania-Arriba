@@ -6,8 +6,7 @@
 std::map<IDVisual, sf::Texture> visuales;
 
 Visual::Visual()
-:   texturaFondoTablero(Imagen::getImagen(IDImagen::Tilegrass)),
-    spriteFondoTablero(texturaFondoTablero)
+:   spriteFondoTablero(texturaFondoTablero)
 {
     inicializarVisual();
 }
@@ -37,9 +36,10 @@ sf::Texture& getVisual(IDVisual id){
 }
 
 void Visual::fondoVentanaTablero(sf::Vector2f tamanio, sf::Vector2f posicion){
-    spriteFondoTablero.setTexture(Imagen::getImagen(IDImagen::CasillaBeneficio));
+    texturaFondoTablero = Imagen::getImagen(IDImagen::Pasto);
     texturaFondoTablero.setRepeated(true);
-    spriteFondoTablero.setTextureRect(sf::IntRect({68, 68}, sf::Vector2i(static_cast<int>(tamanio.x), static_cast<int>(tamanio.y))));
+    spriteFondoTablero.setTexture(texturaFondoTablero);
+    spriteFondoTablero.setTextureRect(sf::IntRect({0, 0}, sf::Vector2i(static_cast<int>(tamanio.x), static_cast<int>(tamanio.y))));
     spriteFondoTablero.setOrigin({tamanio.x / 2.f, tamanio.y / 2.f});
     spriteFondoTablero.setPosition(posicion);
 }

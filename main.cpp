@@ -122,12 +122,12 @@ int main() {
                 Musica::reproducir(IDMusica::FondoMenu);
                 estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
             }
-            if (proximoEstado == EstadoID::Cantidad) {
+            else if (proximoEstado == EstadoID::Cantidad) {
 Partida nuevaPartida;
 partida = nuevaPartida;
                 estadoActual = std::make_unique<PantallaCantidadJugadores>(anchoVentana, altoVentana,partida);
             }
-            if (proximoEstado == EstadoID::NombreJugador) {
+            else if (proximoEstado == EstadoID::NombreJugador) {
                 estadoActual = std::make_unique<PantallaNombreJugador>(anchoVentana, altoVentana,partida);
             }
             else if (proximoEstado == EstadoID::Dificultad) {

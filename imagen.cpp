@@ -14,9 +14,6 @@ void Imagen::cargarImagen(){
     if (!imagenes[IDImagen::CasillaNormal].loadFromFile("imagenes/normal.png")){
         std::cerr << "Error cargando consolas.ttf" << std::endl;
     }
-    if (!imagenes[IDImagen::CasillaBeneficio].loadFromFile("imagenes/beneficio.png")){
-        std::cerr << "Error cargando beneficio.png" << std::endl;
-    }
     if (!imagenes[IDImagen::CasillaCastigo].loadFromFile("imagenes/castigo.png")){
         std::cerr << "Error cargando castigo.png" << std::endl;
     }
@@ -34,6 +31,9 @@ void Imagen::cargarImagen(){
     };
     if (!imagenes[IDImagen::LogoPequenio].loadFromFile("imagenes/montania_arriba_logo_pequenio.png")){
         std::cout << "Error cargando montania_arriga_logo_pequenio.png" << std::endl;
+    }
+    if (!imagenes[IDImagen::Pasto].loadFromFile("imagenes/pasto.png")){
+        std::cout << "Error cargando pasto.png" << std::endl;
     }
     if (!imagenes[IDImagen::Personaje_1_verde].loadFromFile("imagenes/personaje1.png")){
         std::cout << "Error cargando personaje1.png" << std::endl;
