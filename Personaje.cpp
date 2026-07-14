@@ -51,8 +51,8 @@ Personaje::Personaje(const sf::Font& fuente, int nj, int vidasIniciales)
     }
 
     sf::FloatRect personajeBounds = personajeSprite.getLocalBounds();
-    personajeSprite.setOrigin({personajeBounds.size.x / 2.f, personajeBounds.size.y / 2.f});
-    personajeSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
+    personajeSprite.setOrigin({personajeBounds.position.x + 16, personajeBounds.size.y / 2.f});
+    personajeSprite.setTextureRect(sf::IntRect({0, 128}, {64, 64}));
 }
 
 

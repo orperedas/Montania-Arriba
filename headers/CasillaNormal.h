@@ -7,9 +7,8 @@ class CasillaNormal : public Casilla {
 private:
 
 public:
-    CasillaNormal(int num, const sf::Texture& textura);
+    CasillaNormal(int num);
     void consecuencia(int numeroAleatorio, Personaje& personaje) override;
-    // void dibujar(sf::RenderWindow& ventana) override;
 };
 
 #endif

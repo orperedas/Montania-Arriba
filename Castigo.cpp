@@ -1,8 +1,7 @@
 #include "headers/Castigo.h"
 #include "headers/Accesibilidad.h"
 
-Castigo::Castigo(int num, const sf::Texture& textura) : Casilla(num, textura) {
-}
+Castigo::Castigo(int num) : Casilla(num) {}
 
 void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
 std::string mActual = "";

@@ -37,7 +37,7 @@ sf::Texture& getVisual(IDVisual id){
 }
 
 void Visual::fondoVentanaTablero(sf::Vector2f tamanio, sf::Vector2f posicion){
-    spriteFondoTablero.setTexture(Imagen::getImagen(IDImagen::Tilegrass));
+    spriteFondoTablero.setTexture(Imagen::getImagen(IDImagen::CasillaBeneficio));
     texturaFondoTablero.setRepeated(true);
     spriteFondoTablero.setTextureRect(sf::IntRect({68, 68}, sf::Vector2i(static_cast<int>(tamanio.x), static_cast<int>(tamanio.y))));
     spriteFondoTablero.setOrigin({tamanio.x / 2.f, tamanio.y / 2.f});

@@ -11,14 +11,14 @@
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga)
   : tablero(8),
-    dado({anchoVentana / 2.f + 80, altoVentana / 2.f}),
+    dado({anchoVentana / 2.f + 70, altoVentana / 2.f}),
     fondoDado(),
     reglas(static_cast<Dificultad>(p.getDificultad()), 64),
     partida(p),
     turnoActual(0)
 { 
     visual.fondoVentanaTablero(
-        {anchoVentana / 5.f * 4.f, altoVentana / 5.f * 4.f},
+        {anchoVentana * 0.85f, altoVentana * 0.85f},
         {anchoVentana / 2.f, altoVentana / 2.f} );
 
     int cantidad = partida.getCantidadJugadores();
@@ -27,15 +27,25 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
 
     for (int i = 0; i < cantidad; ++i) {
         Personaje nuevoPersonaje(Fuente::getFuente(IDFuente::TituloPantalla), i);
-        nuevoPersonaje.setNombre(partida.getNombreJugador(i)); 
+        nuevoPersonaje.setNombre(partida.getNombreJugador(i));
+
+        nuevoPersonaje.moverACasilla(-1);
+
+        if (carga){
+            nuevoPersonaje.cargaPersonaje(
+                partida.getVidasJugador(i),
+                partida.getPosicionJugador(i),
+                partida.getTiradaJugador(i)
+            );
+        }
         
-        nuevoPersonaje.moverACasilla(partida.getPosicionJugador(i));
         jugadores.push_back(nuevoPersonaje);
 
-        PanelPersonaje panel(Fuente::getFuente(IDFuente::TituloPantalla), 
-                             Imagen::getImagen(IDImagen::Corazon),
-                             jugadores[i].getTexture(),
-                             {anchoVentana - 580.f, 120.f + (i * espacioVertical)});
+        PanelPersonaje panel(
+            Fuente::getFuente(IDFuente::TituloPantalla), 
+            Imagen::getImagen(IDImagen::Corazon),
+            jugadores[i].getTexture(),
+            {anchoVentana - 580.f, posicionVertical + (i * espacioVertical)});
         
         panelesJugadores.push_back(panel);
     }
@@ -43,35 +53,16 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
     if (partida.getIdPartida() == 0) {
         guardarDatosTablero(false); 
     }
+
+    for (size_t i = 0; i < panelesJugadores.size(); ++i) {
+        panelesJugadores[i].setActivo(i == static_cast<size_t>(turnoActual));
+    }
     
     Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
 }
 
 
 EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
-    if (!posicionInicialEstablecida) {
-        for (size_t i = 0; i < jugadores.size(); ++i) {
-            int posGuardada = jugadores[i].getPosicion();
-
-            if (posGuardada == -1) {
-                // Nueva partida: Ubicar debajo de la casilla 0
-                Casilla* casillaCero = tablero.obtenerCasilla(0);
-                if (casillaCero != nullptr) {
-                    sf::Vector2f coordInicial = casillaCero->getPosicionVisual();
-                    jugadores[i].setPosition({coordInicial.x + (i * 12.f), coordInicial.y + 75.f});
-                }
-            } else {
-                // Partida cargada: Ubicar exactamente sobre su casilla
-                Casilla* casillaGuardada = tablero.obtenerCasilla(posGuardada);
-                if (casillaGuardada != nullptr) {
-                    sf::Vector2f coordCasilla = casillaGuardada->getPosicionVisual();
-                    jugadores[i].setPosition({coordCasilla.x + (i * 12.f), coordCasilla.y});
-                }
-            }
-        }
-        posicionInicialEstablecida = true; // Nos aseguramos de que esto corra UNA sola vez
-    }
-
     if (estadoPendiente != EstadoID::Ninguno) {
         return estadoPendiente;
     }
@@ -79,16 +70,20 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
     if (const auto* keyPressed = evento.getIf<sf::Event::KeyPressed>()) {
         if (keyPressed->code == sf::Keyboard::Key::N) {
             Accesibilidad::hablar(jugadores[turnoActual].getNombre().toAnsiString() + 
-                      ", te encuentras en la casilla " + 
-                      std::to_string(jugadores[turnoActual].getPosicion() + 1));
+                ", te encuentras en la casilla " + 
+                std::to_string(jugadores[turnoActual].getPosicion() + 1));
         }
         
         if (keyPressed->code == sf::Keyboard::Key::V) {
-            Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getVida()) + " vidas");
+            Accesibilidad::hablar("Tenés " +
+                std::to_string(jugadores[turnoActual].getVida()) +
+                " vidas");
         }
 
         if (keyPressed->code == sf::Keyboard::Key::T) {
-            Accesibilidad::hablar("Tenés " + std::to_string(jugadores[turnoActual].getTirada()) + " tiradas");
+            Accesibilidad::hablar("Tenés " +
+                std::to_string(jugadores[turnoActual].getTirada()) +
+                " tiradas");
         }
 
         if (keyPressed->code == sf::Keyboard::Key::Escape) {
@@ -109,6 +104,30 @@ EstadoID PantallaTablero::manejarEventos(const sf::Event& evento) {
 
 
 void PantallaTablero::actualizar() {
+    if (!posicionInicialEstablecida) {
+        for (size_t i = 0; i < jugadores.size(); ++i) {
+            int posGuardada = jugadores[i].getPosicion();
+
+            if (posGuardada == -1) {
+                Casilla* casillaCero = tablero.obtenerCasilla(0);
+                if (casillaCero != nullptr) {
+                    sf::Vector2f coordInicial = casillaCero->getPosicionVisual();
+                    jugadores[i].setPosition({coordInicial.x + (i * 12.f), coordInicial.y + 64.f});
+                }
+            } else {
+                Casilla* casillaGuardada = tablero.obtenerCasilla(posGuardada);
+                if (casillaGuardada != nullptr) {
+                    sf::Vector2f coordCasilla = casillaGuardada->getPosicionVisual();
+                    jugadores[i].setPosition({coordCasilla.x + (i * 12.f), coordCasilla.y});
+                }
+            }
+            
+            panelesJugadores[i].actualizarDatos(jugadores[i]);
+        }
+
+        posicionInicialEstablecida = true;
+    }
+
     dado.actualizar();
 
     for (auto& jugador : jugadores){
@@ -136,6 +155,7 @@ void PantallaTablero::actualizar() {
                 jugadores[turnoActual].moverACasilla(siguientePos);
 
                 Casilla* casillaVisual = tablero.obtenerCasilla(siguientePos);
+                
                 if (casillaVisual != nullptr) {
                     sf::Vector2f coord = casillaVisual->getPosicionVisual();
                     sf::Vector2f destinoFinal = {coord.x + 0.f + (turnoActual * 10.f), coord.y + 0.f};
@@ -214,8 +234,8 @@ void PantallaTablero::actualizar() {
                                 Accesibilidad::hablar(jugadores[turnoActual].getNombre().toAnsiString() + " sigue bloqueado.");
                                 turnoActual = (turnoActual + 1) % jugadores.size();
                             }
-                            
-                            if (turnoActual < turnoAnterior) {
+
+                            if (turnoActual <= turnoAnterior ) {
                                 guardarDatosTablero(false);
                             }                            
                             
@@ -230,8 +250,11 @@ void PantallaTablero::actualizar() {
         }
     }
 
-    for (size_t i = 0; i < jugadores.size(); ++i) {
-        panelesJugadores[i].actualizarDatos(jugadores[i]);   
+    for (size_t i = 0; i < jugadores.size(); ++i) { 
+        panelesJugadores[i].actualizarDatos(jugadores[i]);
+
+        bool esElTurnoActual = (i == static_cast<size_t>(turnoActual));
+        panelesJugadores[i].setActivo(esElTurnoActual);
     }
 }
 

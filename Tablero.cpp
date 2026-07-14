@@ -15,11 +15,8 @@
 #include "headers/Tablero.h"
 
 Tablero::Tablero(int baseNum)
-:   base(baseNum),
-    texturaNormal(Imagen::getImagen(IDImagen::CasillaNormal)),
-    texturaBeneficio(Imagen::getImagen(IDImagen::CasillaBeneficio)),
-    texturaCastigo(Imagen::getImagen(IDImagen::CasillaCastigo)) {
-    
+:   base(baseNum)
+{    
     crearTablero();
 }
 
@@ -76,16 +73,12 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
 void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero) {
     for (int casilla = 0; casilla < dimencionTablero; casilla ++) {
         if (std::find(beneficios.begin(), beneficios.end(), casilla) != beneficios.end()) {
-            casillas.push_back(new Beneficio(casilla, texturaBeneficio));
+            casillas.push_back(new Beneficio(casilla));
         } else if (std::find(castigos.begin(), castigos.end(), casilla) != castigos.end()) {
-            casillas.push_back(new Castigo(casilla, texturaCastigo));
+            casillas.push_back(new Castigo(casilla));
         } else {
-            casillas.push_back(new CasillaNormal(casilla, texturaNormal));
+            casillas.push_back(new CasillaNormal(casilla));
         }
-    }
-
-    for (const auto& casilla : casillas) {
-        std::cout << "Casilla " << casilla->getNumeroPosicion() << ": " << typeid(*casilla).name() << std::endl;
     }
 }
 
@@ -105,9 +98,39 @@ Casilla* Tablero::obtenerCasilla(int posicion) {
 
 
 void Tablero::dibujar(sf::RenderTarget& target) const {
-    float tamanoCasilla = 64.f;
-    float offsetX = 210.f;       
-    float offsetY = 100.f;       
+    float tamanioCasilla = 64.f;
+    float offsetX = 210.f;
+    float altoTablero = base * tamanioCasilla;
+    float offsetY = (static_cast<float>(target.getSize().y) - altoTablero) / 2.f - (tamanioCasilla * 0.5f);  
+
+    const sf::Texture& texturaHoja = Imagen::getImagen(IDImagen::TileSand); 
+
+    sf::Sprite spriteBorde(texturaHoja);
+
+    sf::IntRect subRects[3][3] = {
+        { sf::IntRect({2, 2}, {66, 66}),   sf::IntRect({68, 2}, {66, 66}),   sf::IntRect({134, 2}, {66, 66}) },
+        { sf::IntRect({2, 66}, {66, 66}),  sf::IntRect({68, 66}, {66, 66}),  sf::IntRect({134, 66}, {66, 66}) },
+        { sf::IntRect({0, 136}, {66, 66}), sf::IntRect({68, 134}, {66, 66}), sf::IntRect({134, 134}, {66, 66}) }
+    };
+
+    for (int filaFrame = -1; filaFrame <= base; ++filaFrame) {
+        for (int colFrame = -1; colFrame <= base; ++colFrame) {
+            if (filaFrame >= 0 && filaFrame < base && colFrame >= 0 && colFrame < base) {
+                continue;
+            }
+
+            float x = offsetX + (colFrame * tamanioCasilla);
+            float y = offsetY + (filaFrame * tamanioCasilla + (tamanioCasilla * 0.5f));
+
+            int indiceFila = (filaFrame == -1) ? 0 : (filaFrame == base ? 2 : 1);
+            int indiceCol = (colFrame == -1) ? 0 : (colFrame == base ? 2 : 1);
+
+            spriteBorde.setTextureRect(subRects[indiceFila][indiceCol]);
+            spriteBorde.setPosition({x, y});
+            
+            target.draw(spriteBorde);
+        }
+    }
 
     for (int i = 0; i < casillas.size(); ++i) {
         int pasoVisual = (casillas.size() - 1) - i;
@@ -121,8 +144,8 @@ void Tablero::dibujar(sf::RenderTarget& target) const {
             columna = (base - 1) - (pasoVisual % base);
         }
 
-        float x = offsetX + (columna * tamanoCasilla);
-        float y = offsetY + (fila * tamanoCasilla + (tamanoCasilla * 0.5f));
+        float x = offsetX + (columna * tamanioCasilla);
+        float y = offsetY + (fila * tamanioCasilla + (tamanioCasilla * 0.5f));
 
         casillas[i]->setPosicionVisual({x, y});
         casillas[i]->dibujar(target);

@@ -3,8 +3,7 @@
 #include "headers/CasillaNormal.h"
 #include "headers/Accesibilidad.h"
 
-CasillaNormal::CasillaNormal(int num, const sf::Texture& textura) : Casilla(num, textura) {
-}
+CasillaNormal::CasillaNormal(int num) : Casilla(num) {}
 
 void CasillaNormal::consecuencia(int numeroAleatorio, Personaje& personaje) {
 std::string mActual = "";

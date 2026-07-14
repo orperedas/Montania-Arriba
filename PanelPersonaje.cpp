@@ -26,11 +26,11 @@ PanelPersonaje::PanelPersonaje(const sf::Font& fuente, const sf::Texture& textur
     textoNombre.setPosition({90.f, 10.f});
 
     textoPosicion.setCharacterSize(18);
-    textoPosicion.setFillColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
+    textoPosicion.setFillColor(visual.getColor(IDVisual::GrisClaro_Solido));
     textoPosicion.setPosition({90.f, 40.f});
 
     textoVidas.setCharacterSize(18);
-    textoVidas.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
+    textoVidas.setFillColor(visual.getColor(IDVisual::GrisClaro_Solido));
     textoVidas.setPosition({90.f, 70.f});
 
     texturaCorazon = texturaCorazonUI;
@@ -54,6 +54,23 @@ void PanelPersonaje::actualizarDatos(Personaje& personaje) {
         sf::Sprite corazon(texturaCorazon);
         corazon.setPosition({190.f + (i * 20.f), 75.f});
         corazones.push_back(corazon);
+    }
+}
+
+void PanelPersonaje::setActivo(bool activo){
+    if (activo) {
+        fondo.setFillColor(visual.getColor(IDVisual::Azul_Solido));
+        fondo.setOutlineColor(visual.getColor(IDVisual::Blanco_Solido));
+        textoNombre.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
+        textoPosicion.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
+        textoVidas.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
+    }
+    else{
+        fondo.setFillColor(visual.getColor(IDVisual::GrisOscuro_Solido));
+        fondo.setOutlineColor(visual.getColor(IDVisual::GrisMedio_Solido));
+        textoNombre.setFillColor(visual.getColor(IDVisual::GrisClaro_Solido));
+        textoPosicion.setFillColor(visual.getColor(IDVisual::GrisClaro_Solido));
+        textoVidas.setFillColor(visual.getColor(IDVisual::GrisClaro_Solido));
     }
 }
 

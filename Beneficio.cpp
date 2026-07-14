@@ -3,8 +3,7 @@
 #include "headers/Sonido.h"
 
 
-Beneficio::Beneficio(int num, const sf::Texture& textura) : Casilla(num, textura) {
-}
+Beneficio::Beneficio(int num) : Casilla(num) {}
 
 void Beneficio::consecuencia(int numeroAleatorio, Personaje& personaje) {
 std::string mActual = "";

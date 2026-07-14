@@ -26,6 +26,7 @@ public:
     PanelPersonaje(const sf::Font& fuente, const sf::Texture& texturaCorazonUI, const sf::Texture& texturaJugador, sf::Vector2f posicionPantalla);
 
     void actualizarDatos(Personaje& personaje);
+    void setActivo(bool activo);
 };
 
 #endif

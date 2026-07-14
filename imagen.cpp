@@ -50,6 +50,9 @@ void Imagen::cargarImagen(){
     if (!imagenes[IDImagen::Tilegrass].loadFromFile("imagenes/tile_grass.png")){
         std::cout << "Error cargando tilegrass.png" << std::endl;
     }
+    if (!imagenes[IDImagen::TileSand].loadFromFile("imagenes/Tile_sand.png")){
+        std::cout << "Error cargando Tile_sand.png" << std::endl;
+    }
 }
 
 

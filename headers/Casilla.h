@@ -16,7 +16,7 @@ protected:
     sf::Sprite casillaVisual;
 
 public:
-    Casilla(int num, const sf::Texture& textura); 
+    Casilla(int num); 
     
     virtual ~Casilla() = default; 
 

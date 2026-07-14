@@ -13,8 +13,8 @@ enum class EstadoPartida { EN_CURSO, VICTORIA, DERROTA };
 
 class ReglasJuego {
 private:
-    Partida partida;
     Dificultad dificultad;
+    Partida partida;
     int ultimaCasilla;
 
 

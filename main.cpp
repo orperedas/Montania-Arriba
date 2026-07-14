@@ -60,10 +60,6 @@ int main() {
     PartidaManager partidaManager;
     Partida partida;
 
-    std::cout << std::endl;
-    std::cout << "Tamaño del archivo: " << partidaArchivo.tamanioArchivo() << " bytes" << std::endl;
-    std::cout << "Tamaño del registro: " << partidaArchivo.tamanioRegistro() << " bytes" << std::endl;
-    std::cout << "Registros en el archivo: " << partidaArchivo.tamanioArchivo() / partidaArchivo.tamanioRegistro() << std::endl;
     partidaArchivo.cargarPartidas();
     
     std::cout << std::endl;
@@ -126,6 +122,8 @@ int main() {
                 estadoActual = std::make_unique<PantallaPrincipal>(anchoVentana, altoVentana);
             }
             if (proximoEstado == EstadoID::Cantidad) {
+Partida nuevaPartida;
+partida = nuevaPartida;
                 estadoActual = std::make_unique<PantallaCantidadJugadores>(anchoVentana, altoVentana,partida);
             }
             if (proximoEstado == EstadoID::NombreJugador) {

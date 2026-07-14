@@ -7,7 +7,7 @@ struct DatosJugador {
     char nombre[32];
     int vidas;
     int posicion;
-int cantTiradas;
+    int cantTiradas;
     bool activo;
     bool ganador;
 };
@@ -17,9 +17,9 @@ private:
     int _idPartida;
     int _dificultad;
     int _cantidadJugadores;
-bool _estadoPartida; 
+    bool _estadoPartida; 
 
-DatosJugador _jugadores[4]; 
+    DatosJugador _jugadores[4]; 
 
 public:
     Partida();
@@ -33,7 +33,6 @@ public:
     void setCantidadJugadores(int cantidad);
     bool getEstadoPartida() const;
     void setEstadoPartida(bool estPart);
-
 
     std::string getNombreJugador(int indice) const;
     void setNombreJugador(int indice, const std::string& nombre);
@@ -52,8 +51,11 @@ public:
 
     int getTiradaJugador(int indice) const;
     void setTiradaJugador(int indice, int tir);
-void setIdPartida(int id);
-std::string mostrarPartida() const;
+    void setIdPartida(int id);
+
+    std::string mostrarPartida() const;
+
+    //~Partida() = default;
 };
 
 #endif
