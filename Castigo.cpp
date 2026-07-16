@@ -1,9 +1,10 @@
 #include "headers/Castigo.h"
 #include "headers/Accesibilidad.h"
 
-Castigo::Castigo(int num) : Casilla(num) {}
+Castigo::Castigo(int num, const sf::Texture& textura) : Casilla(num, textura)
+{}
 
-void Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
+std::string Castigo::consecuencia(int numeroAleatorio, Personaje& personaje) {
 std::string mActual = "";
     switch (numeroAleatorio) {
         case 1:
@@ -18,7 +19,7 @@ std::string mActual = "";
             personaje.moverACasilla(personaje.getPosicion() -num);
             } break;
         case 3: 
-            mActual = ". Caíste en una grieta. Pierdes un turno.";
+            mActual = ". Caes en una grieta. Pierdes un turno.";
             Sonido::reproducir(IDSonido::grito);
             Sonido::reproducir(IDSonido::hueso);
             personaje.agregarTurnoPerdido(1);
@@ -28,5 +29,7 @@ std::string mActual = "";
             break;
     }
 
-    Accesibilidad::hablar(mensaje + mActual);
+    std::string msjFinal = mensaje + mActual;
+    Accesibilidad::hablar(msjFinal);
+    return msjFinal;
 }

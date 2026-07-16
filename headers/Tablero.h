@@ -20,7 +20,7 @@ Tablero(int baseNum);
     void posicionesCasEspecial(std::vector<int>& posVector1, std::vector<int>& posVector2, int dimencionTablero);
     void asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero);
     void dibujar(sf::RenderTarget& target) const;
-
+    void actualizar();
     int getCantidadCasillas() const;
 Casilla* obtenerCasilla(int posicion);
 };

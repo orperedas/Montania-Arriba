@@ -12,7 +12,7 @@ std::vector<DatosGanador> Estadisticas::obtenerRankingGanadores() {
     
     FILE* pArchivo = fopen(_nombreArchivo.c_str(), "rb");
     if (pArchivo == nullptr) {
-        return ranking; // Si no hay archivo, devolvemos el vector vacío
+        return ranking;
     }
 
     while (fread(&registro, sizeof(Partida), 1, pArchivo) == 1) {

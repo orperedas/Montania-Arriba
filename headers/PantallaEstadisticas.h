@@ -2,15 +2,20 @@
 #define PANTALLA_ESTADISTICAS_H
 
 #include "estado.h"
-#include "Menu.h"
+#include "Visual.h"
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 
 class PantallaEstadisticas : public Estado {
 private:
-    Menu menu;
+    Visual visual;
+    std::vector<std::string> textosRanking;
+    std::vector<sf::RectangleShape> cajas;
+    std::vector<sf::Text> textosSfml;
 
-    static std::vector<std::string> generarOpcionesRanking();
+    sf::Text textoTitulo;
+    sf::Text textoSalir;
 
 public:
     PantallaEstadisticas(float anchoVentana, float altoVentana);

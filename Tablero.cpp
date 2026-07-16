@@ -73,11 +73,11 @@ void Tablero::posicionesCasEspecial(std::vector<int>& posVector1, std::vector<in
 void Tablero::asignarCasillas(std::vector<Casilla*>& casillas, int dimencionTablero) {
     for (int casilla = 0; casilla < dimencionTablero; casilla ++) {
         if (std::find(beneficios.begin(), beneficios.end(), casilla) != beneficios.end()) {
-            casillas.push_back(new Beneficio(casilla));
+            casillas.push_back(new Beneficio(casilla,Imagen::getImagen(IDImagen::casillaEspecial)));
         } else if (std::find(castigos.begin(), castigos.end(), casilla) != castigos.end()) {
-            casillas.push_back(new Castigo(casilla));
+            casillas.push_back(new Castigo(casilla, Imagen::getImagen(IDImagen::casillaEspecial)));
         } else {
-            casillas.push_back(new CasillaNormal(casilla));
+            casillas.push_back(new CasillaNormal(casilla,Imagen::getImagen(IDImagen::CasillaNormal)));
         }
     }
 }
@@ -99,9 +99,9 @@ Casilla* Tablero::obtenerCasilla(int posicion) {
 
 void Tablero::dibujar(sf::RenderTarget& target) const {
     float tamanioCasilla = 64.f;
-    float offsetX = 210.f;
+    float offsetX = 150.f;
     float altoTablero = base * tamanioCasilla;
-    float offsetY = (static_cast<float>(target.getSize().y) - altoTablero) / 2.f - (tamanioCasilla * 0.5f);  
+    float offsetY = (static_cast<float>(target.getSize().y) - altoTablero) / 2.f - (tamanioCasilla);  
 
     const sf::Texture& texturaHoja = Imagen::getImagen(IDImagen::TileSand); 
 
@@ -149,5 +149,11 @@ void Tablero::dibujar(sf::RenderTarget& target) const {
 
         casillas[i]->setPosicionVisual({x, y});
         casillas[i]->dibujar(target);
+    }
+}
+
+void Tablero::actualizar() {
+    for (auto& casilla : casillas) {
+        casilla->actualizar();
     }
 }

@@ -3,17 +3,18 @@
 #include "headers/CasillaNormal.h"
 #include "headers/Accesibilidad.h"
 
-CasillaNormal::CasillaNormal(int num) : Casilla(num) {}
+CasillaNormal::CasillaNormal(int num, const sf::Texture& textura) : Casilla(num,textura) {}
 
-void CasillaNormal::consecuencia(int numeroAleatorio, Personaje& personaje) {
+std::string CasillaNormal::consecuencia(int numeroAleatorio, Personaje& personaje) {
 std::string mActual = "";
     if (numeroAleatorio % 2 == 0) {
 Sonido::reproducir(IDSonido::calma1);
-        mActual = ". Terreno seguro. El clima es agradable.";
+        mActual = ". Terreno seguro.";
     } else {
 Sonido::reproducir(IDSonido::calma2);
-        mActual = ". Camino firme y despejado. Avanzas sin problemas.";
+        mActual = ". Camino firme.";
     }
-
-    Accesibilidad::hablar(mensaje + mActual);
+    std::string msjFinal = mensaje + mActual;
+    Accesibilidad::hablar(msjFinal);
+    return msjFinal;
 }

@@ -5,8 +5,8 @@
 
 class Beneficio : public Casilla {
 public:
-    Beneficio(int num);
-    void consecuencia(int numeroAleatorio, Personaje& personaje) override;
+    Beneficio(int num, const sf::Texture& textura);
+    std::string consecuencia(int numeroAleatorio, Personaje& personaje) override;
 };
 
 #endif

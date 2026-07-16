@@ -14,6 +14,9 @@ void Imagen::cargarImagen(){
     if (!imagenes[IDImagen::CasillaNormal].loadFromFile("imagenes/normal.png")){
         std::cerr << "Error cargando consolas.ttf" << std::endl;
     }
+    if (!imagenes[IDImagen::CasillaBeneficio].loadFromFile("imagenes/beneficio.png")){
+        std::cerr << "Error cargando beneficio.png" << std::endl;
+    }
     if (!imagenes[IDImagen::CasillaCastigo].loadFromFile("imagenes/castigo.png")){
         std::cerr << "Error cargando castigo.png" << std::endl;
     }
@@ -52,6 +55,9 @@ void Imagen::cargarImagen(){
     }
     if (!imagenes[IDImagen::TileSand].loadFromFile("imagenes/Tile_sand.png")){
         std::cout << "Error cargando Tile_sand.png" << std::endl;
+    }
+    if (!imagenes[IDImagen::casillaEspecial].loadFromFile("imagenes/casillaEspecial.png")){
+        std::cout << "Error cargando casillaEspecial.png" << std::endl;
     }
 }
 

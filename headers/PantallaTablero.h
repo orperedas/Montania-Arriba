@@ -42,7 +42,10 @@ private:
     sf::RectangleShape fondoDado;
     sf::RectangleShape fondoOscuro;
     sf::Vector2f casillaInicial;
-
+    sf::RectangleShape cajaMensaje;
+    sf::Text textoMensaje;
+    sf::Clock relojMensaje;
+    bool mostrarMensaje = false;
     void guardarDatosTablero(bool finalizada);
 
 public:

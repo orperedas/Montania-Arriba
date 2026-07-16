@@ -9,6 +9,7 @@ enum class IDImagen{
     Abalancha,
     BotonMenu,
     CasillaNormal,
+    CasillaBeneficio,
     CasillaCastigo,
     Corazon,
     Dado,
@@ -21,7 +22,8 @@ enum class IDImagen{
     Personaje_3_amarillo,
     Personaje_4_azul,
     TileSand,
-    Tilegrass
+    Tilegrass,
+    casillaEspecial
 };
 
 class Imagen{

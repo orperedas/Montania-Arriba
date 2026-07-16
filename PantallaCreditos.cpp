@@ -1,6 +1,7 @@
 #include "headers/PantallaCreditos.h"
 #include "headers/Accesibilidad.h"
 #include "headers/Fuente.h"
+#include "headers/Visual.h"
 
 PantallaCreditos::PantallaCreditos(float anchoVentana, float altoVentana) 
     : textoTitulo(Fuente::getFuente(IDFuente::TituloPantalla)),
@@ -13,35 +14,40 @@ PantallaCreditos::PantallaCreditos(float anchoVentana, float altoVentana)
         "Efectos de sonidos y música creados con herramientas IA."
     };
 
+    visual.fondoVentanaTablero(
+        {anchoVentana * 0.6f, altoVentana * 0.6f},
+        {anchoVentana / 2.f, altoVentana / 2.f} 
+    );
+
     textoTitulo.setString("Creditos");
-    textoTitulo.setCharacterSize(50);
-    textoTitulo.setFillColor(sf::Color::White);
+    textoTitulo.setCharacterSize(34);
+    textoTitulo.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
     sf::FloatRect boundsTitulo = textoTitulo.getLocalBounds();
-    textoTitulo.setPosition({(anchoVentana - boundsTitulo.size.x) / 2.f, 50.f});
+    textoTitulo.setPosition({(anchoVentana - boundsTitulo.size.x) / 2.f, 200.f});
 
     textoSalir.setString("Presiona Escape para volver al Menu Principal");
-    textoSalir.setCharacterSize(24);
-    textoSalir.setFillColor(sf::Color::Yellow);
+    textoSalir.setCharacterSize(20);
+    textoSalir.setFillColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
     sf::FloatRect boundsSalir = textoSalir.getLocalBounds();
     textoSalir.setPosition({(anchoVentana - boundsSalir.size.x) / 2.f, altoVentana - 80.f});
 
-    float startY = 150.f;
-    float spacingY = 100.f;
-    float anchoCaja = 800.f;
-    float altoCaja = 60.f;
+    float startY = 280.f;
+    float spacingY = 80.f;
+    float anchoCaja = 600.f;
+    float altoCaja = 50.f;
 
     for (size_t i = 0; i < textosCreditos.size(); ++i) {
         sf::RectangleShape caja({anchoCaja, altoCaja});
-        caja.setFillColor(sf::Color(50, 50, 50, 200)); 
+        caja.setFillColor(visual.getColor(IDVisual::Negro_Transparente)); 
         caja.setOutlineThickness(2.f);
-        caja.setOutlineColor(sf::Color::White);
+        caja.setOutlineColor(visual.getColor(IDVisual::Azul_Solido));
         caja.setPosition({(anchoVentana - anchoCaja) / 2.f, startY + (i * spacingY)});
         cajas.push_back(caja);
 
         sf::Text texto(Fuente::getFuente(IDFuente::TextoBotonMenu));
         texto.setString(textosCreditos[i]);
-        texto.setCharacterSize(28);
-        texto.setFillColor(sf::Color::White);
+        texto.setCharacterSize(24);
+        texto.setFillColor(visual.getColor(IDVisual::Blanco_Solido));
         
         sf::FloatRect boundsTexto = texto.getLocalBounds();
         texto.setPosition({
@@ -85,6 +91,8 @@ void PantallaCreditos::actualizar() {
 }
 
 void PantallaCreditos::dibujar(sf::RenderWindow& ventana) {
+    visual.dibujar(ventana);
+
     ventana.draw(textoTitulo);
     
     for (size_t i = 0; i < cajas.size(); ++i) {

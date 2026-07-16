@@ -11,18 +11,19 @@
 
 PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida& p, bool carga)
   : tablero(8),
-    dado({anchoVentana / 2.f + 120, altoVentana / 2.f}),
+    dado({anchoVentana / 2.f + 80, altoVentana / 2.f}),
     fondoDado(),
     reglas(static_cast<Dificultad>(p.getDificultad()), 64),
     partida(p),
-    turnoActual(0)
+    turnoActual(0),
+    textoMensaje(Fuente::getFuente(IDFuente::TextoBotonMenu))
 { 
     visual.fondoVentanaTablero(
-        {anchoVentana * 0.85f, altoVentana * 0.85f},
+        {anchoVentana, altoVentana},
         {anchoVentana / 2.f, altoVentana / 2.f} );
 
     int cantidad = partida.getCantidadJugadores();
-    float posicionVertical = 130.f;
+    float posicionVertical = 100.f;
     float espacioVertical = 120.f;
 
     for (int i = 0; i < cantidad; ++i) {
@@ -45,7 +46,7 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
             Fuente::getFuente(IDFuente::TituloPantalla), 
             Imagen::getImagen(IDImagen::Corazon),
             jugadores[i].getTexture(),
-            {anchoVentana - 540.f, posicionVertical + (i * espacioVertical)});
+            {anchoVentana - 550.f, posicionVertical + (i * espacioVertical)});
         
         panelesJugadores.push_back(panel);
     }
@@ -57,7 +58,15 @@ PantallaTablero::PantallaTablero(float anchoVentana, float altoVentana, Partida&
     for (size_t i = 0; i < panelesJugadores.size(); ++i) {
         panelesJugadores[i].setActivo(i == static_cast<size_t>(turnoActual));
     }
-    
+    cajaMensaje.setSize({900.f, 60.f});
+    cajaMensaje.setFillColor(visual.getColor(IDVisual::NaranjaClaro_Solido));
+    cajaMensaje.setOutlineThickness(2.f);
+    cajaMensaje.setOutlineColor(visual.getColor(IDVisual::Azul_Solido));
+    cajaMensaje.setOutlineThickness(5);
+    cajaMensaje.setPosition({(anchoVentana - 900.f) / 2.f, altoVentana - 100.f}); 
+
+    textoMensaje.setCharacterSize(24);
+    textoMensaje.setFillColor(visual.getColor(IDVisual::Azul_Solido));
     Accesibilidad::hablar("Comienza tirando " + jugadores[turnoActual].getNombre().toAnsiString());
 }
 
@@ -127,9 +136,11 @@ void PantallaTablero::actualizar() {
 
         posicionInicialEstablecida = true;
     }
-
+    if (mostrarMensaje && relojMensaje.getElapsedTime().asSeconds() >= 4.0f) {
+        mostrarMensaje = false;
+    }
     dado.actualizar();
-
+    tablero.actualizar(); 
     for (auto& jugador : jugadores){
         jugador.actualizar();
     }
@@ -182,11 +193,21 @@ void PantallaTablero::actualizar() {
                 Casilla* casillaActual = tablero.obtenerCasilla(posActual);
                 
                 if (casillaActual != nullptr) {
+                    std::string msjCasilla;
                     if (partida.getCantidadJugadores() > 1){
-                        casillaActual->consecuencia((rand() % 3) + 1, jugadores[turnoActual]);
+                        msjCasilla = casillaActual->consecuencia((rand() % 3) + 1, jugadores[turnoActual]);
                     } else {
-                        casillaActual->consecuencia((rand() % 2) + 1, jugadores[turnoActual]);
+                        msjCasilla = casillaActual->consecuencia((rand() % 2) + 1, jugadores[turnoActual]);
                     }
+                    textoMensaje.setString(msjCasilla);
+                    sf::FloatRect boundsTexto = textoMensaje.getLocalBounds();
+                    textoMensaje.setPosition({
+                        cajaMensaje.getPosition().x + (cajaMensaje.getSize().x - boundsTexto.size.x) / 2.f,
+                        cajaMensaje.getPosition().y + (cajaMensaje.getSize().y - boundsTexto.size.y) / 2.f - 5.f
+                    });
+                    
+                    mostrarMensaje = true;
+                    relojMensaje.restart();
                 }
 
                 int posDespues = jugadores[turnoActual].getPosicion();
@@ -277,6 +298,10 @@ void PantallaTablero::draw(sf::RenderTarget& target, sf::RenderStates states) co
     }
     
     dado.draw(target, states);
+    if (mostrarMensaje) {
+        target.draw(cajaMensaje, states);
+        target.draw(textoMensaje, states);
+    }
 }
 
 void PantallaTablero::guardarDatosTablero(bool finalizada) {
